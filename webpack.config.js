@@ -2,23 +2,20 @@ const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { WebpackPluginServe } = require('webpack-plugin-serve');
 
 const isProd = process.env.NODE_ENV  === 'production';
 const hasPublic = fs.existsSync(path.join(__dirname, 'public'));
 const plugins = hasPublic
-  ? [new CopyWebpackPlugin({
-    patterns: [
-      { from: 'public' }
-    ]
-  })]
+  ? [new CopyWebpackPlugin({ patterns: [{ from: 'public' }] })]
   : [];
 
 !isProd && plugins.push(
   new WebpackPluginServe({
     hmr: false, // switch off, Chrome WASM memory leak
     liveReload: false, // explict off, overrides hmr
-    port: 3000,
+    port: 8088,
     progress: false, // since we have hmr off, disable
     static: path.join(process.cwd(), '/build')
   })
@@ -26,7 +23,7 @@ const plugins = hasPublic
 
 module.exports = {
   context: __dirname,
-  entry: ['@babel/polyfill', './src/index.tsx'],
+  entry: ['@babel/polyfill', './src/indexUser.tsx'],
   mode: process.env.NODE_ENV,
   module: {
     rules: [
@@ -110,6 +107,12 @@ module.exports = {
     path: path.join(__dirname, 'build'),
     publicPath: ''
   },
+  optimization: {
+    runtimeChunk: 'single',
+    splitChunks: {
+      cacheGroups: {}
+    }
+  },
   performance: {
     hints: false
   },
@@ -120,8 +123,12 @@ module.exports = {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV)
       }
     }),
-    new webpack.optimize.SplitChunksPlugin()
-  ]).filter((plugin) => plugin),
+    new webpack.optimize.SplitChunksPlugin(),
+    new HtmlWebpackPlugin({
+      inject: true,
+      template: path.join(__dirname, 'public/index.html')
+    })
+  ]),
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx']
   },
