@@ -18,7 +18,7 @@ function Card ({ children, className }: Props): React.ReactElement<Props> {
 
 export default styled(Card)`
   background: white;
-  border: 1px solid #eee;
+  border: 1px solid rgb(221, 225, 235);
   border-radius: 0.5rem;
   margin: 0.5rem 0 1.5rem;
   padding: 1rem 1.5rem;
