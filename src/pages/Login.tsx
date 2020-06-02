@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import Keyring from '@polkadot/keyring';
 import { DEV_PHRASE } from '@polkadot/keyring/defaults';
 
-import { Button, ButtonRow, Input } from '../components';
+import { Button, ButtonRow, Card, Input } from '../components';
 import { AccountContext } from './contexts';
 
 interface Props {
@@ -46,7 +46,7 @@ function Login ({ children, className }: Props): React.ReactElement<Props> {
   }
 
   return (
-    <div className={className}>
+    <Card className={className}>
       <Input
         onChange={setUsername}
         placeholder='joe@example.com'
@@ -64,10 +64,8 @@ function Login ({ children, className }: Props): React.ReactElement<Props> {
           onClick={_onLogin}
         />
       </ButtonRow>
-    </div>
+    </Card>
   );
 }
 
-export default styled(Login)`
-  text-align: left;
-`;
+export default styled(Login)``;
