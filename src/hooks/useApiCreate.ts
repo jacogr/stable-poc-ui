@@ -9,7 +9,23 @@ export default function useApiCreate (): ApiPromise | null {
   useEffect((): void => {
     ApiPromise
       .create()
-      .then(setApi)
+      .then((api): void => {
+        const types: Record<string, any> = {
+          TemplateAccountData: {
+            txCount: 'u32',
+            sessionIndex: 'u32'
+          }
+        };
+
+        // should be default, but we want to test against multiples
+        if (api.runtimeVersion.specName.eq('node-template')) {
+          types.Address = 'AccountId';
+          types.LookupSource = 'AccountId';
+        }
+
+        api.registry.register(types);
+        setApi(api);
+      })
       .catch(console.error);
   }, []);
 
