@@ -1,11 +1,10 @@
 // SPDX-License-Identifier: MIT
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { formatBalance } from '@polkadot/util';
 
 import { Card, Section } from '../components';
-import { useApi } from '../hooks';
+import { useBalance } from '../hooks';
 
 interface Props {
   address: string;
@@ -13,25 +12,7 @@ interface Props {
 }
 
 function Balance ({ address, className }: Props): React.ReactElement<Props> {
-  const api = useApi();
-  const [balance, setBalance] = useState('0');
-
-  useEffect((): () => void => {
-    let unsubscribe: null | (() => void) = null;
-
-    api.query.system
-      .account(address, (({ data: { free } }) =>
-        setBalance(formatBalance(free, { decimals: api.registry.chainDecimals, forceUnit: '-', withSi: false }))
-      ))
-      .then((u): void => {
-        unsubscribe = u;
-      })
-      .catch(console.error);
-
-    return (): void => {
-      unsubscribe && unsubscribe();
-    }
-  }, [address, api]);
+  const balance = useBalance(address);
 
   return (
     <Section className={className}>

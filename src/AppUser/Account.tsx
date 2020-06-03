@@ -16,13 +16,6 @@ function Account ({ className }: Props): React.ReactElement<Props> | null {
   const { address,  pair, username } = usePair();
   const isFrozen = useIsFrozen(address);
 
-  const _onRequest = useCallback(
-    (): void => {
-      window.location.hash = '/request';
-    },
-    []
-  );
-
   const _onSend = useCallback(
     (): void => {
       window.location.hash = '/send';
@@ -37,11 +30,6 @@ function Account ({ className }: Props): React.ReactElement<Props> | null {
   return (
     <div className={className}>
       <ButtonRow>
-        <Button
-          isDisabled
-          label='Request'
-          onClick={_onRequest}
-        />
         <Button
           isDisabled={isFrozen}
           label='Send'

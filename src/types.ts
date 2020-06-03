@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 
+import BN from 'bn.js';
 import { ApiPromise } from '@polkadot/api';
 import { KeyringPair } from '@polkadot/keyring/types';
 
@@ -21,3 +22,12 @@ export interface ApiCtx {
   api: ApiPromise;
 }
 
+export interface TxEvent {
+  amount: BN;
+  key: string;
+  from: string;
+  to: string;
+  wasSent: boolean;
+}
+
+export type TxCtx = TxEvent[];

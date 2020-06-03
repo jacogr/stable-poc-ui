@@ -10,7 +10,8 @@ interface Props {
 
 const ITEMS = [
   ['/', 'Lookup'],
-  ['/reports', 'All reports']
+  ['/reports', 'All reports'],
+  ['/new', 'Add user']
 ];
 
 function Navigation ({ className }: Props): React.ReactElement<Props> {

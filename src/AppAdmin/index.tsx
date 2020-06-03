@@ -8,8 +8,10 @@ import styled from 'styled-components';
 import Keyring from '@polkadot/keyring';
 import { DEV_PHRASE } from '@polkadot/keyring/defaults';
 
+import TxProvider from '../TxProvider';
 import { AdminContext, ApiContext } from '../contexts';
 import { useApiCreate } from '../hooks';
+import AddUser from './AddUser';
 import Clawback from './Clawback';
 import Freeze from './Freeze';
 import Lookup from './Lookup';
@@ -44,29 +46,34 @@ function AppAdmin ({ className }: Props): React.ReactElement<Props> {
       {api && (
         <ApiContext.Provider value={api}>
           <AdminContext.Provider value={adminCtx}>
-            <Switch>
-              <Route path='/clawback/:username'>
-                <Clawback />
-              </Route>
-              <Route path='/freeze/:username'>
-                <Freeze />
-              </Route>
-              <Route path='/mint/:username'>
-                <Mint />
-              </Route>
-              <Route path='/unfreeze/:username'>
-                <Unfreeze />
-              </Route>
-              <Route path='/reports'>
-                <Reports />
-              </Route>
-              <Route path='/user/:username'>
-                <UserDetails />
-              </Route>
-              <Route>
-                <Lookup />
-              </Route>
-            </Switch>
+            <TxProvider>
+              <Switch>
+                <Route path='/clawback/:username'>
+                  <Clawback />
+                </Route>
+                <Route path='/freeze/:username'>
+                  <Freeze />
+                </Route>
+                <Route path='/mint/:username'>
+                  <Mint />
+                </Route>
+                <Route path='/new'>
+                  <AddUser />
+                </Route>
+                <Route path='/unfreeze/:username'>
+                  <Unfreeze />
+                </Route>
+                <Route path='/reports'>
+                  <Reports />
+                </Route>
+                <Route path='/user/:username'>
+                  <UserDetails />
+                </Route>
+                <Route>
+                  <Lookup />
+                </Route>
+              </Switch>
+            </TxProvider>
           </AdminContext.Provider>
         </ApiContext.Provider>
       )}
