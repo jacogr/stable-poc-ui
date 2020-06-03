@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import Keyring from '@polkadot/keyring';
 import { DEV_PHRASE } from '@polkadot/keyring/defaults';
 
-import { Button, ButtonRow, Input } from '../components';
+import { Button, ButtonRow, Input, Title } from '../components';
 import { AdminContext } from '../contexts';
 
 interface Props {
@@ -51,6 +51,7 @@ function Auth ({ children, className }: Props): React.ReactElement<Props> {
 
   return (
     <div className={className}>
+      <Title>Admin login</Title>
       <Input
         autoFocus
         onChange={setUsername}
