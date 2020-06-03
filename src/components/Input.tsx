@@ -4,13 +4,15 @@ import React, { useCallback } from 'react';
 import styled from 'styled-components';
 
 interface Props {
+  autoFocus?: boolean;
   className?: string;
+  isDisabled?: boolean;
   onChange?: (value: string) => void;
   placeholder: string;
   type: 'text' | 'password';
 }
 
-function Input ({ className, onChange, placeholder, type }: Props): React.ReactElement<Props> {
+function Input ({ autoFocus, className, isDisabled, onChange, placeholder, type }: Props): React.ReactElement<Props> {
   const _onChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => onChange && onChange(event.target.value),
     [onChange]
@@ -19,6 +21,8 @@ function Input ({ className, onChange, placeholder, type }: Props): React.ReactE
   return (
     <div className={className}>
       <input
+        autoFocus={autoFocus}
+        disabled={isDisabled}
         onChange={_onChange}
         placeholder={placeholder}
         type={type}
@@ -35,5 +39,9 @@ export default styled(Input)`
     border-radius: 0.25rem;
     padding: 1rem 1.5rem;
     width: 20rem;
+
+    &[disabled] {
+      opacity: 0.5;
+    }
   }
 `;

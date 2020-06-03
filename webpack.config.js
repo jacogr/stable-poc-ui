@@ -17,7 +17,7 @@ const plugins = hasPublic
     liveReload: false, // explict off, overrides hmr
     port: 8088,
     progress: false, // since we have hmr off, disable
-    static: path.join(process.cwd(), '/build')
+    static: path.join(__dirname, '/build')
   })
 );
 

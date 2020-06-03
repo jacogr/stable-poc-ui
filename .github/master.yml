@@ -1,0 +1,24 @@
+name: Master
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  www:
+    strategy:
+      matrix:
+        step: ['ghpages']
+    name: ${{ matrix.step }}
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        token: ${{ secrets.GH_PAT }}
+    - name: ${{ matrix.step }}
+      env:
+        GH_PAT: ${{ secrets.GH_PAT }}
+      run: |
+        yarn install
+        yarn build
+        yarn deploy

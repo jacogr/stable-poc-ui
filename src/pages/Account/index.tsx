@@ -3,26 +3,37 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
 
-import { Button, ButtonRow, Title, Section } from '../components';
+import { Button, ButtonRow } from '../../components';
+import { usePairs } from '../../hooks';
+import Balance from './Balance';
+import Transactions from './Transactions';
 
 interface Props {
   className?: string;
 }
 
-function Account ({ className }: Props): React.ReactElement<Props> {
+function Account ({ className }: Props): React.ReactElement<Props> | null {
+  const { pair } = usePairs();
+
   const _onRequest = useCallback(
     (): void => {
-      window.location.href = '/request';
+      window.location.hash = '/request';
     },
     []
   );
 
   const _onSend = useCallback(
     (): void => {
-      window.location.href = '/send';
+      window.location.hash = '/send';
     },
     []
   );
+
+  if (!pair) {
+    return null;
+  }
+
+  const address = pair.address;
 
   return (
     <div className={className}>
@@ -36,12 +47,8 @@ function Account ({ className }: Props): React.ReactElement<Props> {
           onClick={_onRequest}
         />
       </ButtonRow>
-      <Section>
-        <Title>Balance</Title>
-      </Section>
-      <Section>
-        <Title>Recent transactions</Title>
-      </Section>
+      <Balance address={address} />
+      <Transactions address={address} />
     </div>
   );
 }
