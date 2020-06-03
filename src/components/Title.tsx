@@ -10,13 +10,14 @@ interface Props {
 
 function Title ({ children, className }: Props): React.ReactElement<Props> {
   return (
-    <h4 className={className}>
+    <div className={className}>
       {children}
-    </h4>
+    </div>
   )
 }
 
-export default styled(Title)`
+export default React.memo(styled(Title)`
+  font-size: 1.25rem;
   font-weight: 100;
   margin: 0;
-`;
+`);

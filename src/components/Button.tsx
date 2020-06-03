@@ -29,7 +29,7 @@ function Button ({ className, isDisabled, label, onClick }: Props): React.ReactE
   )
 }
 
-export default styled(Button)`
+export default React.memo(styled(Button)`
   cursor: pointer;
   padding: 0.5rem 1.25rem;
-`;
+`);

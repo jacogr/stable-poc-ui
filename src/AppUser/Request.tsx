@@ -15,4 +15,4 @@ function Request ({ className }: Props): React.ReactElement<Props> {
   );
 }
 
-export default styled(Request)``;
+export default React.memo(styled(Request)``);

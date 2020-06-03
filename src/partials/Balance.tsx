@@ -20,7 +20,7 @@ function Balance ({ className }: Props): React.ReactElement<Props> {
   );
 }
 
-export default styled(Balance)`
+export default React.memo(styled(Balance)`
   .balance {
     font-size: 3.5rem;
     font-weight: 200;
@@ -28,4 +28,4 @@ export default styled(Balance)`
     min-width: 15rem;
     text-align: right;
   }
-`;
+`);

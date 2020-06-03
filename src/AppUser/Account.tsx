@@ -3,10 +3,10 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
 
-import { Button, ButtonRow } from '../../components';
-import { usePairs } from '../../hooks';
-import Balance from '../../partials/Balance';
-import Transactions from '../../partials/Transactions';
+import { Button, ButtonRow } from '../components';
+import { usePairs } from '../hooks';
+import Balance from '../partials/Balance';
+import Transactions from '../partials/Transactions';
 
 interface Props {
   className?: string;
@@ -39,13 +39,13 @@ function Account ({ className }: Props): React.ReactElement<Props> | null {
     <div className={className}>
       <ButtonRow>
         <Button
-          label='Send'
-          onClick={_onSend}
-        />
-        <Button
           isDisabled
           label='Request'
           onClick={_onRequest}
+        />
+        <Button
+          label='Send'
+          onClick={_onSend}
         />
       </ButtonRow>
       <Balance address={address} />
@@ -54,4 +54,4 @@ function Account ({ className }: Props): React.ReactElement<Props> | null {
   );
 }
 
-export default styled(Account)``;
+export default React.memo(styled(Account)``);

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 
 import React from 'react';
-import { Route, Switch } from 'react-router';
+import { Route, Redirect, Switch } from 'react-router';
 import styled from 'styled-components';
 
 import { ApiContext } from '../contexts';
@@ -33,6 +33,9 @@ function AppUser ({ className }: Props): React.ReactElement<Props> {
               <Route path='/send'>
                 <Send />
               </Route>
+              <Route>
+                <Redirect to='/account' />
+              </Route>
             </Switch>
           </ApiContext.Provider>
         )}
@@ -41,4 +44,4 @@ function AppUser ({ className }: Props): React.ReactElement<Props> {
   );
 }
 
-export default styled(AppUser)``;
+export default React.memo(styled(AppUser)``);

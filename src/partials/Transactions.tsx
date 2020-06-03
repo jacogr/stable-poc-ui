@@ -18,4 +18,4 @@ function Transactions ({ className }: Props): React.ReactElement<Props> {
   );
 }
 
-export default styled(Transactions)``;
+export default React.memo(styled(Transactions)``);

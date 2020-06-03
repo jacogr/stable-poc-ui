@@ -15,4 +15,4 @@ function AppAdmin ({ className }: Props): React.ReactElement<Props> {
   );
 }
 
-export default styled(AppAdmin)``;
+export default React.memo(styled(AppAdmin)``);

@@ -16,6 +16,6 @@ function Section ({ children, className }: Props): React.ReactElement<Props> {
   )
 }
 
-export default styled(Section)`
+export default React.memo(styled(Section)`
   margin-top: 1.5rem;
-`;
+`);

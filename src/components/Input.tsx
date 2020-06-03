@@ -1,25 +1,24 @@
 // SPDX-License-Identifier: MIT
 
+import { InputProps } from './types';
+
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
 
-interface Props {
-  autoFocus?: boolean;
-  className?: string;
-  isDisabled?: boolean;
+interface Props extends InputProps {
+  isError?: boolean;
   onChange?: (value: string) => void;
-  placeholder: string;
   type: 'text' | 'password';
 }
 
-function Input ({ autoFocus, className, isDisabled, onChange, placeholder, type }: Props): React.ReactElement<Props> {
+function Input ({ autoFocus, className = '', isDisabled, isError, onChange, placeholder, type }: Props): React.ReactElement<Props> {
   const _onChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => onChange && onChange(event.target.value),
     [onChange]
   );
 
   return (
-    <div className={className}>
+    <div className={`${className} ${isError ? 'isError' : ''}`}>
       <input
         autoFocus={autoFocus}
         disabled={isDisabled}
@@ -31,7 +30,7 @@ function Input ({ autoFocus, className, isDisabled, onChange, placeholder, type 
   )
 }
 
-export default styled(Input)`
+export default React.memo(styled(Input)`
   margin: 0.5rem 0;
 
   > input {
@@ -44,4 +43,10 @@ export default styled(Input)`
       opacity: 0.5;
     }
   }
-`;
+
+  &.isError > input {
+    background: #fff6f6;
+    border-color: #e0b4b4;
+    color: #9f3a38;
+  }
+`);

@@ -27,7 +27,7 @@ module.exports = {
     admin: './src/indexAdmin.tsx',
     user: './src/indexUser.tsx'
   },
-  mode: process.env.NODE_ENV,
+  mode: process.env.NODE_ENV || 'development',
   module: {
     rules: [
       {
@@ -70,7 +70,7 @@ module.exports = {
         ]
       },
       {
-        test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+        test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/, /\.svg$/],
         use: [
           {
             loader: require.resolve('url-loader'),

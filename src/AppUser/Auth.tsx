@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import Keyring from '@polkadot/keyring';
 import { DEV_PHRASE } from '@polkadot/keyring/defaults';
 
-import { Button, ButtonRow, Card, Input } from '../components';
+import { Button, ButtonRow, Card, InputEmail, InputPassword } from '../components';
 import { AccountContext } from '../contexts';
 
 interface Props {
@@ -38,10 +38,6 @@ function Auth ({ children, className }: Props): React.ReactElement<Props> {
 
   const _doLogin = useCallback(
     (): void => {
-      if (password !== 'test') {
-        return
-      }
-
       setAccountCtx({
         deriveAddress,
         pair: rootPair.derive(`//${username}`),
@@ -65,16 +61,15 @@ function Auth ({ children, className }: Props): React.ReactElement<Props> {
 
   return (
     <Card className={className}>
-      <Input
+      <InputEmail
         autoFocus
         onChange={setUsername}
-        placeholder='joe@example.com'
-        type='text'
+        placeholder='email address, eg. me@example.com'
       />
-      <Input
+      <InputPassword
         isDisabled
         onChange={setPassword}
-        placeholder='password'
+        placeholder='account password'
         type='password'
       />
       <ButtonRow>
@@ -88,4 +83,4 @@ function Auth ({ children, className }: Props): React.ReactElement<Props> {
   );
 }
 
-export default styled(Auth)``;
+export default React.memo(styled(Auth)``);
