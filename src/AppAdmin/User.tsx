@@ -13,7 +13,7 @@ interface Props {
   className?: string;
 }
 
-function UserDetails ({ className }: Props): React.ReactElement<Props> {
+function User ({ className }: Props): React.ReactElement<Props> {
   const { username } = useParams();
   const { deriveAddress } = useAdmin();
   const api = useApi();
@@ -90,4 +90,4 @@ function UserDetails ({ className }: Props): React.ReactElement<Props> {
   );
 }
 
-export default React.memo(styled(UserDetails)``);
+export default React.memo(styled(User)``);

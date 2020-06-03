@@ -9,9 +9,8 @@ interface Props {
 }
 
 const ITEMS = [
-  ['/', 'Lookup'],
-  ['/reports', 'All reports'],
-  ['/new', 'Add user']
+  ['/', 'Users'],
+  ['/managers', 'Managers']
 ];
 
 function Navigation ({ className }: Props): React.ReactElement<Props> {

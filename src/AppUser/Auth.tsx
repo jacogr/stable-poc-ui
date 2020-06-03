@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import Keyring from '@polkadot/keyring';
 import { DEV_PHRASE } from '@polkadot/keyring/defaults';
 
-import { Button, ButtonRow, Card, InputEmail, InputPassword } from '../components';
+import { Button, ButtonRow, InputEmail } from '../components';
 import { AccountContext } from '../contexts';
 
 interface Props {
@@ -36,7 +36,6 @@ function Auth ({ children, className }: Props): React.ReactElement<Props> {
   const [{ deriveAddress, rootPair }] = useState<RootState>(createRootState);
   const [accountCtx, setAccountCtx] = useState<AccountCtx | null>(null);
   const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('test');
 
   const _doLogin = useCallback(
     (): void => {
@@ -46,7 +45,7 @@ function Auth ({ children, className }: Props): React.ReactElement<Props> {
 
       window.location.hash = '/account';
     },
-    [deriveAddress, password, rootPair, username]
+    [deriveAddress, rootPair, username]
   );
 
   if (accountCtx) {
@@ -60,26 +59,20 @@ function Auth ({ children, className }: Props): React.ReactElement<Props> {
   }
 
   return (
-    <Card className={className}>
+    <div className={className}>
       <InputEmail
         autoFocus
         onChange={setUsername}
         placeholder='email address, eg. me@example.com'
       />
-      <InputPassword
-        isDisabled
-        onChange={setPassword}
-        placeholder='account password'
-        type='password'
-      />
       <ButtonRow>
         <Button
-          isDisabled={!username || !password}
+          isDisabled={!username}
           label='Login'
           onClick={_doLogin}
         />
       </ButtonRow>
-    </Card>
+    </div>
   );
 }
 

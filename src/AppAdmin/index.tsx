@@ -12,14 +12,16 @@ import TxProvider from '../TxProvider';
 import { AdminContext, ApiContext } from '../contexts';
 import { useApiCreate } from '../hooks';
 import AddUser from './AddUser';
+import AddManager from './AddManager';
 import Clawback from './Clawback';
 import Freeze from './Freeze';
 import Lookup from './Lookup';
+import Managers from './Managers';
 import Mint from './Mint';
 import Navigation from './Navigation';
 import Reports from './Reports';
 import Unfreeze from './Unfreeze';
-import UserDetails from './UserDetails';
+import User from './User';
 
 interface Props {
   className?: string;
@@ -57,8 +59,14 @@ function AppAdmin ({ className }: Props): React.ReactElement<Props> {
                 <Route path='/mint/:username'>
                   <Mint />
                 </Route>
-                <Route path='/new'>
+                <Route path='/managers'>
+                  <Managers />
+                </Route>
+                <Route path='/new/user'>
                   <AddUser />
+                </Route>
+                <Route path='/new/manager'>
+                  <AddManager />
                 </Route>
                 <Route path='/unfreeze/:username'>
                   <Unfreeze />
@@ -67,7 +75,7 @@ function AppAdmin ({ className }: Props): React.ReactElement<Props> {
                   <Reports />
                 </Route>
                 <Route path='/user/:username'>
-                  <UserDetails />
+                  <User />
                 </Route>
                 <Route>
                   <Lookup />
