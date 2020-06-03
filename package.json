@@ -56,7 +56,7 @@
   "scripts": {
     "build": "yarn clean && NODE_ENV=production webpack --config webpack.config.js",
     "clean": "rm -rf build",
-    "deploy": "ghpages --dotfiles --repo https://$GH_PAT@github.com/$GITHUB_REPOSITORY.git --dist build --dest .",
+    "deploy": "./scripts/deploy.sh",
     "start": "yarn clean && webpack --config webpack.config.js"
   }
 }
