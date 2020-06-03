@@ -9,8 +9,13 @@ import Keyring from '@polkadot/keyring';
 import { DEV_PHRASE } from '@polkadot/keyring/defaults';
 
 import { AdminContext } from '../contexts';
+import Clawback from './Clawback';
 import Freeze from './Freeze';
-import Main from './Main';
+import Lookup from './Lookup';
+import Mint from './Mint';
+import Navigation from './Navigation';
+import Reports from './Reports';
+import Unfreeze from './Unfreeze';
 import UserDetails from './UserDetails';
 
 interface Props {
@@ -33,16 +38,29 @@ function AppAdmin ({ className }: Props): React.ReactElement<Props> {
 
   return (
     <main className={className}>
+      <Navigation />
       <AdminContext.Provider value={adminCtx}>
         <Switch>
-          <Route path='/freeze/:address'>
+          <Route path='/clawback/:username'>
+            <Clawback />
+          </Route>
+          <Route path='/freeze/:username'>
             <Freeze />
+          </Route>
+          <Route path='/mint/:username'>
+            <Mint />
+          </Route>
+          <Route path='/unfreeze/:username'>
+            <Unfreeze />
+          </Route>
+          <Route path='/reports'>
+            <Reports />
           </Route>
           <Route path='/user/:username'>
             <UserDetails />
           </Route>
           <Route>
-            <Main />
+            <Lookup />
           </Route>
         </Switch>
       </AdminContext.Provider>
@@ -51,7 +69,5 @@ function AppAdmin ({ className }: Props): React.ReactElement<Props> {
 }
 
 export default React.memo(styled(AppAdmin)`
-  .userDetails {
-    margin-top: 1rem;
-  }
+  padding-top: 1.5rem;
 `);

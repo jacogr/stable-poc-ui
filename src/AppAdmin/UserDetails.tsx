@@ -17,21 +17,61 @@ function UserDetails ({ className }: Props): React.ReactElement<Props> {
   const { username } = useParams();
   const { deriveAddress } = useAdmin();
   const [address] = useState(deriveAddress(username));
+  const [isFrozen] = useState(false);
+
+  const _doClawback = useCallback(
+    (): void => {
+      window.location.hash = `/clawback/${username}/${address}`;
+    },
+    [address, username]
+  );
 
   const _doFreeze = useCallback(
     (): void => {
-      window.location.hash = `/freeze/${address}`;
+      window.location.hash = `/freeze/${username}/${address}`;
     },
-    [address]
+    [address, username]
+  );
+
+  const _doUnfreeze = useCallback(
+    (): void => {
+      window.location.hash = `/unfreeze/${username}/${address}`;
+    },
+    [address, username]
+  );
+
+  const _doMint = useCallback(
+    (): void => {
+      window.location.hash = `/mint/${username}/${address}`;
+    },
+    [address, username]
   );
 
   return (
     <div className={className}>
       <ButtonRow>
         <Button
-          label='Freeze'
-          onClick={_doFreeze}
+          label='Mint'
+          onClick={_doMint}
         />
+        <Button
+          label='Clawback'
+          onClick={_doClawback}
+        />
+        {isFrozen
+          ? (
+            <Button
+              label='Unfreeze'
+              onClick={_doUnfreeze}
+            />
+          )
+          : (
+            <Button
+              label='Freeze'
+              onClick={_doFreeze}
+            />
+          )
+        }
       </ButtonRow>
       <Section>
         <Title>Username</Title>
@@ -47,6 +87,4 @@ function UserDetails ({ className }: Props): React.ReactElement<Props> {
   );
 }
 
-export default React.memo(styled(UserDetails)`
-  margin-top: 1.5rem;
-`);
+export default React.memo(styled(UserDetails)``);

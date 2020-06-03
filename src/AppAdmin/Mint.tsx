@@ -1,23 +1,25 @@
 // SPDX-License-Identifier: MIT
 
+import BN from 'bn.js';
 import React, { useCallback, useState } from 'react';
-import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
+import styled from 'styled-components';
 
-import { Tx } from '../components';
+import { InputAmount, Tx } from '../components';
 import { useAdmin } from '../hooks';
 
 interface Props {
   className?: string;
 }
 
-function Freeze ({ className }: Props): React.ReactElement<Props> {
+function Mint ({ className }: Props): React.ReactElement<Props> {
   const { username } = useParams();
   const { deriveAddress } = useAdmin();
   const [address] = useState(deriveAddress(username));
   const [isCompleted, setIsCompleted] = useState(false);
+  const [amount, setAmount] = useState(new BN(0));
 
-  const _doFreeze = useCallback(
+  const _doMint = useCallback(
     (): void => {
       // do actual send via api...
       setTimeout(() => setIsCompleted(true), 1500);
@@ -29,12 +31,18 @@ function Freeze ({ className }: Props): React.ReactElement<Props> {
     <Tx
       className={className}
       isCompleted={isCompleted}
-      label='Yes, freeze this user'
-      onSend={_doFreeze}
+      isDisabled={amount.isZero()}
+      label='Mint'
+      onSend={_doMint}
     >
-      Freeze {username}
+      <div>Mint to {username}</div>
+      <InputAmount
+        autoFocus
+        onChange={setAmount}
+        placeholder='the amount to allocate, eg. 1.23'
+      />
     </Tx>
   );
 }
 
-export default React.memo(styled(Freeze)``);
+export default React.memo(styled(Mint)``);

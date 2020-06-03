@@ -1,0 +1,54 @@
+// SPDX-License-Identifier: MIT
+
+import React from 'react';
+import styled from 'styled-components';
+import { useLocation } from 'react-router-dom';
+
+interface Props {
+  className?: string;
+}
+
+const ITEMS = [
+  ['/', 'Lookup'],
+  ['/reports', 'All reports']
+];
+
+function Navigation ({ className }: Props): React.ReactElement<Props> {
+  const { pathname } = useLocation();
+
+  return (
+    <div className={className}>
+      {ITEMS.map(([url, label]) => (
+        <a
+          className={pathname === url ? 'isActive' : ''}
+          href={`#${url}`}
+          key={url}
+        >
+          {label}
+        </a>
+      ))}
+    </div>
+  );
+}
+
+export default React.memo(styled(Navigation)`
+  background: #eee;
+  left: 0;
+  padding: 0.75rem;
+  position: fixed;
+  right: 0;
+  text-align: center;
+  top: 0;
+
+  a {
+    border-bottom: 2px solid transparent;
+    color: inherit;
+    margin: 0 1rem;
+    padding-bottom: 0.25rem;
+    text-decoration: none !important;
+
+    &.isActive {
+      border-bottom-color: #888;
+    }
+  }
+`);

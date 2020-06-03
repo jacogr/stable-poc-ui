@@ -11,13 +11,13 @@ interface Props {
   className?: string;
 }
 
-function Freeze ({ className }: Props): React.ReactElement<Props> {
+function Unfreeze ({ className }: Props): React.ReactElement<Props> {
   const { username } = useParams();
   const { deriveAddress } = useAdmin();
   const [address] = useState(deriveAddress(username));
   const [isCompleted, setIsCompleted] = useState(false);
 
-  const _doFreeze = useCallback(
+  const _doUnfreeze = useCallback(
     (): void => {
       // do actual send via api...
       setTimeout(() => setIsCompleted(true), 1500);
@@ -29,12 +29,12 @@ function Freeze ({ className }: Props): React.ReactElement<Props> {
     <Tx
       className={className}
       isCompleted={isCompleted}
-      label='Yes, freeze this user'
-      onSend={_doFreeze}
+      label='Yes, unfreeze this user'
+      onSend={_doUnfreeze}
     >
-      Freeze {username}
+      Unfreeze {username}
     </Tx>
   );
 }
 
-export default React.memo(styled(Freeze)``);
+export default React.memo(styled(Unfreeze)``);

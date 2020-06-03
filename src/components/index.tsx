@@ -11,3 +11,4 @@ export { default as InputPassword } from './InputPassword';
 export { default as Loader } from './Loader';
 export { default as Section } from './Section';
 export { default as Title } from './Title';
+export { default as Tx } from './Tx';

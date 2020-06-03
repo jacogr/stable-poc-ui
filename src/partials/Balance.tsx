@@ -25,7 +25,7 @@ export default React.memo(styled(Balance)`
     font-size: 3.5rem;
     font-weight: 200;
     margin: 0.5rem 0;
-    min-width: 15rem;
+    min-width: 20rem;
     text-align: right;
   }
 `);
