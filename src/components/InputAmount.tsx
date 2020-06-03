@@ -3,30 +3,47 @@
 import { InputProps } from './types';
 
 import BN from 'bn.js';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
+import { useApi } from '../hooks';
 import Input from './Input';
 
 interface Props extends InputProps {
   onChange?: (value: BN) => void;
 }
 
-const ZERO = new BN(0);
-const ONE = new BN(1);
+const TEN = new BN(10);
 
 function InputAmount ({ autoFocus, className, isDisabled, onChange, placeholder }: Props): React.ReactElement<Props> {
+  const api = useApi();
+  const [decimals, setDecimals] = useState(new BN(12));
   const [isError, setIsError] = useState(true);
 
+  useEffect((): void => {
+    setDecimals(new BN(api.registry.chainDecimals));
+  }, [api]);
+
   const _onChange = useCallback(
-    (value: string): void => {
-      const isError = !value || !value.match(/^(\d+\.?\d{0,9}|\.\d{1,9})$/);
+    (input: string): void => {
+      const isError = !input || !input.match(/^(\d+\.?\d{0,9}|\.\d{1,9})$/);
+
+      if (!isError) {
+        if (onChange) {
+          const div = input.replace(/\.\d*$/, '');
+          const mod = input.replace(/^\d+\./, '');
+
+          onChange(
+            new BN(div)
+              .mul(TEN.pow(decimals))
+              .add(new BN(mod).mul(TEN.pow(decimals.subn(mod.length))))
+          );
+        }
+      }
 
       setIsError(isError);
-
-      onChange && onChange(isError ? ZERO : ONE);
     },
-    [onChange]
+    [decimals, onChange]
   );
 
   return (

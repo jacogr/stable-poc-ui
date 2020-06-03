@@ -40,7 +40,10 @@ function Auth ({ children, className }: Props): React.ReactElement<Props> {
 
   const _doLogin = useCallback(
     (): void => {
-      setAccountCtx({ deriveAddress, pair: rootPair.derive(`//${username}`) });
+      const pair = rootPair.derive(`//${username}`);
+
+      console.log(`Logging in with ${pair.address}`);
+      setAccountCtx({ deriveAddress, pair });
 
       window.location.hash = '/account';
     },

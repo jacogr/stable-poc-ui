@@ -5,14 +5,15 @@ import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { InputAmount, InputEmail, Tx } from '../components';
-import { usePairs } from '../hooks';
+import { useApi, usePairs } from '../hooks';
 
 interface Props {
   className?: string;
 }
 
 function Send ({ className }: Props): React.ReactElement<Props> {
-  const { deriveAddress } = usePairs();
+  const api = useApi();
+  const { deriveAddress, pair } = usePairs();
   const [amount, setAmount] = useState(new BN(0));
   const [recipient, setRecipient] = useState('');
   const [isDisabled, setIsDisabled] = useState(true);
@@ -20,10 +21,22 @@ function Send ({ className }: Props): React.ReactElement<Props> {
 
   const _doSend = useCallback(
     (): void => {
-      // do actual send via api...
-      setTimeout(() => setIsCompleted(true), 1500);
+      let unsubscribe: (() => void) | null = null;
+
+      api.tx.balances
+        .transfer(deriveAddress(recipient), amount)
+        .signAndSend(pair, ({ status }): void => {
+          if (status.isInBlock || status.isFinalized) {
+            setIsCompleted(true);
+            unsubscribe && unsubscribe();
+          }
+        })
+        .then((u): void => {
+          unsubscribe = u;
+        })
+        .catch(() => setIsCompleted(true));
     },
-    [deriveAddress, recipient]
+    [api, amount, deriveAddress, pair, recipient]
   );
 
   useEffect((): void => {
