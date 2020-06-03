@@ -56,7 +56,6 @@
   "scripts": {
     "build": "yarn clean && NODE_ENV=production webpack --config webpack.config.js",
     "clean": "rm -rf build",
-    "deploy": "./scripts/deploy.sh",
     "start": "yarn clean && webpack --config webpack.config.js"
   }
 }
