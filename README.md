@@ -5,5 +5,5 @@
 
 Addresses (this is a bad idea on live) are derived from a common seed with the username. (So all user-addressing is done via his/her username/e-mail)
 
-- admin logins: Alie, Bob, Charlie, Dave, Eve ...
+- admin logins: Alice, Bob, Charlie, Dave, Eve ...
 - user logins: anybody@anydomain.co
