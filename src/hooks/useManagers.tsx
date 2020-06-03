@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: Apache-2
 
 import { Codec } from '@polkadot/types/types';
 

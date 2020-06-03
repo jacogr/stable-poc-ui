@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: Apache-2
 
 export { default as useAdmin } from './useAdmin';
 export { default as useApi } from './useApi';

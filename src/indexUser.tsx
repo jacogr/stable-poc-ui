@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: Apache-2
 
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';

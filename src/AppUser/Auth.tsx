@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: Apache-2
 
 import { KeyringPair } from '@polkadot/keyring/types';
 import { AccountCtx, DeriveCtx } from '../types';

@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: Apache-2
 
 import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';

@@ -4,7 +4,7 @@
   "main": "index.js",
   "repository": "git@github.com:jacogr/testing.git",
   "author": "Jaco Greeff <jacogr@gmail.com>",
-  "license": "MIT",
+  "license": "Apache-2",
   "dependencies": {
     "@babel/core": "^7.10.2",
     "@babel/plugin-proposal-class-properties": "^7.10.1",
