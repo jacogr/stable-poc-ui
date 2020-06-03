@@ -5,7 +5,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { Button, ButtonRow, Checkmark, Loader } from '../../components';
-// import { useApi } from '../../hooks';
+import { usePairs } from '../../hooks';
 import Inputs from './Inputs';
 
 interface Props {
@@ -13,7 +13,7 @@ interface Props {
 }
 
 function Send ({ className }: Props): React.ReactElement<Props> {
-  // const api = useApi();
+  const { deriveAddress } = usePairs();
   const [amount, setAmount] = useState(new BN(0));
   const [recipient, setRecipient] = useState('');
   const [isSendDisabled, setIsSendDisabled] = useState(true);
@@ -22,12 +22,15 @@ function Send ({ className }: Props): React.ReactElement<Props> {
 
   const _doSend = useCallback(
     (): void => {
+      const address = deriveAddress(recipient);
+
+      console.log(address);
       setIsInSend(true);
 
       // do actual send via api...
       setTimeout(() => setIsBusy(false), 6000);
     },
-    []
+    [deriveAddress, recipient]
   );
 
   const _goBack = useCallback(
