@@ -9,9 +9,9 @@ interface Props {
 
 function App ({ className }: Props): React.ReactElement<Props> {
   return (
-    <div className={className}>
+    <main className={className}>
       Admin
-    </div>
+    </main>
   );
 }
 

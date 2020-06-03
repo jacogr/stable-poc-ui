@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Route, Switch } from 'react-router';
 import styled from 'styled-components';
-import { ApiPromise } from '@polkadot/api';
 
 import { ApiContext } from './contexts';
+import { useApiCreate } from './hooks';
 import Account from './pages/Account';
 import Auth from './pages/Auth';
 import Request from './pages/Request';
@@ -16,14 +16,7 @@ interface Props {
 }
 
 function App ({ className }: Props): React.ReactElement<Props> {
-  const [api, setApi] = useState<ApiPromise | null>(null);
-
-  useEffect((): void => {
-    ApiPromise
-      .create()
-      .then(setApi)
-      .catch(console.error);
-  }, []);
+  const api = useApiCreate();
 
   return (
     <main className={className}>
