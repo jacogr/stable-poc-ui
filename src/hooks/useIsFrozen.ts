@@ -1,20 +1,24 @@
+// SPDX-License-Identifier: MIT
+
 import { useEffect, useState } from 'react';
 
 import useApi from './useApi';
+import useIsMountedRef from './useIsMountedRef';
 
 export default function useIsFrozen (address: string): boolean {
   const api = useApi();
   const [isFrozen, setIsFrozen] = useState(false);
+  const  mountedRef = useIsMountedRef();
 
   useEffect((): () => void => {
     let unsubscribe: null | (() => void) = null;
 
     api.query.balances
-      .locks(address, (locks) =>
-        setIsFrozen(
+      .locks(address, (locks): void => {
+        mountedRef.current && setIsFrozen(
           locks.reduce((isFrozen: boolean, lock) => isFrozen || lock.amount.isMax(), false)
-        )
-      )
+        );
+      })
       .then((u): void => {
         unsubscribe = unsubscribe;
       })

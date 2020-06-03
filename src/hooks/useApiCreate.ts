@@ -3,8 +3,11 @@
 import { useEffect, useState } from 'react';
 import { ApiPromise } from '@polkadot/api';
 
+import useIsMountedRef from './useIsMountedRef';
+
 export default function useApiCreate (): ApiPromise | null {
   const [api, setApi] = useState<ApiPromise | null>(null);
+  const  mountedRef = useIsMountedRef();
 
   useEffect((): void => {
     ApiPromise
@@ -24,7 +27,7 @@ export default function useApiCreate (): ApiPromise | null {
         }
 
         api.registry.register(types);
-        setApi(api);
+        mountedRef.current && setApi(api);
       })
       .catch(console.error);
   }, []);

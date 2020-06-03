@@ -6,12 +6,14 @@ import BN from 'bn.js';
 import { useEffect, useState } from 'react';
 
 import useApi from './useApi';
+import useIsMountedRef from './useIsMountedRef';
 
 let id = 0;
 
 export default function useTxsAll (): TxCtx {
   const api = useApi();
   const [txs, setTxs] = useState<TxCtx>([]);
+  const mountedRef = useIsMountedRef();
 
   useEffect((): () => void => {
     let unsubscribe: null | (() => void) = null;
@@ -28,7 +30,7 @@ export default function useTxsAll (): TxCtx {
             wasSent: false
           }));
 
-        if (transfers.length) {
+        if (mountedRef.current && transfers.length) {
           setTxs((txs) => transfers.concat(...txs))
         }
       })

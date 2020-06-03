@@ -34,7 +34,7 @@ function Auth ({ children, className }: Props): React.ReactElement<Props> {
     (): void => {
       setAdminCtx(createAdminCtx(username));
 
-      window.location.hash = '/users';
+      window.location.hash = '/managers';
     },
     [username]
   );
