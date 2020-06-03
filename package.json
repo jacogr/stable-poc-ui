@@ -55,7 +55,7 @@
     "webpack-plugin-serve": "^1.0.0"
   },
   "scripts": {
-    "build": "yarn clean && yarn lint && NODE_ENV=production webpack --config webpack.config.js",
+    "build": "yarn clean && NODE_ENV=production webpack --config webpack.config.js",
     "clean": "rm -rf build",
     "lint": "tsc --noEmit --pretty",
     "start": "yarn clean && webpack --config webpack.config.js"
