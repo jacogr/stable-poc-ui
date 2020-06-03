@@ -16,7 +16,7 @@ function Managers ({ className }: Props): React.ReactElement<Props> {
 
   const _newManager = useCallback(
     (): void => {
-      // TODO
+      window.location.hash = '/new/manager';
     },
     []
   );
