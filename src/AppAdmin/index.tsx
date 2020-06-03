@@ -75,5 +75,5 @@ function AppAdmin ({ className }: Props): React.ReactElement<Props> {
 }
 
 export default React.memo(styled(AppAdmin)`
-  padding-top: 1.5rem;
+  padding: 2.5rem 0;
 `);

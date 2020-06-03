@@ -23,4 +23,8 @@ export default React.memo(styled(ButtonRow)`
   button+button {
     margin-left: 0.5rem;
   }
+
+  & + .ui--Section {
+    margin-top: 0.5rem;
+  }
 `);

@@ -30,6 +30,17 @@ function Button ({ className, isDisabled, label, onClick }: Props): React.ReactE
 }
 
 export default React.memo(styled(Button)`
+  box-shadow: none;
+  border: none;
+  background: #888;
+  color: white;
   cursor: pointer;
-  padding: 0.5rem 1.25rem;
+  border-radius: 0.25rem;
+  outline: none;
+  padding: 0.75rem 1.25rem;
+
+  &[disabled] {
+    cursor: inherit;
+    opacity: 0.25;
+  }
 `);

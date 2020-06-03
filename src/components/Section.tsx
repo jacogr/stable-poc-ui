@@ -8,9 +8,9 @@ interface Props {
   className?: string;
 }
 
-function Section ({ children, className }: Props): React.ReactElement<Props> {
+function Section ({ children, className = '' }: Props): React.ReactElement<Props> {
   return (
-    <div className={className}>
+    <div className={`${className} ui--Section`}>
       {children}
     </div>
   )

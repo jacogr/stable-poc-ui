@@ -61,18 +61,21 @@ function UserDetails ({ className }: Props): React.ReactElement<Props> {
         {isFrozen
           ? (
             <Button
+              isDisabled
               label='Unfreeze'
               onClick={_doUnfreeze}
             />
           )
           : (
             <Button
+              isDisabled
               label='Freeze'
               onClick={_doFreeze}
             />
           )
         }
       </ButtonRow>
+      <Balance address={address} />
       <Section>
         <Title>Username</Title>
         <div>{username}</div>
@@ -81,7 +84,6 @@ function UserDetails ({ className }: Props): React.ReactElement<Props> {
         <Title>Address</Title>
         <div>{address}</div>
       </Section>
-      <Balance address={address} />
       <Transactions address={address} />
     </div>
   );

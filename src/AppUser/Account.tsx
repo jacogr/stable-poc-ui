@@ -3,7 +3,7 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
 
-import { Button, ButtonRow } from '../components';
+import { Button, ButtonRow, Section, Title } from '../components';
 import { usePairs } from '../hooks';
 import Balance from '../partials/Balance';
 import Transactions from '../partials/Transactions';
@@ -13,7 +13,7 @@ interface Props {
 }
 
 function Account ({ className }: Props): React.ReactElement<Props> | null {
-  const { pair } = usePairs();
+  const { pair, username } = usePairs();
 
   const _onRequest = useCallback(
     (): void => {
@@ -49,6 +49,10 @@ function Account ({ className }: Props): React.ReactElement<Props> | null {
         />
       </ButtonRow>
       <Balance address={address} />
+      <Section>
+        <Title>Username</Title>
+        <div>{username}</div>
+      </Section>
       <Transactions address={address} />
     </div>
   );

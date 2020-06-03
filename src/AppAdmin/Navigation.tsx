@@ -34,7 +34,7 @@ function Navigation ({ className }: Props): React.ReactElement<Props> {
 export default React.memo(styled(Navigation)`
   background: #eee;
   left: 0;
-  padding: 0.75rem;
+  padding: 1rem;
   position: fixed;
   right: 0;
   text-align: center;
@@ -44,8 +44,9 @@ export default React.memo(styled(Navigation)`
     border-bottom: 2px solid transparent;
     color: inherit;
     margin: 0 1rem;
-    padding-bottom: 0.25rem;
+    padding-bottom: 0.75rem;
     text-decoration: none !important;
+    text-transform: uppercase;
 
     &.isActive {
       border-bottom-color: #888;
