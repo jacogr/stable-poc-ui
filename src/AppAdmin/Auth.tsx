@@ -19,9 +19,9 @@ const keyring = new Keyring({ type: 'sr25519' });
 
 function createAdminCtx (username: string): AdminCtx {
   const rootPair = keyring.addFromUri(DEV_PHRASE);
-  const adminPair = rootPair.derive(`//${username[0].toUpperCase()}${username.substr(1)}`);
+  const adminPair = rootPair.derive(`//${username[0].toUpperCase()}${username.substr(1).toLowerCase()}`);
   const deriveAddress = (username: string) =>
-    rootPair.derive(`//${username}`).address;
+    rootPair.derive(`//${username.toLowerCase()}`).address;
 
   return { adminPair, deriveAddress };
 }

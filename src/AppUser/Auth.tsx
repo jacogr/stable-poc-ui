@@ -25,7 +25,7 @@ const keyring = new Keyring({ type: 'sr25519' });
 function createRootState (): RootState {
   const rootPair = keyring.addFromUri(DEV_PHRASE);
   const deriveAddress = (username: string) =>
-    rootPair.derive(`//${username}`).address;
+    rootPair.derive(`//${username.toLowerCase()}`).address;
 
   return { deriveAddress, rootPair };
 }
@@ -39,7 +39,7 @@ function Auth ({ children, className }: Props): React.ReactElement<Props> {
 
   const _doLogin = useCallback(
     (): void => {
-      const pair = rootPair.derive(`//${username}`);
+      const pair = rootPair.derive(`//${username.toLowerCase()}`);
 
       setAccountCtx({address: pair.address, deriveAddress, pair, username });
 
