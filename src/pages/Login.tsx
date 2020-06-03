@@ -35,7 +35,7 @@ function Login ({ children, className }: Props): React.ReactElement<Props> {
     [password, username]
   );
 
-  if (accountCtx.pair) {
+  if (accountCtx.pair && window.location.hash !== '/') {
     return (
       <div className={className}>
         <AccountContext.Provider value={accountCtx}>

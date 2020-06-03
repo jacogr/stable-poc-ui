@@ -7,13 +7,13 @@ interface Props {
   className?: string;
   isDisabled?: boolean;
   label: string;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 function Button ({ className, isDisabled, label, onClick }: Props): React.ReactElement<Props> {
   const _onClick = useCallback(
     (): void => {
-      !isDisabled && onClick();
+      !isDisabled && onClick && onClick();
     },
     [isDisabled, onClick]
   );

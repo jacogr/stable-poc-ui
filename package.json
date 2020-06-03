@@ -53,7 +53,9 @@
     "webpack-plugin-serve": "^1.0.0"
   },
   "scripts": {
-    "build": "NODE_ENV=production webpack --config webpack.config.js",
-    "start": "webpack --config webpack.config.js"
+    "build": "yarn clean && NODE_ENV=production webpack --config webpack.config.js",
+    "clean": "rm -rf build",
+    "deploy": "echo \" no yet\"",
+    "start": "yarn clean && webpack --config webpack.config.js"
   }
 }
