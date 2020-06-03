@@ -1,19 +1,23 @@
 // SPDX-License-Identifier: MIT
 
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
+import { useParams } from 'react-router-dom';
 
 import { Button, ButtonRow, Section, Title } from '../components';
+import { useAdmin } from '../hooks';
 import Balance from '../partials/Balance';
 import Transactions from '../partials/Transactions';
 
 interface Props {
-  address: string;
   className?: string;
-  username: string;
 }
 
-function UserDetails ({ address, className, username }: Props): React.ReactElement<Props> {
+function UserDetails ({ className }: Props): React.ReactElement<Props> {
+  const { username } = useParams();
+  const { deriveAddress } = useAdmin();
+  const [address] = useState(deriveAddress(username));
+
   const _doFreeze = useCallback(
     (): void => {
       window.location.hash = `/freeze/${address}`;
@@ -23,22 +27,22 @@ function UserDetails ({ address, className, username }: Props): React.ReactEleme
 
   return (
     <div className={className}>
-      <Section>
-        <Title>Username</Title>
-        {username}
-      </Section>
-      <Section>
-        <Title>Address</Title>
-        {address}
-      </Section>
-      <Balance address={address} />
-      <Transactions address={address} />
       <ButtonRow>
         <Button
           label='Freeze'
           onClick={_doFreeze}
         />
       </ButtonRow>
+      <Section>
+        <Title>Username</Title>
+        <div>{username}</div>
+      </Section>
+      <Section>
+        <Title>Address</Title>
+        <div>{address}</div>
+      </Section>
+      <Balance address={address} />
+      <Transactions address={address} />
     </div>
   );
 }

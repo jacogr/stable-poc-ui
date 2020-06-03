@@ -4,21 +4,19 @@ import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
 
 import { Button, ButtonRow, InputEmail } from '../components';
-import { useAdmin } from '../hooks';
-import UserDetails from './UserDetails';
 
 interface Props {
   className?: string;
 }
 
 function Main ({ className }: Props): React.ReactElement<Props> {
-  const { deriveAddress } = useAdmin();
-  const [address, setAddress] = useState('');
   const [username, setUsername] = useState('');
 
   const _doLookup = useCallback(
-    () => setAddress(deriveAddress(username)),
-    [deriveAddress, username]
+    (): void => {
+      window.location.hash = `/user/${username}`;
+    },
+    [username]
   );
 
   return (
@@ -35,12 +33,6 @@ function Main ({ className }: Props): React.ReactElement<Props> {
           onClick={_doLookup}
         />
       </ButtonRow>
-      {address && (
-        <UserDetails
-          address={address}
-          username={username}
-        />
-      )}
     </div>
   );
 }

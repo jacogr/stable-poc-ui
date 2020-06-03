@@ -17,6 +17,7 @@ function ButtonRow ({ children, className }: Props): React.ReactElement<Props> {
 }
 
 export default React.memo(styled(ButtonRow)`
+  margin: 0.5rem 0;
   text-align: right;
 
   button+button {

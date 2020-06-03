@@ -11,6 +11,7 @@ import { DEV_PHRASE } from '@polkadot/keyring/defaults';
 import { AdminContext } from '../contexts';
 import Freeze from './Freeze';
 import Main from './Main';
+import UserDetails from './UserDetails';
 
 interface Props {
   className?: string;
@@ -36,6 +37,9 @@ function AppAdmin ({ className }: Props): React.ReactElement<Props> {
         <Switch>
           <Route path='/freeze/:address'>
             <Freeze />
+          </Route>
+          <Route path='/user/:username'>
+            <UserDetails />
           </Route>
           <Route>
             <Main />
