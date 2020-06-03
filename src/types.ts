@@ -3,10 +3,16 @@
 import { ApiPromise } from '@polkadot/api';
 import { KeyringPair } from '@polkadot/keyring/types';
 
-export interface AccountCtx {
+export interface DeriveCtx {
   deriveAddress: (username: string) => string;
+}
+
+export interface AccountCtx extends DeriveCtx {
   pair: KeyringPair;
-  rootPair: KeyringPair;
+}
+
+export interface AdminCtx extends DeriveCtx {
+  adminPair: KeyringPair;
 }
 
 export interface ApiCtx {

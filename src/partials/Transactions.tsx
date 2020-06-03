@@ -14,6 +14,7 @@ function Transactions ({ className }: Props): React.ReactElement<Props> {
   return (
     <Section className={className}>
       <Title>Recent transactions</Title>
+      none retrieved
     </Section>
   );
 }

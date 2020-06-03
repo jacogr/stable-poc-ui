@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 
 import { KeyringPair } from '@polkadot/keyring/types';
-import { AccountCtx } from '../types';
+import { AccountCtx, DeriveCtx } from '../types';
 
 import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
@@ -16,40 +16,38 @@ interface Props {
   className?: string;
 }
 
-interface RootState {
-  deriveAddress: (username: string) => string;
+interface RootState extends DeriveCtx {
   rootPair: KeyringPair;
 }
 
 const keyring = new Keyring({ type: 'sr25519' });
 
+function createRootState (): RootState {
+  const rootPair = keyring.addFromUri(DEV_PHRASE);
+  const deriveAddress = (username: string) =>
+    rootPair.derive(`//${username}`).address;
+
+  return { deriveAddress, rootPair };
+}
+
 function Auth ({ children, className }: Props): React.ReactElement<Props> {
   // This is a very bad idea in production, however as a POC it allows us to generate
   // consistent accounts from a single seed (and allows deterministic addresses)
-  const [{ deriveAddress, rootPair }] = useState<RootState>((): RootState => {
-    const rootPair = keyring.addFromUri(DEV_PHRASE)
-    const deriveAddress = (username: string) => rootPair.derive(`//${username}`).address;
-
-    return { deriveAddress, rootPair };
-  });
+  const [{ deriveAddress, rootPair }] = useState<RootState>(createRootState);
   const [accountCtx, setAccountCtx] = useState<AccountCtx | null>(null);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('test');
 
   const _doLogin = useCallback(
     (): void => {
-      setAccountCtx({
-        deriveAddress,
-        pair: rootPair.derive(`//${username}`),
-        rootPair
-      });
+      setAccountCtx({ deriveAddress, pair: rootPair.derive(`//${username}`) });
 
       window.location.hash = '/account';
     },
     [deriveAddress, password, rootPair, username]
   );
 
-  if (accountCtx && window.location.hash !== '/') {
+  if (accountCtx) {
     return (
       <div className={className}>
         <AccountContext.Provider value={accountCtx}>

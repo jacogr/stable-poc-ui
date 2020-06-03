@@ -37,7 +37,7 @@ export default React.memo(styled(Input)`
     border: 1px solid #eee;
     border-radius: 0.25rem;
     padding: 1rem 1.5rem;
-    width: 20rem;
+    width: 27.5rem;
 
     &[disabled] {
       opacity: 0.5;
