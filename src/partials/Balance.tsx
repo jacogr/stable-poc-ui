@@ -14,15 +14,23 @@ interface Props {
 
 function Balance ({ address, className }: Props): React.ReactElement<Props> {
   const api = useApi();
-  const [balance, setBalance] = useState('0.000');
+  const [balance, setBalance] = useState('0');
 
-  useEffect((): void => {
+  useEffect((): () => void => {
+    let unsubscribe: null | (() => void) = null;
+
     api.query.system
-      .account(address)
-      .then(({ data: { free } }) =>
+      .account(address, (({ data: { free } }) =>
         setBalance(formatBalance(free, { decimals: api.registry.chainDecimals, forceUnit: '-', withSi: false }))
-      )
+      ))
+      .then((u): void => {
+        unsubscribe = u;
+      })
       .catch(console.error);
+
+    return (): void => {
+      unsubscribe && unsubscribe();
+    }
   }, [address, api]);
 
   return (

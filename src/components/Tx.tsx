@@ -1,5 +1,8 @@
 // SPDX-License-Identifier: MIT
 
+import { SubmittableExtrinsic } from '@polkadot/api/types';
+import { KeyringPair } from '@polkadot/keyring/types';
+
 import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
 
@@ -11,13 +14,13 @@ import Loader from './Loader';
 interface Props {
   children: React.ReactNode;
   className?: string;
-  isCompleted: boolean;
-  isDisabled?: boolean;
   label: string;
-  onSend: () => void;
+  pair: KeyringPair;
+  tx: SubmittableExtrinsic<'promise'> | null;
 }
 
-function Tx ({ children, className, isCompleted, isDisabled, label, onSend }: Props): React.ReactElement<Props> {
+function Tx ({ children, className, label, pair, tx }: Props): React.ReactElement<Props> {
+  const [isCompleted, setIsCompleted] = useState(false);
   const [isSending, setIsSending] = useState(false);
 
   const _goBack = useCallback(
@@ -29,10 +32,28 @@ function Tx ({ children, className, isCompleted, isDisabled, label, onSend }: Pr
 
   const _doSend = useCallback(
     (): void => {
-      setIsSending(true);
-      onSend();
+      if (tx) {
+        setIsSending(true);
+
+        let unsubscribe: null | (() => void) = null;
+
+        tx
+          .signAndSend(pair, ({ status }): void => {
+            if (status.isInBlock || status.isFinalized) {
+              setIsCompleted(true);
+              unsubscribe && unsubscribe();
+            }
+          })
+          .then((u): void => {
+            unsubscribe = u;
+          })
+          .catch((error): void => {
+            console.error(error);
+            setIsCompleted(true);
+          });
+      }
     },
-    [onSend]
+    [pair, tx]
   );
 
   return (
@@ -52,7 +73,7 @@ function Tx ({ children, className, isCompleted, isDisabled, label, onSend }: Pr
         )}
         {!isSending && (
           <Button
-            isDisabled={isDisabled}
+            isDisabled={!tx}
             label={label}
             onClick={_doSend}
           />

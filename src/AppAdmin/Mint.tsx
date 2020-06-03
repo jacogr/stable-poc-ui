@@ -1,12 +1,14 @@
 // SPDX-License-Identifier: MIT
 
+import { SubmittableExtrinsic } from '@polkadot/api/types';
+
 import BN from 'bn.js';
-import React, { useCallback, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { InputAmount, Tx } from '../components';
-import { useAdmin } from '../hooks';
+import { useAdmin, useApi } from '../hooks';
 
 interface Props {
   className?: string;
@@ -14,26 +16,26 @@ interface Props {
 
 function Mint ({ className }: Props): React.ReactElement<Props> {
   const { username } = useParams();
-  const { deriveAddress } = useAdmin();
+  const { adminPair, deriveAddress } = useAdmin();
+  const api = useApi();
   const [address] = useState(deriveAddress(username));
-  const [isCompleted, setIsCompleted] = useState(false);
   const [amount, setAmount] = useState(new BN(0));
+  const [tx, setTx] = useState<SubmittableExtrinsic<'promise'> | null>(null);
 
-  const _doMint = useCallback(
-    (): void => {
-      // do actual send via api...
-      setTimeout(() => setIsCompleted(true), 1500);
-    },
-    [address]
-  );
+  useEffect((): void => {
+    setTx(
+      !address || amount.isZero()
+        ? null
+        : api.tx.balances.transfer(address, amount)
+    );
+  }, [address, amount, api]);
 
   return (
     <Tx
       className={className}
-      isCompleted={isCompleted}
-      isDisabled={amount.isZero()}
       label='Mint'
-      onSend={_doMint}
+      pair={adminPair}
+      tx={tx}
     >
       <div>Mint to {username}</div>
       <InputAmount

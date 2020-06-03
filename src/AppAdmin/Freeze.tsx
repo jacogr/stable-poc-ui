@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 
-import React, { useCallback, useState } from 'react';
+import { SubmittableExtrinsic } from '@polkadot/api/types';
+
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 
@@ -13,24 +15,24 @@ interface Props {
 
 function Freeze ({ className }: Props): React.ReactElement<Props> {
   const { username } = useParams();
-  const { deriveAddress } = useAdmin();
+  const { adminPair, deriveAddress } = useAdmin();
   const [address] = useState(deriveAddress(username));
-  const [isCompleted, setIsCompleted] = useState(false);
+  const [tx, setTx] = useState<SubmittableExtrinsic<'promise'> | null>(null);
 
-  const _doFreeze = useCallback(
-    (): void => {
-      // do actual send via api...
-      setTimeout(() => setIsCompleted(true), 1500);
-    },
-    [address]
-  );
+  useEffect((): void => {
+    setTx(
+      !address
+        ? null
+        : null
+    );
+  }, [address]);
 
   return (
     <Tx
       className={className}
-      isCompleted={isCompleted}
       label='Yes, freeze this user'
-      onSend={_doFreeze}
+      pair={adminPair}
+      tx={tx}
     >
       Freeze {username}
     </Tx>

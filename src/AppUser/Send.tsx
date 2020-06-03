@@ -1,7 +1,9 @@
 // SPDX-License-Identifier: MIT
 
+import { SubmittableExtrinsic } from '@polkadot/api/types';
+
 import BN from 'bn.js';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { InputAmount, InputEmail, Tx } from '../components';
@@ -16,40 +18,22 @@ function Send ({ className }: Props): React.ReactElement<Props> {
   const { deriveAddress, pair } = usePairs();
   const [amount, setAmount] = useState(new BN(0));
   const [recipient, setRecipient] = useState('');
-  const [isDisabled, setIsDisabled] = useState(true);
-  const [isCompleted, setIsCompleted] = useState(false);
-
-  const _doSend = useCallback(
-    (): void => {
-      let unsubscribe: (() => void) | null = null;
-
-      api.tx.balances
-        .transfer(deriveAddress(recipient), amount)
-        .signAndSend(pair, ({ status }): void => {
-          if (status.isInBlock || status.isFinalized) {
-            setIsCompleted(true);
-            unsubscribe && unsubscribe();
-          }
-        })
-        .then((u): void => {
-          unsubscribe = u;
-        })
-        .catch(() => setIsCompleted(true));
-    },
-    [api, amount, deriveAddress, pair, recipient]
-  );
+  const [tx, setTx] = useState<SubmittableExtrinsic<'promise'> | null>(null);
 
   useEffect((): void => {
-    setIsDisabled(!recipient || amount.isZero());
-  }, [amount, recipient]);
+    setTx(() =>
+      !recipient || amount.isZero()
+        ? null
+        : api.tx.balances.transfer(deriveAddress(recipient), amount)
+    );
+  }, [amount, deriveAddress, recipient]);
 
   return (
     <Tx
       className={className}
-      isCompleted={isCompleted}
-      isDisabled={isDisabled}
       label='Send'
-      onSend={_doSend}
+      pair={pair}
+      tx={tx}
     >
       <InputEmail
         autoFocus

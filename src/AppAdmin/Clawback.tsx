@@ -1,12 +1,14 @@
 // SPDX-License-Identifier: MIT
 
+import { SubmittableExtrinsic } from '@polkadot/api/types';
+
 import BN from 'bn.js';
-import React, { useCallback, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { InputAmount, InputEmail, Tx } from '../components';
-import { useAdmin } from '../hooks';
+import { useAdmin, useApi } from '../hooks';
 
 interface Props {
   className?: string;
@@ -14,41 +16,34 @@ interface Props {
 
 function Clawback ({ className }: Props): React.ReactElement<Props> {
   const { username } = useParams();
-  const { deriveAddress } = useAdmin();
+  const { adminPair, deriveAddress } = useAdmin();
+  const api = useApi();
   const [address] = useState(deriveAddress(username));
-  const [, setRecipient] = useState('');
-  const [isCompleted, setIsCompleted] = useState(false);
+  const [recipient, setRecipient] = useState('');
   const [amount, setAmount] = useState(new BN(0));
+  const [tx, setTx] = useState<SubmittableExtrinsic<'promise'> | null>(null);
 
-  const _setRecipient = useCallback(
-    (username: string) => setRecipient(
-      username
-        ? deriveAddress(username)
-        : ''
-    ),
-    [deriveAddress]
-  );
-
-  const _doClawback = useCallback(
-    (): void => {
-      // do actual send via api...
-      setTimeout(() => setIsCompleted(true), 1500);
-    },
-    [address]
-  );
+  useEffect((): void => {
+    setTx(
+      !address || !recipient || amount.isZero()
+        ? null
+        : api.tx.sudo.sudo(
+          api.tx.balances.forceTransfer(address, deriveAddress(recipient), amount)
+        )
+    );
+  }, [address, amount, api, deriveAddress, recipient]);
 
   return (
     <Tx
       className={className}
-      isCompleted={isCompleted}
-      isDisabled={amount.isZero() || !address}
       label='Clawback'
-      onSend={_doClawback}
+      pair={adminPair}
+      tx={tx}
     >
       <div>Clawback from {username}</div>
       <InputEmail
         autoFocus
-        onChange={_setRecipient}
+        onChange={setRecipient}
         placeholder='send funds to, eg. eve@example.com'
       />
       <InputAmount
