@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { InputAmount, InputEmail, Tx } from '../components';
-import { useApi, usePairs } from '../hooks';
+import { useApi, usePair } from '../hooks';
 
 interface Props {
   className?: string;
@@ -15,7 +15,7 @@ interface Props {
 
 function Send ({ className }: Props): React.ReactElement<Props> {
   const api = useApi();
-  const { deriveAddress, pair } = usePairs();
+  const { deriveAddress, pair } = usePair();
   const [amount, setAmount] = useState(new BN(0));
   const [recipient, setRecipient] = useState('');
   const [tx, setTx] = useState<SubmittableExtrinsic<'promise'> | null>(null);

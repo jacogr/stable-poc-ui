@@ -6,6 +6,6 @@ import { useContext } from 'react';
 
 import { AccountContext } from '../contexts';
 
-export default function usePairs (): AccountCtx {
+export default function usePair (): AccountCtx {
   return useContext(AccountContext);
 }

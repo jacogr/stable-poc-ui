@@ -8,6 +8,7 @@ export interface DeriveCtx {
 }
 
 export interface AccountCtx extends DeriveCtx {
+  address: string;
   pair: KeyringPair;
   username: string;
 }

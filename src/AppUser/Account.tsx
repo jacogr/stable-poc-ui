@@ -4,7 +4,7 @@ import React, { useCallback } from 'react';
 import styled from 'styled-components';
 
 import { Button, ButtonRow, Section, Title } from '../components';
-import { usePairs } from '../hooks';
+import { usePair, useIsFrozen } from '../hooks';
 import Balance from '../partials/Balance';
 import Transactions from '../partials/Transactions';
 
@@ -13,7 +13,8 @@ interface Props {
 }
 
 function Account ({ className }: Props): React.ReactElement<Props> | null {
-  const { pair, username } = usePairs();
+  const { address,  pair, username } = usePair();
+  const isFrozen = useIsFrozen(address);
 
   const _onRequest = useCallback(
     (): void => {
@@ -33,8 +34,6 @@ function Account ({ className }: Props): React.ReactElement<Props> | null {
     return null;
   }
 
-  const address = pair.address;
-
   return (
     <div className={className}>
       <ButtonRow>
@@ -44,6 +43,7 @@ function Account ({ className }: Props): React.ReactElement<Props> | null {
           onClick={_onRequest}
         />
         <Button
+          isDisabled={isFrozen}
           label='Send'
           onClick={_onSend}
         />

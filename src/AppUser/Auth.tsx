@@ -42,8 +42,7 @@ function Auth ({ children, className }: Props): React.ReactElement<Props> {
     (): void => {
       const pair = rootPair.derive(`//${username}`);
 
-      console.log(`Logging in with ${pair.address}`);
-      setAccountCtx({ deriveAddress, pair, username });
+      setAccountCtx({address: pair.address, deriveAddress, pair, username });
 
       window.location.hash = '/account';
     },
