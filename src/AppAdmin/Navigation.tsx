@@ -9,8 +9,8 @@ interface Props {
 }
 
 const ITEMS = [
-  ['/', 'Users'],
-  ['/managers', 'Managers']
+  ['/managers', 'Managers'],
+  ['/users', 'Users']
 ];
 
 function Navigation ({ className }: Props): React.ReactElement<Props> {
