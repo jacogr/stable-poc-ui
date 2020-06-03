@@ -7,7 +7,7 @@ interface Props {
   className?: string;
 }
 
-function App ({ className }: Props): React.ReactElement<Props> {
+function AppAdmin ({ className }: Props): React.ReactElement<Props> {
   return (
     <main className={className}>
       Admin
@@ -15,4 +15,4 @@ function App ({ className }: Props): React.ReactElement<Props> {
   );
 }
 
-export default styled(App)``;
+export default styled(AppAdmin)``;

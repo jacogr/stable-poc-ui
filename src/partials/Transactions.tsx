@@ -3,7 +3,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Section, Title } from '../../components';
+import { Section, Title } from '../components';
 
 interface Props {
   address: string;

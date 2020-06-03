@@ -3,7 +3,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Card, Section } from '../../components';
+import { Card, Section } from '../components';
 
 interface Props {
   address: string;

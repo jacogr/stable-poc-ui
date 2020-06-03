@@ -4,18 +4,18 @@ import React from 'react';
 import { Route, Switch } from 'react-router';
 import styled from 'styled-components';
 
-import { ApiContext } from './contexts';
-import { useApiCreate } from './hooks';
-import Account from './pages/Account';
-import Auth from './pages/Auth';
-import Request from './pages/Request';
-import Send from './pages/Send';
+import { ApiContext } from '../contexts';
+import { useApiCreate } from '../hooks';
+import Account from './Account';
+import Auth from './Auth';
+import Request from './Request';
+import Send from './Send';
 
 interface Props {
   className?: string;
 }
 
-function App ({ className }: Props): React.ReactElement<Props> {
+function AppUser ({ className }: Props): React.ReactElement<Props> {
   const api = useApiCreate();
 
   return (
@@ -41,4 +41,4 @@ function App ({ className }: Props): React.ReactElement<Props> {
   );
 }
 
-export default styled(App)``;
+export default styled(AppUser)``;

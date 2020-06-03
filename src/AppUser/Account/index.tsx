@@ -5,8 +5,8 @@ import styled from 'styled-components';
 
 import { Button, ButtonRow } from '../../components';
 import { usePairs } from '../../hooks';
-import Balance from './Balance';
-import Transactions from './Transactions';
+import Balance from '../../partials/Balance';
+import Transactions from '../../partials/Transactions';
 
 interface Props {
   className?: string;
@@ -43,6 +43,7 @@ function Account ({ className }: Props): React.ReactElement<Props> | null {
           onClick={_onSend}
         />
         <Button
+          isDisabled
           label='Request'
           onClick={_onRequest}
         />
