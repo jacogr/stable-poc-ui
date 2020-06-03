@@ -32,7 +32,7 @@ function Send ({ className }: Props): React.ReactElement<Props> {
 
   const _goBack = useCallback(
     (): void => {
-      window.localStorage.href = '/account';
+      window.location.hash = '/account';
     },
     []
   );
