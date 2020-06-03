@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import Input from './Input';
 
 interface Props extends InputProps {
-  onChange?: (value: string) => void;
+  onChange: (value: string) => void;
 }
 
 function InputEmail ({ autoFocus, className, isDisabled, onChange, placeholder }: Props): React.ReactElement<Props> {
@@ -20,8 +20,7 @@ function InputEmail ({ autoFocus, className, isDisabled, onChange, placeholder }
       const isError = !value || indexAt <= 0 || !value.substr(indexAt + 1).includes('.');
 
       setIsError(isError);
-
-      onChange && onChange(isError ? '' : value);
+      onChange(isError ? '' : value);
     },
     [onChange]
   );

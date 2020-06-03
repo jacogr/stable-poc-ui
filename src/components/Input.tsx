@@ -7,13 +7,13 @@ import styled from 'styled-components';
 
 interface Props extends InputProps {
   isError?: boolean;
-  onChange?: (value: string) => void;
+  onChange: (value: string) => void;
   type: 'text' | 'password';
 }
 
 function Input ({ autoFocus, className = '', isDisabled, isError, onChange, placeholder, type }: Props): React.ReactElement<Props> {
   const _onChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => onChange && onChange(event.target.value),
+    (event: React.ChangeEvent<HTMLInputElement>) => onChange(event.target.value),
     [onChange]
   );
 

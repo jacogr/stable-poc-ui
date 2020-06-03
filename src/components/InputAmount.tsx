@@ -10,7 +10,7 @@ import { useApi } from '../hooks';
 import Input from './Input';
 
 interface Props extends InputProps {
-  onChange?: (value: BN) => void;
+  onChange: (value: BN) => void;
 }
 
 const TEN = new BN(10);
@@ -29,16 +29,14 @@ function InputAmount ({ autoFocus, className, isDisabled, onChange, placeholder 
       const isError = !input || !input.match(/^(\d+\.?\d{0,9}|\.\d{1,9})$/);
 
       if (!isError) {
-        if (onChange) {
-          const div = input.replace(/\.\d*$/, '');
-          const mod = input.replace(/^\d+\./, '');
+        const div = input.replace(/\.\d*$/, '');
+        const mod = input.replace(/^\d+\./, '');
 
-          onChange(
-            new BN(div)
-              .mul(TEN.pow(decimals))
-              .add(new BN(mod).mul(TEN.pow(decimals.subn(mod.length))))
-          );
-        }
+        onChange(
+          new BN(div)
+            .mul(TEN.pow(decimals))
+            .add(new BN(mod).mul(TEN.pow(decimals.subn(mod.length))))
+        );
       }
 
       setIsError(isError);

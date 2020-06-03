@@ -9,7 +9,7 @@ import Input from './Input';
 
 interface Props extends InputProps {
   isError?: boolean;
-  onChange?: (value: string) => void;
+  onChange: (value: string) => void;
 }
 
 function InputPassword ({ autoFocus, className, isDisabled, isError, onChange, placeholder }: Props): React.ReactElement<Props> {
