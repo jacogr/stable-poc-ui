@@ -23,7 +23,10 @@ const plugins = hasPublic
 
 module.exports = {
   context: __dirname,
-  entry: ['@babel/polyfill', './src/indexUser.tsx'],
+  entry: {
+    admin: './src/indexAdmin.tsx',
+    user: './src/indexUser.tsx'
+  },
   mode: process.env.NODE_ENV,
   module: {
     rules: [
@@ -125,6 +128,14 @@ module.exports = {
     }),
     new webpack.optimize.SplitChunksPlugin(),
     new HtmlWebpackPlugin({
+      chunks: ['user'],
+      filename: 'index.html',
+      inject: true,
+      template: path.join(__dirname, 'public/index.html')
+    }),
+    new HtmlWebpackPlugin({
+      chunks: ['admin'],
+      filename: 'admin.html',
       inject: true,
       template: path.join(__dirname, 'public/index.html')
     })
