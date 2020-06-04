@@ -13,8 +13,6 @@ export default function useIsUser (address: string): boolean {
   useEffect((): () => void => {
     let unsubscribe: null | (() => void) = null;
 
-    setIsUser(false);
-
     if (address) {
       api.query.system
         .account(address, ({ refcount }): void => {
@@ -26,6 +24,8 @@ export default function useIsUser (address: string): boolean {
           unsubscribe = u;
         })
         .catch(console.error);
+    } else {
+      setIsUser(false);
     }
 
     return (): void => {

@@ -14,7 +14,7 @@ interface Props {
 
 function Account ({ className }: Props): React.ReactElement<Props> | null {
   const { userAddress, userPair } = usePair();
-  const [,, hasZeroBalance] = useBalance(userAddress);
+  const [,, isBalanceZero] = useBalance(userAddress);
   const isFrozen = useIsFrozen(userAddress);
   const isActive = useIsUser(userAddress);
 
@@ -33,7 +33,7 @@ function Account ({ className }: Props): React.ReactElement<Props> | null {
     <div className={className}>
       <ButtonRow>
         <Button
-          isDisabled={isFrozen || hasZeroBalance || !isActive}
+          isDisabled={isFrozen || isBalanceZero || !isActive}
           label='Send'
           onClick={_onSend}
         />
