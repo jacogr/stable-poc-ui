@@ -10,15 +10,17 @@ import { useApi } from '../hooks';
 import Input from './Input';
 
 interface Props extends InputProps {
+  error?: string | null;
   onChange: (value: BN) => void;
 }
 
+const ERR_NUM = 'Expected an amount > 0';
 const TEN = new BN(10);
 
-function InputAmount ({ autoFocus, className, isDisabled, onChange, placeholder }: Props): React.ReactElement<Props> {
+function InputAmount ({ autoFocus, className, error, isDisabled, onChange, placeholder }: Props): React.ReactElement<Props> {
   const api = useApi();
   const [decimals, setDecimals] = useState(new BN(12));
-  const [isError, setIsError] = useState(true);
+  const [errorVal, setError] = useState<string | null>(ERR_NUM);
 
   useEffect((): void => {
     setDecimals(new BN(api.registry.chainDecimals));
@@ -39,7 +41,7 @@ function InputAmount ({ autoFocus, className, isDisabled, onChange, placeholder 
         );
       }
 
-      setIsError(isError);
+      setError(isError ? ERR_NUM : null);
     },
     [decimals, onChange]
   );
@@ -48,8 +50,8 @@ function InputAmount ({ autoFocus, className, isDisabled, onChange, placeholder 
     <Input
       autoFocus={autoFocus}
       className={className}
+      error={errorVal || error}
       isDisabled={isDisabled}
-      isError={isError}
       onChange={_onChange}
       placeholder={placeholder}
       type='text'

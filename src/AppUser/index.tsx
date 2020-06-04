@@ -21,9 +21,9 @@ function AppUser ({ className }: Props): React.ReactElement<Props> {
 
   return (
     <main className={className}>
-      <Auth>
-        {api && (
-          <ApiContext.Provider value={api}>
+      {api && (
+        <ApiContext.Provider value={api}>
+          <Auth>
             <TxProvider>
               <Switch>
                 <Route path='/account'>
@@ -40,9 +40,9 @@ function AppUser ({ className }: Props): React.ReactElement<Props> {
                 </Route>
               </Switch>
             </TxProvider>
-          </ApiContext.Provider>
-        )}
-      </Auth>
+          </Auth>
+        </ApiContext.Provider>
+      )}
     </main>
   );
 }

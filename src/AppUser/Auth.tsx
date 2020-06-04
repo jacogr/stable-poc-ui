@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import Keyring from '@polkadot/keyring';
 import { DEV_PHRASE } from '@polkadot/keyring/defaults';
 
-import { Button, ButtonRow, InputEmail, Title } from '../components';
+import { Button, ButtonRow, InputEmail, Navigation, Title } from '../components';
 import { AccountContext } from '../contexts';
 
 interface Props {
@@ -19,6 +19,8 @@ interface Props {
 interface RootState extends DeriveCtx {
   rootPair: KeyringPair;
 }
+
+const NAV_ROUTES: [string, string][] = [];
 
 const keyring = new Keyring({ type: 'sr25519' });
 
@@ -41,7 +43,7 @@ function Auth ({ children, className }: Props): React.ReactElement<Props> {
     (): void => {
       const pair = rootPair.derive(`//${username.toLowerCase()}`);
 
-      setAccountCtx({address: pair.address, deriveAddress, pair, username });
+      setAccountCtx({address: pair.address, deriveAddress, pair, username: username.toLowerCase() });
 
       window.location.hash = '/account';
     },
@@ -52,6 +54,10 @@ function Auth ({ children, className }: Props): React.ReactElement<Props> {
     return (
       <div className={className}>
         <AccountContext.Provider value={accountCtx}>
+          <Navigation
+            username={accountCtx.username}
+            routes={NAV_ROUTES}
+          />
           {children}
         </AccountContext.Provider>
       </div>

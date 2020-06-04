@@ -8,17 +8,17 @@ import styled from 'styled-components';
 import Input from './Input';
 
 interface Props extends InputProps {
-  isError?: boolean;
+  error?: string | null;
   onChange: (value: string) => void;
 }
 
-function InputPassword ({ autoFocus, className, isDisabled, isError, onChange, placeholder }: Props): React.ReactElement<Props> {
+function InputPassword ({ autoFocus, className, error, isDisabled, onChange, placeholder }: Props): React.ReactElement<Props> {
   return (
     <Input
       autoFocus={autoFocus}
       className={className}
+      error={error}
       isDisabled={isDisabled}
-      isError={isError}
       onChange={onChange}
       placeholder={placeholder}
       type='password'

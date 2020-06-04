@@ -13,12 +13,14 @@ function ButtonRow ({ children, className }: Props): React.ReactElement<Props> {
     <div className={className}>
       {children}
     </div>
-  )
+  );
 }
 
 export default React.memo(styled(ButtonRow)`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
   margin: 0.5rem 0;
-  text-align: right;
 
   button+button {
     margin-left: 0.5rem;

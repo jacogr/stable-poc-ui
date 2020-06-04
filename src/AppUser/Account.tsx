@@ -3,7 +3,7 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
 
-import { Button, ButtonRow, Section, Title } from '../components';
+import { Button, ButtonRow } from '../components';
 import { usePair, useIsFrozen } from '../hooks';
 import Balance from '../partials/Balance';
 import Transactions from '../partials/Transactions';
@@ -13,7 +13,7 @@ interface Props {
 }
 
 function Account ({ className }: Props): React.ReactElement<Props> | null {
-  const { address,  pair, username } = usePair();
+  const { address,  pair } = usePair();
   const isFrozen = useIsFrozen(address);
 
   const _onSend = useCallback(
@@ -37,10 +37,6 @@ function Account ({ className }: Props): React.ReactElement<Props> | null {
         />
       </ButtonRow>
       <Balance address={address} />
-      <Section>
-        <Title>Username</Title>
-        <div>{username}</div>
-      </Section>
       <Transactions address={address} />
     </div>
   );

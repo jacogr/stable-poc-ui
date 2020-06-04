@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 
 import { Button, ButtonRow, Section, Title } from '../components';
-import { useAdmin, useApi, useIsFrozen } from '../hooks';
+import { useAdmin, useIsFrozen, useIsSsc } from '../hooks';
 import Balance from '../partials/Balance';
 import Transactions from '../partials/Transactions';
 
@@ -16,7 +16,7 @@ interface Props {
 function User ({ className }: Props): React.ReactElement<Props> {
   const { username } = useParams();
   const { deriveAddress } = useAdmin();
-  const api = useApi();
+  const isSsc = useIsSsc();
   const [address] = useState(deriveAddress(username));
   const isFrozen = useIsFrozen(address);
 
@@ -62,14 +62,14 @@ function User ({ className }: Props): React.ReactElement<Props> {
         {isFrozen
           ? (
             <Button
-              isDisabled={!api.tx.templateModule}
+              isDisabled={!isSsc}
               label='Unfreeze'
               onClick={_doUnfreeze}
             />
           )
           : (
             <Button
-              isDisabled={!api.tx.templateModule}
+              isDisabled={!isSsc}
               label='Freeze'
               onClick={_doFreeze}
             />

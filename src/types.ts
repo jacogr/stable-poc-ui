@@ -16,6 +16,7 @@ export interface AccountCtx extends DeriveCtx {
 
 export interface AdminCtx extends DeriveCtx {
   adminPair: KeyringPair;
+  username: string;
 }
 
 export interface ApiCtx {

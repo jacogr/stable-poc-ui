@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 
 import { Tx } from '../components';
-import { useAdmin, useApi } from '../hooks';
+import { useAdmin, useApi, useIsSsc } from '../hooks';
 
 interface Props {
   className?: string;
@@ -17,16 +17,17 @@ function Freeze ({ className }: Props): React.ReactElement<Props> {
   const { username } = useParams();
   const { adminPair, deriveAddress } = useAdmin();
   const api = useApi();
+  const isSsc = useIsSsc();
   const [address] = useState(deriveAddress(username));
   const [tx, setTx] = useState<SubmittableExtrinsic<'promise'> | null>(null);
 
   useEffect((): void => {
     setTx(
-      !address || !api.tx.templateModule.lockAccount
+      !address || !isSsc
         ? null
         : api.tx.templateModule.lockAccount(address)
     );
-  }, [address]);
+  }, [address, api, isSsc]);
 
   return (
     <Tx

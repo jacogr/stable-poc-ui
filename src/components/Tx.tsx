@@ -8,7 +8,8 @@ import styled from 'styled-components';
 
 import Button from './Button';
 import ButtonRow from './ButtonRow';
-import Checkmark from './Checkmark';
+import IconCheck from './IconCheck';
+import IconCross from './IconCross';
 import Loader from './Loader';
 
 interface Props {
@@ -19,8 +20,13 @@ interface Props {
   tx: SubmittableExtrinsic<'promise'> | null;
 }
 
+interface DoneState {
+  isCompleted: boolean;
+  isOk: boolean;
+}
+
 function Tx ({ children, className, label, pair, tx }: Props): React.ReactElement<Props> {
-  const [isCompleted, setIsCompleted] = useState(false);
+  const [{ isCompleted, isOk }, setIsCompleted] = useState<DoneState>({ isCompleted: false, isOk: true });
   const [isSending, setIsSending] = useState(false);
 
   const _goBack = useCallback(
@@ -38,9 +44,12 @@ function Tx ({ children, className, label, pair, tx }: Props): React.ReactElemen
         let unsubscribe: null | (() => void) = null;
 
         tx
-          .signAndSend(pair, ({ status }): void => {
+          .signAndSend(pair, ({ events, status }): void => {
             if (status.isInBlock || status.isFinalized) {
-              setIsCompleted(true);
+              setIsCompleted({
+                isCompleted: true,
+                isOk: events.some(({ event: { method, section } }) => section === 'system' && method === 'ExtrinsicSuccess')
+              });
               unsubscribe && unsubscribe();
             }
           })
@@ -49,7 +58,7 @@ function Tx ({ children, className, label, pair, tx }: Props): React.ReactElemen
           })
           .catch((error): void => {
             console.error(error);
-            setIsCompleted(true);
+            setIsCompleted({ isCompleted: true, isOk: false });
           });
       }
     },
@@ -61,7 +70,9 @@ function Tx ({ children, className, label, pair, tx }: Props): React.ReactElemen
       {isSending
         ? !isCompleted
           ? <Loader />
-          : <Checkmark />
+          : isOk
+            ? <IconCheck />
+            : <IconCross />
         : children
       }
       <ButtonRow>

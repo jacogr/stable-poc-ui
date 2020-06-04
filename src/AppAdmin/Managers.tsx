@@ -4,14 +4,14 @@ import React, { useCallback } from 'react';
 import styled from 'styled-components';
 
 import { Button, ButtonRow, Section, Title } from '../components';
-import { useApi, useManagers } from '../hooks';
+import { useIsSsc, useManagers } from '../hooks';
 
 interface Props {
   className?: string;
 }
 
 function Managers ({ className }: Props): React.ReactElement<Props> {
-  const api = useApi();
+  const isSsc = useIsSsc();
   const managers = useManagers();
 
   const _newManager = useCallback(
@@ -21,13 +21,11 @@ function Managers ({ className }: Props): React.ReactElement<Props> {
     []
   );
 
-  const isDisabled = !api.tx.templateModule;
-
   return (
     <div className={className}>
       <ButtonRow>
         <Button
-          isDisabled={isDisabled}
+          isDisabled={!isSsc}
           label='New Manager'
           onClick={_newManager}
         />

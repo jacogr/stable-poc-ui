@@ -7,15 +7,15 @@ interface Props {
   className?: string;
 }
 
-function Checkmark ({ className }: Props): React.ReactElement<Props> {
+function IconCross ({ className }: Props): React.ReactElement<Props> {
   return (
     <div className={className}>
-      &#10003;
+      &#10007;
     </div>
   );
 }
 
-export default React.memo(styled(Checkmark)`
+export default React.memo(styled(IconCross)`
   color: #888;
   font-size: 80px;
   line-height: 80px;

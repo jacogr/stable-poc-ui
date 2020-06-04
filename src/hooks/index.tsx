@@ -6,6 +6,7 @@ export { default as useApiCreate } from './useApiCreate';
 export { default as useBalance } from './useBalance';
 export { default as useIsFrozen } from './useIsFrozen';
 export { default as useIsMountedRef } from './useIsMountedRef';
+export { default as useIsSsc } from './useIsSsc';
 export { default as useManagers } from './useManagers';
 export { default as usePair } from './usePair';
 export { default as useTxs } from './useTxs';

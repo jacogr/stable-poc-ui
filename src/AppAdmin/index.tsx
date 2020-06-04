@@ -15,7 +15,6 @@ import Freeze from './Freeze';
 import Lookup from './Lookup';
 import Managers from './Managers';
 import Mint from './Mint';
-import Navigation from './Navigation';
 import Reports from './Reports';
 import Unfreeze from './Unfreeze';
 import User from './User';
@@ -29,10 +28,9 @@ function AppAdmin ({ className }: Props): React.ReactElement<Props> {
 
   return (
     <main className={className}>
-      <Auth>
-        {api && (
-          <ApiContext.Provider value={api}>
-            <Navigation />
+      {api && (
+        <ApiContext.Provider value={api}>
+          <Auth>
             <TxProvider>
               <Switch>
                 <Route path='/clawback/:username'>
@@ -70,13 +68,11 @@ function AppAdmin ({ className }: Props): React.ReactElement<Props> {
                 </Route>
               </Switch>
             </TxProvider>
-          </ApiContext.Provider>
-        )}
-      </Auth>
+            </Auth>
+        </ApiContext.Provider>
+      )}
     </main>
   );
 }
 
-export default React.memo(styled(AppAdmin)`
-  padding: 2.5rem 0;
-`);
+export default React.memo(styled(AppAdmin)``);
