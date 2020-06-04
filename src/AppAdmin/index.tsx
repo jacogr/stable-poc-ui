@@ -33,35 +33,35 @@ function AppAdmin ({ className }: Props): React.ReactElement<Props> {
           <Auth>
             <TxProvider>
               <Switch>
-                <Route path='/clawback/:username'>
+                <Route path='/users'>
+                  <Lookup />
+                </Route>
+                <Route path='/user/clawback/:username'>
                   <Clawback />
                 </Route>
-                <Route path='/freeze/:username'>
+                <Route path='/user/freeze/:username'>
                   <Freeze />
                 </Route>
-                <Route path='/mint/:username'>
+                <Route path='/user/mint/:username'>
                   <Mint />
+                </Route>
+                <Route path='/user/new'>
+                  <AddUser />
+                </Route>
+                <Route path='/user/unfreeze/:username'>
+                  <Unfreeze />
+                </Route>
+                <Route path='/user/view/:username'>
+                  <User />
                 </Route>
                 <Route path='/managers'>
                   <Managers />
                 </Route>
-                <Route path='/new/user'>
-                  <AddUser />
-                </Route>
-                <Route path='/new/manager'>
+                <Route path='/manager/new'>
                   <AddManager />
-                </Route>
-                <Route path='/unfreeze/:username'>
-                  <Unfreeze />
                 </Route>
                 <Route path='/reports'>
                   <Reports />
-                </Route>
-                <Route path='/user/:username'>
-                  <User />
-                </Route>
-                <Route path='/users'>
-                  <Lookup />
                 </Route>
                 <Route>
                   <Redirect to='/managers' />

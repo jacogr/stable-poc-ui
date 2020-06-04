@@ -20,7 +20,7 @@ interface RootState extends DeriveCtx {
   rootPair: KeyringPair;
 }
 
-const NAV_ROUTES: [string, string][] = [];
+const NAV_ROUTES: [string, string, string[]][] = [];
 
 const keyring = new Keyring({ type: 'sr25519' });
 
@@ -39,6 +39,14 @@ function Auth ({ children, className }: Props): React.ReactElement<Props> {
   const [accountCtx, setAccountCtx] = useState<AccountCtx | null>(null);
   const [username, setUsername] = useState('');
 
+  const _doLogout = useCallback(
+    (): void => {
+      setAccountCtx(null);
+      window.location.hash = '/';
+    },
+    []
+  );
+
   const _doLogin = useCallback(
     (): void => {
       const pair = rootPair.derive(`//${username.toLowerCase()}`);
@@ -55,8 +63,9 @@ function Auth ({ children, className }: Props): React.ReactElement<Props> {
       <div className={className}>
         <AccountContext.Provider value={accountCtx}>
           <Navigation
-            username={accountCtx.username}
+            onLogout={_doLogout}
             routes={NAV_ROUTES}
+            username={accountCtx.username}
           />
           {children}
         </AccountContext.Provider>

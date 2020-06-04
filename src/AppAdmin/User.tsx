@@ -22,28 +22,28 @@ function User ({ className }: Props): React.ReactElement<Props> {
 
   const _doClawback = useCallback(
     (): void => {
-      window.location.hash = `/clawback/${username}/${address}`;
+      window.location.hash = `/user/clawback/${username}/${address}`;
     },
     [address, username]
   );
 
   const _doFreeze = useCallback(
     (): void => {
-      window.location.hash = `/freeze/${username}/${address}`;
+      window.location.hash = `/user/freeze/${username}/${address}`;
     },
     [address, username]
   );
 
   const _doUnfreeze = useCallback(
     (): void => {
-      window.location.hash = `/unfreeze/${username}/${address}`;
+      window.location.hash = `/user/unfreeze/${username}/${address}`;
     },
     [address, username]
   );
 
   const _doMint = useCallback(
     (): void => {
-      window.location.hash = `/mint/${username}/${address}`;
+      window.location.hash = `/user/mint/${username}/${address}`;
     },
     [address, username]
   );

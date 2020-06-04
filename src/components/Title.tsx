@@ -17,9 +17,9 @@ function Title ({ children, className }: Props): React.ReactElement<Props> {
 }
 
 export default React.memo(styled(Title)`
+  color: rgba(0, 35, 102, 0.35);
   font-size: 1.1rem;
   font-weight: 100;
   margin: 0 0 0.5rem 0;
-  opacity: 0.35;
   text-transform: uppercase;
 `);

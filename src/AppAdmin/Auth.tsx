@@ -16,9 +16,9 @@ interface Props {
   className?: string;
 }
 
-const NAV_ROUTES: [string, string][] = [
-  ['/managers', 'Managers'],
-  ['/users', 'Users']
+const NAV_ROUTES: [string, string, string[]][] = [
+  ['/managers', 'Managers', ['/manager']],
+  ['/users', 'Users', ['/user']]
 ];
 
 const keyring = new Keyring({ type: 'sr25519' });
@@ -39,6 +39,14 @@ function Auth ({ children, className }: Props): React.ReactElement<Props> {
   const [adminCtx, setAdminCtx] = useState<AdminCtx | null>(null);
   const [username, setUsername] = useState('');
   const [error, setError] = useState<string | null>(null);
+
+  const _doLogout = useCallback(
+    (): void => {
+      setAdminCtx(null);
+      window.location.hash = '/';
+    },
+    []
+  );
 
   const _doLogin = useCallback(
     (): void => {
@@ -69,8 +77,9 @@ function Auth ({ children, className }: Props): React.ReactElement<Props> {
       <div className={className}>
         <AdminContext.Provider value={adminCtx}>
           <Navigation
-            username={adminCtx.username}
+            onLogout={_doLogout}
             routes={NAV_ROUTES}
+            username={adminCtx.username}
           />
           {children}
         </AdminContext.Provider>

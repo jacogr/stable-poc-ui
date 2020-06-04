@@ -14,7 +14,7 @@ function Main ({ className }: Props): React.ReactElement<Props> {
 
   const _doLookup = useCallback(
     (): void => {
-      window.location.hash = `/user/${username}`;
+      window.location.hash = `/user/view/${username}`;
     },
     [username]
   );
