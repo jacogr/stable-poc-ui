@@ -19,7 +19,6 @@ function Card ({ children, className = '', isError, isWarning }: Props): React.R
 }
 
 export default React.memo(styled(Card)`
-  background: white;
   border: 1px solid rgb(221, 225, 235);
   border-radius: 0.25rem;
   margin: 0.5rem 0 1.5rem;

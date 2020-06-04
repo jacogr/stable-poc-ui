@@ -7,7 +7,7 @@ import useIsMountedRef from './useIsMountedRef';
 
 export default function useIsUser (address: string): boolean {
   const api = useApi();
-  const [isUser, setIsUser] = useState(false);
+  const [isUser, setIsUser] = useState(true);
   const  mountedRef = useIsMountedRef();
 
   useEffect((): () => void => {

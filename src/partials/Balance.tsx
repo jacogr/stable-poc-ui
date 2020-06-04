@@ -27,6 +27,7 @@ function Balance ({ address, className }: Props): React.ReactElement<Props> {
 
 export default React.memo(styled(Balance)`
   .balance {
+    color: #002366;
     font-size: 3.5rem;
     font-weight: 200;
     margin: 0.5rem 0;
