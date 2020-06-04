@@ -7,11 +7,12 @@ interface Props {
   children: React.ReactNode;
   className?: string;
   isError?: boolean;
+  isWarning?: boolean;
 }
 
-function Card ({ children, className = '', isError }: Props): React.ReactElement<Props> {
+function Card ({ children, className = '', isError, isWarning }: Props): React.ReactElement<Props> {
   return (
-    <div className={`${className} ${isError && 'isError'}`}>
+    <div className={`${className} ${isError && 'isError'} ${isWarning && 'isWarning'}`}>
       {children}
     </div>
   )
@@ -28,5 +29,10 @@ export default React.memo(styled(Card)`
     background: #fff6f6;
     border-color: #e0b4b4;
     color: #9f3a38;
+  }
+
+  &.isWarning {
+    background: #ffffe0;
+    border-color: #eeeeae;
   }
 `);

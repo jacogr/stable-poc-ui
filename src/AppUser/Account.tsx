@@ -4,7 +4,7 @@ import React, { useCallback } from 'react';
 import styled from 'styled-components';
 
 import { Button, ButtonRow, Card } from '../components';
-import { useBalance, usePair, useIsFrozen } from '../hooks';
+import { useBalance, usePair, useIsFrozen, useIsUser } from '../hooks';
 import Balance from '../partials/Balance';
 import Transactions from '../partials/Transactions';
 
@@ -16,6 +16,7 @@ function Account ({ className }: Props): React.ReactElement<Props> | null {
   const { userAddress, userPair } = usePair();
   const [,, hasZeroBalance] = useBalance(userAddress);
   const isFrozen = useIsFrozen(userAddress);
+  const isActive = useIsUser(userAddress);
 
   const _onSend = useCallback(
     (): void => {
@@ -32,11 +33,19 @@ function Account ({ className }: Props): React.ReactElement<Props> | null {
     <div className={className}>
       <ButtonRow>
         <Button
-          isDisabled={isFrozen || hasZeroBalance}
+          isDisabled={isFrozen || hasZeroBalance || !isActive}
           label='Send'
           onClick={_onSend}
         />
       </ButtonRow>
+        {!isActive && (
+          <Card
+            className='lockedCard'
+            isWarning
+          >
+          This account is currently inactive and requires activation by the administrators before it is allowed to make transactions.
+        </Card>
+      )}
       {isFrozen && (
         <Card
           className='lockedCard'
