@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 
 import { Button, ButtonRow, Section, Title } from '../components';
-import { useAdmin, useIsFrozen, useIsSsc } from '../hooks';
+import { useAdmin, useIsFrozen } from '../hooks';
 
 interface Props {
   className?: string;
@@ -14,7 +14,6 @@ interface Props {
 function ManagerView ({ className }: Props): React.ReactElement<Props> {
   const { address } = useParams();
   const { adminAddress } = useAdmin();
-  const isSsc = useIsSsc();
   const isFrozen = useIsFrozen(address);
 
   const _doRemove = useCallback(
@@ -28,7 +27,7 @@ function ManagerView ({ className }: Props): React.ReactElement<Props> {
     <div className={className}>
       <ButtonRow>
         <Button
-          isDisabled={!isSsc || adminAddress === address}
+          isDisabled={adminAddress === address}
           label='Remove'
           onClick={_doRemove}
         />

@@ -17,28 +17,21 @@ const TemplateAccountData = {
   sessionIndex: 'u32'
 };
 
-const BASE_TYPES = {
-  AccountData: { ...AccountData, ...TemplateAccountData },
-  TemplateAccountData
-};
-const TMPL_TYPES = {
-  Address: 'AccountId',
-  LookupSource: 'AccountId'
-}
-
 export default function useApiCreate (): ApiPromise | null {
   const [api, setApi] = useState<ApiPromise | null>(null);
   const  mountedRef = useIsMountedRef();
 
   useEffect((): void => {
     ApiPromise
-      .create({ types: BASE_TYPES })
-      .then((api): void => {
-        // should be default, but we want to test against multiples
-        if (api.runtimeVersion.specName.eq('node-template')) {
-          api.registry.register(TMPL_TYPES);
+      .create({
+        types: {
+          AccountData: { ...AccountData, ...TemplateAccountData },
+          TemplateAccountData,
+          Address: 'AccountId',
+          LookupSource: 'AccountId'
         }
-
+      })
+      .then((api): void => {
         mountedRef.current && setApi(api);
       })
       .catch(console.error);

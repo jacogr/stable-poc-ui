@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { InputAmount, Tx } from '../components';
-import { useAdmin, useApi, useIsSsc } from '../hooks';
+import { useAdmin, useApi } from '../hooks';
 
 interface Props {
   className?: string;
@@ -18,7 +18,6 @@ function UserMint ({ className }: Props): React.ReactElement<Props> {
   const { address, username } = useParams();
   const { adminPair } = useAdmin();
   const api = useApi();
-  const isSsc = useIsSsc();
   const [amount, setAmount] = useState(new BN(0));
   const [tx, setTx] = useState<SubmittableExtrinsic<'promise'> | null>(null);
 
@@ -26,9 +25,7 @@ function UserMint ({ className }: Props): React.ReactElement<Props> {
     setTx(
       !address || amount.isZero()
         ? null
-        : isSsc
-          ? api.tx.templateModule.mint(address, amount)
-          : api.tx.balances.transfer(address, amount)
+        : api.tx.templateModule.mint(address, amount)
     );
   }, [address, amount, api]);
 

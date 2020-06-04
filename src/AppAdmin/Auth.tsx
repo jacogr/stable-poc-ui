@@ -9,7 +9,7 @@ import { DEV_PHRASE } from '@polkadot/keyring/defaults';
 
 import { Button, ButtonRow, Input, Navigation, Title } from '../components';
 import { AdminContext } from '../contexts';
-import { useIsSsc, useManagers } from '../hooks';
+import { useManagers } from '../hooks';
 
 interface Props {
   children: React.ReactNode;
@@ -41,7 +41,6 @@ function createAdminCtx (_username: string): AdminCtx {
 }
 
 function Auth ({ children, className }: Props): React.ReactElement<Props> {
-  const isSsc = useIsSsc();
   const managers = useManagers();
   const [adminCtx, setAdminCtx] = useState<AdminCtx | null>(null);
   const [username, setUsername] = useState('');
@@ -60,7 +59,7 @@ function Auth ({ children, className }: Props): React.ReactElement<Props> {
       const ctx = createAdminCtx(username);
       const addr = ctx.adminPair.address;
 
-      if (isSsc && !managers.includes(addr)) {
+      if (!managers.includes(addr)) {
         setError('User is not a manager');
       } else {
         setAdminCtx(ctx);
@@ -68,7 +67,7 @@ function Auth ({ children, className }: Props): React.ReactElement<Props> {
         window.location.hash = '/users';
       }
     },
-    [isSsc, managers, username]
+    [managers, username]
   );
 
   const _setUsername = useCallback(

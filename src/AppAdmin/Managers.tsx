@@ -4,7 +4,7 @@ import React, { useCallback } from 'react';
 import styled from 'styled-components';
 
 import { Button, ButtonRow, Section, Table, Title } from '../components';
-import { useIsSsc, useManagers } from '../hooks';
+import { useManagers } from '../hooks';
 
 interface Props {
   className?: string;
@@ -17,7 +17,6 @@ function linkManager (address: string): () => void {
 }
 
 function Managers ({ className }: Props): React.ReactElement<Props> {
-  const isSsc = useIsSsc();
   const managers = useManagers();
 
   const _newManager = useCallback(
@@ -31,7 +30,6 @@ function Managers ({ className }: Props): React.ReactElement<Props> {
     <div className={className}>
       <ButtonRow>
         <Button
-          isDisabled={!isSsc}
           label='Add Manager'
           onClick={_newManager}
         />

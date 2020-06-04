@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { Tx } from '../components';
-import { useAdmin, useApi, useIsSsc } from '../hooks';
+import { useAdmin, useApi } from '../hooks';
 
 interface Props {
   className?: string;
@@ -17,16 +17,15 @@ function ManagerRemove ({ className }: Props): React.ReactElement<Props> {
   const { address } = useParams();
   const { adminAddress, adminPair } = useAdmin();
   const api = useApi();
-  const isSsc = useIsSsc();
   const [tx, setTx] = useState<SubmittableExtrinsic<'promise'> | null>(null);
 
   useEffect((): void => {
     setTx(
-      !address || !isSsc
+      !address
         ? null
         : api.tx.templateModule.removeManager(address)
     );
-  }, [address, api, isSsc]);
+  }, [address, api]);
 
   return (
     <Tx

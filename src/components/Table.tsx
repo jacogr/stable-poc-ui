@@ -27,7 +27,7 @@ export default React.memo(styled(Table)`
     padding: 0.375rem 1rem;
   }
 
-  tr:nth-child(even) {
+  tr:nth-child(odd) {
     background: #eee;
   }
 `);

@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { Input, Tx } from '../components';
-import { useAdmin, useApi, useIsSsc } from '../hooks';
+import { useAdmin, useApi } from '../hooks';
 
 interface Props {
   className?: string;
@@ -15,17 +15,16 @@ interface Props {
 function ManagerAdd ({ className }: Props): React.ReactElement<Props> {
   const { adminPair, deriveAdmin } = useAdmin();
   const api = useApi();
-  const isSsc = useIsSsc();
   const [username, setUsername] = useState('');
   const [tx, setTx] = useState<SubmittableExtrinsic<'promise'> | null>(null);
 
   useEffect((): void => {
     setTx(
-      !username || !isSsc
+      !username
         ? null
         : api.tx.templateModule.addManager(deriveAdmin(username))
     );
-  }, [api, deriveAdmin, isSsc, username]);
+  }, [api, deriveAdmin, username]);
 
   return (
     <Tx
