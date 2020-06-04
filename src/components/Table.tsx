@@ -28,6 +28,6 @@ export default React.memo(styled(Table)`
   }
 
   tr:nth-child(odd) {
-    background: #eee;
+    background: rgba(0, 35, 102, 0.1);
   }
 `);

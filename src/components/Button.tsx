@@ -36,7 +36,7 @@ export default React.memo(styled(Button)`
   background: rgba(0, 35, 102, 0.85);
   color: white;
   cursor: pointer;
-  border-radius: 0.25rem;
+  border-radius: 1.5rem;
   outline: none;
   padding: 0.75rem 1.25rem;
 
@@ -50,6 +50,7 @@ export default React.memo(styled(Button)`
   }
 
   &.isThin {
+    border-radius: 1rem;
     padding: 0.375rem 1.25rem;
   }
 `);

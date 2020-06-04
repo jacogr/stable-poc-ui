@@ -24,7 +24,7 @@ export default function useUserCount (address: string): State {
   useEffect((): () => void => {
     let unsubscribe: null | (() => void) = null;
 
-    // combineLatest, we already do balanc so not queryMulti
+    // combineLatest, we already do balance so not queryMulti
     api.combineLatest<[AccountInfo, SessionIndex]>([
       [api.query.system.account, address],
       // api.query.session.currentIndex
