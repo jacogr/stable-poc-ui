@@ -24,22 +24,24 @@ export default function useUserCount (address: string): State {
   useEffect((): () => void => {
     let unsubscribe: null | (() => void) = null;
 
-    api.query.system
-      .account<AccountInfo>(address, ({ data: { sessionIndex, txCount } }): void => {
-        const currentIndex = ZERO;
-        const count = sessionIndex.eq(currentIndex)
-          ? txCount
-          : ZERO;
+    // combineLatest, we already do balanc so not queryMulti
+    api.combineLatest<[AccountInfo, SessionIndex]>([
+      [api.query.system.account, address],
+      // api.query.session.currentIndex
+    ], ([{ data: { sessionIndex, txCount } }, currentIndex = ZERO]): void => {
+      const count = sessionIndex.eq(currentIndex)
+        ? txCount
+        : ZERO;
 
-        mountedRef.current && setState({
-          isTxFree: count.lt(api.consts.templateModule.freeTransactionLimit as SessionIndex),
-          txCount: count
-        });
-      })
-      .then((u): void => {
-        unsubscribe = u;
-      })
-      .catch(console.error);
+      mountedRef.current && setState({
+        isTxFree: count.lt(api.consts.templateModule.freeTransactionLimit as SessionIndex),
+        txCount: count
+      });
+    })
+    .then((u): void => {
+      unsubscribe = u;
+    })
+    .catch(console.error);
 
     return (): void => {
       unsubscribe && unsubscribe();
