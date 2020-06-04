@@ -3,7 +3,7 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
 
-import { Button, ButtonRow } from '../components';
+import { Button, ButtonRow, Card } from '../components';
 import { useBalance, usePair, useIsFrozen } from '../hooks';
 import Balance from '../partials/Balance';
 import Transactions from '../partials/Transactions';
@@ -37,10 +37,22 @@ function Account ({ className }: Props): React.ReactElement<Props> | null {
           onClick={_onSend}
         />
       </ButtonRow>
+      {isFrozen && (
+        <Card
+          className='lockedCard'
+          isError
+        >
+          This account is currently locked by the administrators and as such cannot make any transactions.
+        </Card>
+      )}
       <Balance address={userAddress} />
       <Transactions address={userAddress} />
     </div>
   );
 }
 
-export default React.memo(styled(Account)``);
+export default React.memo(styled(Account)`
+  .lockedCard {
+    margin-bottom: -1rem;
+  }
+`);
