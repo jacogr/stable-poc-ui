@@ -12,4 +12,5 @@ export { default as useManagers } from './useManagers';
 export { default as usePair } from './usePair';
 export { default as useTxs } from './useTxs';
 export { default as useTxsAll } from './useTxsAll';
+export { default as useUserCount } from './useUserCount';
 export { default as useUsers } from './useUsers';
