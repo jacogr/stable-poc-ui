@@ -75,21 +75,28 @@ function Auth ({ children, className }: Props): React.ReactElement<Props> {
 
   return (
     <div className={className}>
-      <Title>User login</Title>
-      <InputEmail
-        autoFocus
-        onChange={setUsername}
-        placeholder='email address, eg. me@example.com'
-      />
-      <ButtonRow>
-        <Button
-          isDisabled={!username}
-          label='Login'
-          onClick={_doLogin}
+      <div className='loginForm'>
+        <Title>User login</Title>
+        <InputEmail
+          autoFocus
+          onChange={setUsername}
+          placeholder='email address, eg. me@example.com'
         />
-      </ButtonRow>
+        <ButtonRow>
+          <Button
+            isDisabled={!username}
+            label='Login'
+            onClick={_doLogin}
+          />
+        </ButtonRow>
+      </div>
     </div>
   );
 }
 
-export default React.memo(styled(Auth)``);
+export default React.memo(styled(Auth)`
+  .loginForm {
+    margin: auto;
+    max-width: 480px;
+  }
+`);

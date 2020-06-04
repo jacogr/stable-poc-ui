@@ -4,5 +4,6 @@ export interface InputProps {
   autoFocus?: boolean;
   className?: string;
   isDisabled?: boolean;
-  placeholder: string;
+  placeholder?: string;
+  value?: string;
 }

@@ -12,7 +12,7 @@ interface Props extends InputProps {
   onChange: (value: string) => void;
 }
 
-function InputPassword ({ autoFocus, className, error, isDisabled, onChange, placeholder }: Props): React.ReactElement<Props> {
+function InputPassword ({ autoFocus, className, error, isDisabled, onChange, placeholder, value }: Props): React.ReactElement<Props> {
   return (
     <Input
       autoFocus={autoFocus}
@@ -22,6 +22,7 @@ function InputPassword ({ autoFocus, className, error, isDisabled, onChange, pla
       onChange={onChange}
       placeholder={placeholder}
       type='password'
+      value={value}
     />
   )
 }

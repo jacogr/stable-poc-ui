@@ -27,7 +27,7 @@ function UserClawback ({ className }: Props): React.ReactElement<Props> {
     setTx(
       !address || !recipient || amount.isZero()
         ? null
-        : api.tx.sudo.sudo(
+        : api.tx.templateModule.dispatchRoot(
           api.tx.balances.forceTransfer(address, deriveAddress(recipient), amount)
         )
     );

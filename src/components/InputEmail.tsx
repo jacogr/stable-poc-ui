@@ -14,7 +14,7 @@ interface Props extends InputProps {
 
 const ERR_EMAIL = 'Invalid e-mail address';
 
-function InputEmail ({ autoFocus, className, error, isDisabled, onChange, placeholder }: Props): React.ReactElement<Props> {
+function InputEmail ({ autoFocus, className, error, isDisabled, onChange, placeholder, value }: Props): React.ReactElement<Props> {
   const [errorVal, setError] = useState<string | null>(ERR_EMAIL);
 
   const _onChange = useCallback(
@@ -37,6 +37,7 @@ function InputEmail ({ autoFocus, className, error, isDisabled, onChange, placeh
       onChange={_onChange}
       placeholder={placeholder}
       type='text'
+      value={value}
     />
   )
 }

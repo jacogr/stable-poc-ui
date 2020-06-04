@@ -21,6 +21,7 @@ function Table ({ children, className }: Props): React.ReactElement<Props> {
 export default React.memo(styled(Table)`
   border: none;
   border-collapse: collapse;
+  width: 100%;
 
   td {
     padding: 0.375rem 1rem;

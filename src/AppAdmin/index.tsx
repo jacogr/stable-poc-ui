@@ -19,6 +19,7 @@ import UserAdd from './UserAdd';
 import UserClawback from './UserClawback';
 import UserLock from './UserLock';
 import UserMint from './UserMint';
+import UserReverse from './UserReverse';
 import UserView from './UserView';
 
 interface Props {
@@ -40,6 +41,9 @@ function AppAdmin ({ className }: Props): React.ReactElement<Props> {
                 </Route>
                 <Route path='/user/activate/:type/:username'>
                   <UserActivate />
+                </Route>
+                <Route path='/user/reverse/:from/:to/:amount'>
+                  <UserReverse />
                 </Route>
                 <Route path='/user/clawback/:username'>
                   <UserClawback />

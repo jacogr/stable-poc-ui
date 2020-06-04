@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 
 import { Button, ButtonRow, Section, Title } from '../components';
-import { useAdmin, useIsFrozen, useIsSsc } from '../hooks';
+import { useAdmin, useIsFrozen, useIsSsc, useIsUser } from '../hooks';
 import Balance from '../partials/Balance';
 import Transactions from '../partials/Transactions';
 
@@ -19,12 +19,13 @@ function UserView ({ className }: Props): React.ReactElement<Props> {
   const isSsc = useIsSsc();
   const [address] = useState(deriveAddress(username));
   const isFrozen = useIsFrozen(address);
+  const isActive = useIsUser(address);
 
   const _doActivate = useCallback(
     (): void => {
-      window.location.hash = `/user/activate/on/${username}`;
+      window.location.hash = `/user/activate/${isActive ? 'off' : 'on'}/${username}`;
     },
-    [address, isFrozen, username]
+    [address, isActive, username]
   );
 
   const _doClawback = useCallback(
@@ -52,22 +53,24 @@ function UserView ({ className }: Props): React.ReactElement<Props> {
     <div className={className}>
       <ButtonRow>
         <Button
+          isDisabled={!isActive}
           label='Mint'
           onClick={_doMint}
         />
         <Button
+          isDisabled={!isActive}
           label='Clawback'
           onClick={_doClawback}
         />
         <Button
-          isDisabled={!isSsc}
-          label='Activate'
-          onClick={_doActivate}
+          isDisabled={!isSsc || !isActive}
+          label={isFrozen ? 'Unlock' : 'Lock'}
+          onClick={_doLock}
         />
         <Button
           isDisabled={!isSsc}
-          label={isFrozen ? 'Unlock' : 'Lock'}
-          onClick={_doLock}
+          label={isActive ? 'Deactivate' : 'Activate'}
+          onClick={_doActivate}
         />
       </ButtonRow>
       <Balance address={address} />
@@ -79,7 +82,10 @@ function UserView ({ className }: Props): React.ReactElement<Props> {
         <Title>Address</Title>
         <div>{address}</div>
       </Section>
-      <Transactions address={address} />
+      <Transactions
+        address={address}
+        reverse={`/user/reverse`}
+      />
     </div>
   );
 }

@@ -4,7 +4,6 @@ import type { Balance } from '@polkadot/types/interfaces';
 import type { u32 } from '@polkadot/types';
 import type { Codec } from '@polkadot/types/types';
 
-import BN from 'bn.js';
 import { ApiPromise } from '@polkadot/api';
 import { KeyringPair } from '@polkadot/keyring/types';
 
@@ -30,7 +29,7 @@ export interface ApiCtx {
 }
 
 export interface TxEvent {
-  amount: BN;
+  amount: Balance;
   key: string;
   from: string;
   to: string;

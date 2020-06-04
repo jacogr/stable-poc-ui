@@ -9,13 +9,13 @@ import Error from './Error';
 
 interface Props extends InputProps {
   error?: string | null;
-  onChange: (value: string) => void;
+  onChange?: (value: string) => void;
   type: 'text' | 'password';
 }
 
-function Input ({ autoFocus, className = '', error, isDisabled, onChange, placeholder, type }: Props): React.ReactElement<Props> {
+function Input ({ autoFocus, className = '', error, isDisabled, onChange, placeholder, type, value }: Props): React.ReactElement<Props> {
   const _onChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => onChange(event.target.value),
+    (event: React.ChangeEvent<HTMLInputElement>) => onChange && onChange(event.target.value),
     [onChange]
   );
 
@@ -27,6 +27,7 @@ function Input ({ autoFocus, className = '', error, isDisabled, onChange, placeh
         onChange={_onChange}
         placeholder={placeholder}
         type={type}
+        value={isDisabled ? value : undefined}
       />
       <Error
         className='error'
@@ -50,7 +51,7 @@ export default React.memo(styled(Input)`
     width: 100%;
 
     &[disabled] {
-      opacity: 0.5;
+      opacity: 0.66;
     }
   }
 

@@ -17,7 +17,7 @@ interface Props extends InputProps {
 const ERR_NUM = 'Expected an amount > 0';
 const TEN = new BN(10);
 
-function InputAmount ({ autoFocus, className, error, isDisabled, onChange, placeholder }: Props): React.ReactElement<Props> {
+function InputAmount ({ autoFocus, className, error, isDisabled, onChange, placeholder, value }: Props): React.ReactElement<Props> {
   const api = useApi();
   const [decimals, setDecimals] = useState(new BN(12));
   const [errorVal, setError] = useState<string | null>(ERR_NUM);
@@ -31,8 +31,9 @@ function InputAmount ({ autoFocus, className, error, isDisabled, onChange, place
       const isError = !input || !input.match(/^(\d+\.?\d{0,9}|\.\d{1,9})$/);
 
       if (!isError) {
-        const div = input.replace(/\.\d*$/, '');
-        const mod = input.replace(/^\d+\./, '');
+        const san = input.indexOf('.') !== -1 ?  input : `${input}.0`;
+        const div = san.replace(/\.\d*$/, '');
+        const mod = san.replace(/^\d+\./, '');
 
         onChange(
           new BN(div)
@@ -55,6 +56,7 @@ function InputAmount ({ autoFocus, className, error, isDisabled, onChange, place
       onChange={_onChange}
       placeholder={placeholder}
       type='text'
+      value={value}
     />
   )
 }

@@ -96,22 +96,29 @@ function Auth ({ children, className }: Props): React.ReactElement<Props> {
 
   return (
     <div className={className}>
-      <Title>Admin login</Title>
-      <Input
-        autoFocus
-        error={error}
-        onChange={_setUsername}
-        placeholder='admin login, eg. Alice, Bob, ...'
-      />
-      <ButtonRow>
-        <Button
-          isDisabled={!username}
-          label='Login'
-          onClick={_doLogin}
+      <div className='loginForm'>
+        <Title>Admin login</Title>
+        <Input
+          autoFocus
+          error={error}
+          onChange={_setUsername}
+          placeholder='admin login, eg. Alice, Bob, ...'
         />
-      </ButtonRow>
+        <ButtonRow>
+          <Button
+            isDisabled={!username}
+            label='Login'
+            onClick={_doLogin}
+          />
+        </ButtonRow>
+      </div>
     </div>
   );
 }
 
-export default React.memo(styled(Auth)``);
+export default React.memo(styled(Auth)`
+  .loginForm {
+    margin: auto;
+    max-width: 480px;
+  }
+`);
