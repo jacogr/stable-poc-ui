@@ -22,7 +22,7 @@ function UserReverse ({ className }: Props): React.ReactElement<Props> {
 
   useEffect((): void => {
     setTx(
-      api.tx.templateModule.dispatchRoot(
+      api.tx.sudo.sudo(
         api.tx.balances.forceTransfer(to, from, amount)
       )
     );

@@ -76,7 +76,7 @@ function AppAdmin ({ className }: Props): React.ReactElement<Props> {
                   <Reports />
                 </Route>
                 <Route>
-                  <Redirect to='/managers' />
+                  <Redirect to='/users' />
                 </Route>
               </Switch>
             </TxProvider>

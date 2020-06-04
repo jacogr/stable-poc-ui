@@ -7,3 +7,8 @@ export interface InputProps {
   placeholder?: string;
   value?: string;
 }
+
+export interface IconProps {
+  className?: string;
+  size?: 'large';
+}

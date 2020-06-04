@@ -1,24 +1,18 @@
 // SPDX-License-Identifier: Apache-2
 
+import { IconProps as Props } from './types';
+
 import React from 'react';
 import styled from 'styled-components';
 
-interface Props {
-  className?: string;
-}
+import Icon from './Icon';
 
 function IconCheck ({ className }: Props): React.ReactElement<Props> {
   return (
-    <div className={className}>
+    <Icon className={className}>
       &#10003;
-    </div>
+    </Icon>
   );
 }
 
-export default React.memo(styled(IconCheck)`
-  color: #888;
-  font-size: 80px;
-  line-height: 80px;
-  margin-bottom: 0.5rem;
-  text-align: center;
-`);
+export default React.memo(styled(IconCheck)``);
