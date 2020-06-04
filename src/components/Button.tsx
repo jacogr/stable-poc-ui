@@ -6,11 +6,12 @@ import styled from 'styled-components';
 interface Props {
   className?: string;
   isDisabled?: boolean;
+  isThin?: boolean;
   label: string;
   onClick?: () => void;
 }
 
-function Button ({ className, isDisabled, label, onClick }: Props): React.ReactElement<Props> {
+function Button ({ className = '', isDisabled, isThin, label, onClick }: Props): React.ReactElement<Props> {
   const _onClick = useCallback(
     (): void => {
       !isDisabled && onClick && onClick();
@@ -20,7 +21,7 @@ function Button ({ className, isDisabled, label, onClick }: Props): React.ReactE
 
   return (
     <button
-      className={className}
+      className={`${className} ${isThin && 'isThin'}`}
       disabled={isDisabled}
       onClick={_onClick}
     >
@@ -42,5 +43,9 @@ export default React.memo(styled(Button)`
   &[disabled] {
     cursor: inherit;
     opacity: 0.25;
+  }
+
+  &.isThin {
+    padding: 0.375rem 1.25rem;
   }
 `);

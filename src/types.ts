@@ -13,12 +13,13 @@ export interface DeriveCtx {
 }
 
 export interface AccountCtx extends DeriveCtx {
-  address: string;
-  pair: KeyringPair;
+  userAddress: string;
+  userPair: KeyringPair;
   username: string;
 }
 
 export interface AdminCtx extends DeriveCtx {
+  adminAddress: string;
   adminPair: KeyringPair;
   deriveAdmin: (username: string) => string;
   username: string;

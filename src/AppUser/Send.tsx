@@ -15,7 +15,7 @@ interface Props {
 
 function Send ({ className }: Props): React.ReactElement<Props> {
   const api = useApi();
-  const { deriveAddress, pair } = usePair();
+  const { deriveAddress, userPair } = usePair();
   const [amount, setAmount] = useState(new BN(0));
   const [recipient, setRecipient] = useState('');
   const isRecipientActive = useIsUser(recipient);
@@ -42,7 +42,7 @@ function Send ({ className }: Props): React.ReactElement<Props> {
     <Tx
       className={className}
       label='Send'
-      pair={pair}
+      pair={userPair}
       title='Send funds'
       tx={tx}
     >

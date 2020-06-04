@@ -37,7 +37,7 @@ function createAdminCtx (_username: string): AdminCtx {
   const adminPair = rootPair.derive(`//${username}`);
 
 
-  return { adminPair, deriveAddress, deriveAdmin, username };
+  return { adminAddress: adminPair.address, adminPair, deriveAddress, deriveAdmin, username };
 }
 
 function Auth ({ children, className }: Props): React.ReactElement<Props> {

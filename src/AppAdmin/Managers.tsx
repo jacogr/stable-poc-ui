@@ -3,11 +3,17 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
 
-import { Button, ButtonRow, Section, Title } from '../components';
+import { Button, ButtonRow, Section, Table, Title } from '../components';
 import { useIsSsc, useManagers } from '../hooks';
 
 interface Props {
   className?: string;
+}
+
+function linkManager (address: string): () => void {
+  return (): void => {
+    window.location.hash = `/manager/view/${address}`;
+  };
 }
 
 function Managers ({ className }: Props): React.ReactElement<Props> {
@@ -26,7 +32,7 @@ function Managers ({ className }: Props): React.ReactElement<Props> {
       <ButtonRow>
         <Button
           isDisabled={!isSsc}
-          label='New Manager'
+          label='Add Manager'
           onClick={_newManager}
         />
       </ButtonRow>
@@ -34,9 +40,23 @@ function Managers ({ className }: Props): React.ReactElement<Props> {
         <Title>Managers</Title>
         {!managers.length
           ? <div>no managers available</div>
-          : managers.map((address) => (
-            <div key={address}>{address}</div>
-          ))}
+          : (
+            <Table>
+              {managers.map((address) => (
+                <tr key={address}>
+                  <td>{address}</td>
+                  <td>
+                    <Button
+                      isThin
+                      label='View'
+                      onClick={linkManager(address)}
+                    />
+                  </td>
+                </tr>
+              ))}
+            </Table>
+          )
+        }
       </Section>
     </div>
   );

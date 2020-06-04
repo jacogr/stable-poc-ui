@@ -13,9 +13,9 @@ interface Props {
 }
 
 function Account ({ className }: Props): React.ReactElement<Props> | null {
-  const { address,  pair } = usePair();
-  const [,, hasZeroBalance] = useBalance(address);
-  const isFrozen = useIsFrozen(address);
+  const { userAddress, userPair } = usePair();
+  const [,, hasZeroBalance] = useBalance(userAddress);
+  const isFrozen = useIsFrozen(userAddress);
 
   const _onSend = useCallback(
     (): void => {
@@ -24,7 +24,7 @@ function Account ({ className }: Props): React.ReactElement<Props> | null {
     []
   );
 
-  if (!pair) {
+  if (!userPair) {
     return null;
   }
 
@@ -37,8 +37,8 @@ function Account ({ className }: Props): React.ReactElement<Props> | null {
           onClick={_onSend}
         />
       </ButtonRow>
-      <Balance address={address} />
-      <Transactions address={address} />
+      <Balance address={userAddress} />
+      <Transactions address={userAddress} />
     </div>
   );
 }

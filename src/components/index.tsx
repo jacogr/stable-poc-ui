@@ -13,5 +13,6 @@ export { default as InputPassword } from './InputPassword';
 export { default as Loader } from './Loader';
 export { default as Navigation } from './Navigation';
 export { default as Section } from './Section';
+export { default as Table } from './Table';
 export { default as Title } from './Title';
 export { default as Tx } from './Tx';

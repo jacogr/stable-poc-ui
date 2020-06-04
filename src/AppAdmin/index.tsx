@@ -7,9 +7,11 @@ import styled from 'styled-components';
 import TxProvider from '../TxProvider';
 import { ApiContext } from '../contexts';
 import { useApiCreate } from '../hooks';
-import ManagerAdd from './ManagerAdd';
 import Auth from './Auth';
 import Lookup from './Lookup';
+import ManagerAdd from './ManagerAdd';
+import ManagerRemove from './ManagerRemove';
+import ManagerView from './ManagerView';
 import Managers from './Managers';
 import Reports from './Reports';
 import UserActivate from './UserActivate';
@@ -59,6 +61,12 @@ function AppAdmin ({ className }: Props): React.ReactElement<Props> {
                 </Route>
                 <Route path='/manager/new'>
                   <ManagerAdd />
+                </Route>
+                <Route path='/manager/remove/:address'>
+                  <ManagerRemove />
+                </Route>
+                <Route path='/manager/view/:address'>
+                  <ManagerView />
                 </Route>
                 <Route path='/reports'>
                   <Reports />

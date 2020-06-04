@@ -12,7 +12,7 @@ interface Props {
   className?: string;
 }
 
-function AddManager ({ className }: Props): React.ReactElement<Props> {
+function ManagerAdd ({ className }: Props): React.ReactElement<Props> {
   const { adminPair, deriveAdmin } = useAdmin();
   const api = useApi();
   const isSsc = useIsSsc();
@@ -30,9 +30,9 @@ function AddManager ({ className }: Props): React.ReactElement<Props> {
   return (
     <Tx
       className={className}
-      label='Add Admin'
+      label='Add'
       pair={adminPair}
-      title='Add new admin'
+      title='Add new Manager'
       tx={tx}
     >
       <Input
@@ -44,4 +44,4 @@ function AddManager ({ className }: Props): React.ReactElement<Props> {
   );
 }
 
-export default React.memo(styled(AddManager)``);
+export default React.memo(styled(ManagerAdd)``);
