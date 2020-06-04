@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 
 import { Button, ButtonRow, Section, Title } from '../components';
-import { useAdmin, useIsFrozen } from '../hooks';
+import { useAdmin } from '../hooks';
 
 interface Props {
   className?: string;
@@ -14,13 +14,12 @@ interface Props {
 function ManagerView ({ className }: Props): React.ReactElement<Props> {
   const { address } = useParams();
   const { adminAddress } = useAdmin();
-  const isFrozen = useIsFrozen(address);
 
   const _doRemove = useCallback(
     (): void => {
       window.location.hash = `/manager/remove/${address}`;
     },
-    [address, isFrozen]
+    [address]
   );
 
   return (
