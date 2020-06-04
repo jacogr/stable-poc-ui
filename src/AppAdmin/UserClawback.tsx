@@ -15,10 +15,9 @@ interface Props {
 }
 
 function UserClawback ({ className }: Props): React.ReactElement<Props> {
-  const { username } = useParams();
+  const { address, username } = useParams();
   const { adminPair, deriveAddress } = useAdmin();
   const api = useApi();
-  const [address] = useState(deriveAddress(username));
   const [recipient, setRecipient] = useState('');
   const [amount, setAmount] = useState(new BN(0));
   const [tx, setTx] = useState<SubmittableExtrinsic<'promise'> | null>(null);
@@ -38,7 +37,7 @@ function UserClawback ({ className }: Props): React.ReactElement<Props> {
       className={className}
       label='Clawback'
       pair={adminPair}
-      title={`Clawback from ${username}`}
+      title={`Clawback ${username || ''}`}
       tx={tx}
     >
       <InputEmail

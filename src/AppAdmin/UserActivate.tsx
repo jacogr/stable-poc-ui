@@ -14,11 +14,10 @@ interface Props {
 }
 
 function UserActivate ({ className }: Props): React.ReactElement<Props> {
-  const { type, username } = useParams();
-  const { adminPair, deriveAddress } = useAdmin();
+  const { address, type, username } = useParams();
+  const { adminPair } = useAdmin();
   const api = useApi();
   const isSsc = useIsSsc();
-  const [address] = useState(deriveAddress(username));
   const [tx, setTx] = useState<SubmittableExtrinsic<'promise'> | null>(null);
 
   useEffect((): void => {
@@ -36,7 +35,7 @@ function UserActivate ({ className }: Props): React.ReactElement<Props> {
       className={className}
       label={type === 'on' ? 'Activate' : 'Deactivate'}
       pair={adminPair}
-      title={type === 'on' ? `Activate ${username}` : `Deactivate ${username}`}
+      title={type === 'on' ? `Activate ${username || ''}` : `Deactivate ${username || ''}`}
       tx={tx}
     >
       <p>

@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: Apache-2
 
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 
 import { Button, ButtonRow, Section, Title } from '../components';
-import { useAdmin, useIsFrozen, useIsSsc, useIsUser } from '../hooks';
+import { useIsFrozen, useIsSsc, useIsUser } from '../hooks';
 import Balance from '../partials/Balance';
 import Transactions from '../partials/Transactions';
 
@@ -14,37 +14,35 @@ interface Props {
 }
 
 function UserView ({ className }: Props): React.ReactElement<Props> {
-  const { username } = useParams();
-  const { deriveAddress } = useAdmin();
+  const { address, username } = useParams();
   const isSsc = useIsSsc();
-  const [address] = useState(deriveAddress(username));
   const isFrozen = useIsFrozen(address);
   const isActive = useIsUser(address);
 
   const _doActivate = useCallback(
     (): void => {
-      window.location.hash = `/user/activate/${isActive ? 'off' : 'on'}/${username}`;
+      window.location.hash = `/user/activate/${isActive ? 'off' : 'on'}/${address}${username ? `/${username}` : ''}`;
     },
     [address, isActive, username]
   );
 
   const _doClawback = useCallback(
     (): void => {
-      window.location.hash = `/user/clawback/${username}`;
+      window.location.hash = `/user/clawback/${address}${username ? `/${username}` : ''}`;
     },
     [address, username]
   );
 
   const _doLock = useCallback(
     (): void => {
-      window.location.hash = `/user/lock/${isFrozen ? 'off' : 'on'}/${username}`;
+      window.location.hash = `/user/lock/${isFrozen ? 'off' : 'on'}/${address}${username ? `/${username}` : ''}`;
     },
     [address, isFrozen, username]
   );
 
   const _doMint = useCallback(
     (): void => {
-      window.location.hash = `/user/mint/${username}`;
+      window.location.hash = `/user/mint/${address}${username ? `/${username}` : ''}`;
     },
     [address, username]
   );

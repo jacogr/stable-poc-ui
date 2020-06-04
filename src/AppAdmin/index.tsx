@@ -8,19 +8,18 @@ import TxProvider from '../TxProvider';
 import { ApiContext } from '../contexts';
 import { useApiCreate } from '../hooks';
 import Auth from './Auth';
-import Lookup from './Lookup';
 import ManagerAdd from './ManagerAdd';
 import ManagerRemove from './ManagerRemove';
 import ManagerView from './ManagerView';
 import Managers from './Managers';
 import Reports from './Reports';
 import UserActivate from './UserActivate';
-import UserAdd from './UserAdd';
 import UserClawback from './UserClawback';
 import UserLock from './UserLock';
 import UserMint from './UserMint';
 import UserReverse from './UserReverse';
 import UserView from './UserView';
+import Users from './Users';
 
 interface Props {
   className?: string;
@@ -37,27 +36,24 @@ function AppAdmin ({ className }: Props): React.ReactElement<Props> {
             <TxProvider>
               <Switch>
                 <Route path='/users'>
-                  <Lookup />
+                  <Users />
                 </Route>
-                <Route path='/user/activate/:type/:username'>
+                <Route path='/user/activate/:type/:address/:username?'>
                   <UserActivate />
                 </Route>
                 <Route path='/user/reverse/:from/:to/:amount'>
                   <UserReverse />
                 </Route>
-                <Route path='/user/clawback/:username'>
+                <Route path='/user/clawback/:address/:username?'>
                   <UserClawback />
                 </Route>
-                <Route path='/user/lock/:type/:username'>
+                <Route path='/user/lock/:type/:address/:username?'>
                   <UserLock />
                 </Route>
-                <Route path='/user/mint/:username'>
+                <Route path='/user/mint/:address/:username?'>
                   <UserMint />
                 </Route>
-                <Route path='/user/new'>
-                  <UserAdd />
-                </Route>
-                <Route path='/user/view/:username'>
+                <Route path='/user/view/:address/:username?'>
                   <UserView />
                 </Route>
                 <Route path='/managers'>

@@ -15,11 +15,10 @@ interface Props {
 }
 
 function UserMint ({ className }: Props): React.ReactElement<Props> {
-  const { username } = useParams();
-  const { adminPair, deriveAddress } = useAdmin();
+  const { address, username } = useParams();
+  const { adminPair } = useAdmin();
   const api = useApi();
   const isSsc = useIsSsc();
-  const [address] = useState(deriveAddress(username));
   const [amount, setAmount] = useState(new BN(0));
   const [tx, setTx] = useState<SubmittableExtrinsic<'promise'> | null>(null);
 
@@ -38,7 +37,7 @@ function UserMint ({ className }: Props): React.ReactElement<Props> {
       className={className}
       label='Mint'
       pair={adminPair}
-      title={`Mint to ${username}`}
+      title={`Mint ${username || ''}`}
       tx={tx}
     >
       <InputAmount
