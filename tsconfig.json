@@ -1,6 +1,10 @@
 {
+  "include": [
+    "src/**/*"
+  ],
   "exclude": [
-    "build/**/*"
+    "build/**/*",
+    "node_modules"
   ],
   "skipLibCheck": true,
   "typeRoots": [
