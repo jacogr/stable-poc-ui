@@ -38,7 +38,14 @@ function UserActivate ({ className }: Props): React.ReactElement<Props> {
       pair={adminPair}
       title={type === 'on' ? `Activate ${username}` : `Deactivate ${username}`}
       tx={tx}
-    />
+    >
+      <p>
+        {type === 'on'
+          ? 'Once activated, the user will be able to send and receive funds on the system.'
+          : 'Once deactivated, the user will not be able to send nor receive funds on the system.'
+        }
+      </p>
+    </Tx>
   );
 }
 

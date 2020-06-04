@@ -38,7 +38,14 @@ function UserFreeze ({ className }: Props): React.ReactElement<Props> {
       pair={adminPair}
       title={type === 'on' ? `Lock ${username}` : `Unlock ${username}`}
       tx={tx}
-    />
+    >
+      <p>
+        {type === 'on'
+          ? 'Once locked, the user will be be able to send any funds.'
+          : 'Once unlocked, normal operations will resume for the user.'
+        }
+      </p>
+    </Tx>
   );
 }
 

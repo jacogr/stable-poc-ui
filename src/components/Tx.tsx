@@ -82,7 +82,7 @@ function Tx ({ children, className, label, pair, title, tx }: Props): React.Reac
           </div>
         )
       }
-      <ButtonRow>
+      <ButtonRow isCenter={isCompleted}>
         {isCompleted && (
           <Button
             label='Done'

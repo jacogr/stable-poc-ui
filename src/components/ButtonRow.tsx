@@ -6,11 +6,12 @@ import styled from 'styled-components';
 interface Props {
   children: React.ReactNode;
   className?: string;
+  isCenter?: boolean;
 }
 
-function ButtonRow ({ children, className }: Props): React.ReactElement<Props> {
+function ButtonRow ({ children, className, isCenter }: Props): React.ReactElement<Props> {
   return (
-    <div className={className}>
+    <div className={`${className} ${isCenter && 'isCenter'}`}>
       {children}
     </div>
   );
@@ -21,6 +22,10 @@ export default React.memo(styled(ButtonRow)`
   flex-direction: row;
   justify-content: flex-end;
   margin: 0.5rem 0;
+
+  &.isCenter {
+    justify-content: center;
+  }
 
   button+button {
     margin-left: 0.5rem;

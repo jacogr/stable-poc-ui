@@ -36,7 +36,9 @@ function ManagerRemove ({ className }: Props): React.ReactElement<Props> {
       pair={adminPair}
       title='Remove manager'
       tx={tx}
-    />
+    >
+      <p>You are about to remove a a manager. Are you sure you wish to proceed?</p>
+    </Tx>
   );
 }
 
