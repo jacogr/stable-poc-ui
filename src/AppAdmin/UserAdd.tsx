@@ -7,7 +7,7 @@ interface Props {
   className?: string;
 }
 
-function AddUser ({ className }: Props): React.ReactElement<Props> {
+function UserAdd ({ className }: Props): React.ReactElement<Props> {
   return (
     <div className={className}>
       AddUser (TODO)
@@ -15,4 +15,4 @@ function AddUser ({ className }: Props): React.ReactElement<Props> {
   );
 }
 
-export default React.memo(styled(AddUser)``);
+export default React.memo(styled(UserAdd)``);

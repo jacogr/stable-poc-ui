@@ -12,7 +12,7 @@ interface Props {
 }
 
 function Balance ({ address, className }: Props): React.ReactElement<Props> {
-  const balance = useBalance(address);
+  const [balance] = useBalance(address);
 
   return (
     <Section className={className}>

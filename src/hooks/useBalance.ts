@@ -1,14 +1,19 @@
 // SPDX-License-Identifier: Apache-2
 
+import BN from 'bn.js';
 import { useEffect, useState } from 'react';
 import { formatBalance } from '@polkadot/util';
 
 import useApi from './useApi';
 import useIsMountedRef from './useIsMountedRef';
 
-export default function useBalance (address: string): string {
+type State = [string, BN, boolean];
+
+const ZERO = new BN(0);
+
+export default function useBalance (address: string): State {
   const api = useApi();
-  const [balance, setBalance] = useState('0');
+  const [state, setState] = useState<State>(['0', ZERO, true]);
   const  mountedRef = useIsMountedRef();
 
   useEffect((): () => void => {
@@ -16,9 +21,11 @@ export default function useBalance (address: string): string {
 
     api.query.system
       .account(address, ({ data: { free } }): void => {
-        mountedRef.current && setBalance(
-          formatBalance(free, { decimals: api.registry.chainDecimals, forceUnit: '-', withSi: false })
-        );
+        mountedRef.current && setState([
+          formatBalance(free, { decimals: api.registry.chainDecimals, forceUnit: '-', withSi: false }),
+          free,
+          free.isZero()
+        ]);
       })
       .then((u): void => {
         unsubscribe = u;
@@ -30,5 +37,5 @@ export default function useBalance (address: string): string {
     }
   }, [address, api]);
 
-  return balance;
+  return state;
 }

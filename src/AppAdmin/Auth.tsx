@@ -23,14 +23,21 @@ const NAV_ROUTES: [string, string, string[]][] = [
 
 const keyring = new Keyring({ type: 'sr25519' });
 
+function makeAdminUsername (username: string): string {
+  return `${username[0].toUpperCase()}${username.substr(1).toLowerCase()}`;;
+}
+
 function createAdminCtx (_username: string): AdminCtx {
-  const username = `${_username[0].toUpperCase()}${_username.substr(1).toLowerCase()}`;
+  const username = makeAdminUsername(_username);
   const rootPair = keyring.addFromUri(DEV_PHRASE);
-  const adminPair = rootPair.derive(`//${username}`);
   const deriveAddress = (username: string) =>
     rootPair.derive(`//${username.toLowerCase()}`).address;
+  const deriveAdmin = (username: string) =>
+    rootPair.derive(`//${makeAdminUsername(username)}`).address;
+  const adminPair = rootPair.derive(`//${username}`);
 
-  return { adminPair, deriveAddress, username };
+
+  return { adminPair, deriveAddress, deriveAdmin, username };
 }
 
 function Auth ({ children, className }: Props): React.ReactElement<Props> {
@@ -58,7 +65,7 @@ function Auth ({ children, className }: Props): React.ReactElement<Props> {
       } else {
         setAdminCtx(ctx);
 
-        window.location.hash = '/managers';
+        window.location.hash = '/users';
       }
     },
     [isSsc, managers, username]

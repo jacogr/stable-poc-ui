@@ -5,11 +5,21 @@ import { ApiPromise } from '@polkadot/api';
 
 import useIsMountedRef from './useIsMountedRef';
 
+const AccountData = {
+  free: 'Balance',
+  reserved: 'Balance',
+  miscFrozen: 'Balance',
+  feeFrozen: 'Balance'
+};
+
+const TemplateAccountData = {
+  txCount: 'u32',
+  sessionIndex: 'u32'
+};
+
 const BASE_TYPES = {
-  TemplateAccountData: {
-    txCount: 'u32',
-    sessionIndex: 'u32'
-  }
+  AccountData: { ...AccountData, ...TemplateAccountData },
+  TemplateAccountData
 };
 const TMPL_TYPES = {
   Address: 'AccountId',

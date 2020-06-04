@@ -7,17 +7,17 @@ import styled from 'styled-components';
 import TxProvider from '../TxProvider';
 import { ApiContext } from '../contexts';
 import { useApiCreate } from '../hooks';
-import AddUser from './AddUser';
-import AddManager from './AddManager';
+import ManagerAdd from './ManagerAdd';
 import Auth from './Auth';
-import Clawback from './Clawback';
-import Freeze from './Freeze';
 import Lookup from './Lookup';
 import Managers from './Managers';
-import Mint from './Mint';
 import Reports from './Reports';
-import Unfreeze from './Unfreeze';
-import User from './User';
+import UserActivate from './UserActivate';
+import UserAdd from './UserAdd';
+import UserClawback from './UserClawback';
+import UserLock from './UserLock';
+import UserMint from './UserMint';
+import UserView from './UserView';
 
 interface Props {
   className?: string;
@@ -36,29 +36,29 @@ function AppAdmin ({ className }: Props): React.ReactElement<Props> {
                 <Route path='/users'>
                   <Lookup />
                 </Route>
-                <Route path='/user/clawback/:username'>
-                  <Clawback />
+                <Route path='/user/activate/:type/:username'>
+                  <UserActivate />
                 </Route>
-                <Route path='/user/freeze/:username'>
-                  <Freeze />
+                <Route path='/user/clawback/:username'>
+                  <UserClawback />
+                </Route>
+                <Route path='/user/lock/:type/:username'>
+                  <UserLock />
                 </Route>
                 <Route path='/user/mint/:username'>
-                  <Mint />
+                  <UserMint />
                 </Route>
                 <Route path='/user/new'>
-                  <AddUser />
-                </Route>
-                <Route path='/user/unfreeze/:username'>
-                  <Unfreeze />
+                  <UserAdd />
                 </Route>
                 <Route path='/user/view/:username'>
-                  <User />
+                  <UserView />
                 </Route>
                 <Route path='/managers'>
                   <Managers />
                 </Route>
                 <Route path='/manager/new'>
-                  <AddManager />
+                  <ManagerAdd />
                 </Route>
                 <Route path='/reports'>
                   <Reports />

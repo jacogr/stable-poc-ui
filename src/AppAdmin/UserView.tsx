@@ -13,37 +13,37 @@ interface Props {
   className?: string;
 }
 
-function User ({ className }: Props): React.ReactElement<Props> {
+function UserView ({ className }: Props): React.ReactElement<Props> {
   const { username } = useParams();
   const { deriveAddress } = useAdmin();
   const isSsc = useIsSsc();
   const [address] = useState(deriveAddress(username));
   const isFrozen = useIsFrozen(address);
 
+  const _doActivate = useCallback(
+    (): void => {
+      window.location.hash = `/user/activate/on/${username}`;
+    },
+    [address, isFrozen, username]
+  );
+
   const _doClawback = useCallback(
     (): void => {
-      window.location.hash = `/user/clawback/${username}/${address}`;
+      window.location.hash = `/user/clawback/${username}`;
     },
     [address, username]
   );
 
-  const _doFreeze = useCallback(
+  const _doLock = useCallback(
     (): void => {
-      window.location.hash = `/user/freeze/${username}/${address}`;
+      window.location.hash = `/user/lock/${isFrozen ? 'off' : 'on'}/${username}`;
     },
-    [address, username]
-  );
-
-  const _doUnfreeze = useCallback(
-    (): void => {
-      window.location.hash = `/user/unfreeze/${username}/${address}`;
-    },
-    [address, username]
+    [address, isFrozen, username]
   );
 
   const _doMint = useCallback(
     (): void => {
-      window.location.hash = `/user/mint/${username}/${address}`;
+      window.location.hash = `/user/mint/${username}`;
     },
     [address, username]
   );
@@ -59,22 +59,16 @@ function User ({ className }: Props): React.ReactElement<Props> {
           label='Clawback'
           onClick={_doClawback}
         />
-        {isFrozen
-          ? (
-            <Button
-              isDisabled={!isSsc}
-              label='Unfreeze'
-              onClick={_doUnfreeze}
-            />
-          )
-          : (
-            <Button
-              isDisabled={!isSsc}
-              label='Freeze'
-              onClick={_doFreeze}
-            />
-          )
-        }
+        <Button
+          isDisabled={!isSsc}
+          label='Activate'
+          onClick={_doActivate}
+        />
+        <Button
+          isDisabled={!isSsc}
+          label={isFrozen ? 'Unlock' : 'Lock'}
+          onClick={_doLock}
+        />
       </ButtonRow>
       <Balance address={address} />
       <Section>
@@ -90,4 +84,4 @@ function User ({ className }: Props): React.ReactElement<Props> {
   );
 }
 
-export default React.memo(styled(User)``);
+export default React.memo(styled(UserView)``);

@@ -3,7 +3,7 @@
 import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
 
-import { Button, ButtonRow, InputEmail } from '../components';
+import { Button, ButtonRow, InputEmail, Title } from '../components';
 
 interface Props {
   className?: string;
@@ -21,6 +21,7 @@ function Main ({ className }: Props): React.ReactElement<Props> {
 
   return (
     <div className={className}>
+      <Title>Lookup user</Title>
       <InputEmail
         autoFocus
         placeholder='user to lookup, e.g. bob@example.com'

@@ -3,11 +3,11 @@
 import { SubmittableExtrinsic } from '@polkadot/api/types';
 
 import BN from 'bn.js';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { InputAmount, InputEmail, Tx } from '../components';
-import { useApi, usePair } from '../hooks';
+import { useApi, useIsUser, usePair } from '../hooks';
 
 interface Props {
   className?: string;
@@ -18,26 +18,38 @@ function Send ({ className }: Props): React.ReactElement<Props> {
   const { deriveAddress, pair } = usePair();
   const [amount, setAmount] = useState(new BN(0));
   const [recipient, setRecipient] = useState('');
+  const isRecipientActive = useIsUser(recipient);
   const [tx, setTx] = useState<SubmittableExtrinsic<'promise'> | null>(null);
+
+  const _setRecipient = useCallback(
+    (email: string) => setRecipient(
+      email
+        ? deriveAddress(email)
+        : ''
+    ),
+    [deriveAddress]
+  );
 
   useEffect((): void => {
     setTx(() =>
-      !recipient || amount.isZero()
+      !isRecipientActive || !recipient || amount.isZero()
         ? null
-        : api.tx.balances.transfer(deriveAddress(recipient), amount)
+        : api.tx.balances.transfer(recipient, amount)
     );
-  }, [amount, deriveAddress, recipient]);
+  }, [amount, deriveAddress, isRecipientActive, recipient]);
 
   return (
     <Tx
       className={className}
       label='Send'
       pair={pair}
+      title='Send funds'
       tx={tx}
     >
       <InputEmail
         autoFocus
-        onChange={setRecipient}
+        error={isRecipientActive ? null : 'Not an active user'}
+        onChange={_setRecipient}
         placeholder='recipient email address, eg. bob@example.com'
       />
       <InputAmount

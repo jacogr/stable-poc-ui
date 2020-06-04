@@ -13,8 +13,8 @@ interface Props {
   className?: string;
 }
 
-function Freeze ({ className }: Props): React.ReactElement<Props> {
-  const { username } = useParams();
+function UserFreeze ({ className }: Props): React.ReactElement<Props> {
+  const { type, username } = useParams();
   const { adminPair, deriveAddress } = useAdmin();
   const api = useApi();
   const isSsc = useIsSsc();
@@ -25,20 +25,21 @@ function Freeze ({ className }: Props): React.ReactElement<Props> {
     setTx(
       !address || !isSsc
         ? null
-        : api.tx.templateModule.lockAccount(address)
+        : type === 'on'
+          ? api.tx.templateModule.lockAccount(address)
+          : api.tx.templateModule.unlockAccount(address)
     );
-  }, [address, api, isSsc]);
+  }, [address, api, isSsc, type]);
 
   return (
     <Tx
       className={className}
-      label='Yes, freeze this user'
+      label={type === 'on' ? 'Lock' : 'Unlock'}
       pair={adminPair}
+      title={type === 'on' ? `Lock ${username}` : `Unlock ${username}`}
       tx={tx}
-    >
-      Freeze {username}
-    </Tx>
+    />
   );
 }
 
-export default React.memo(styled(Freeze)``);
+export default React.memo(styled(UserFreeze)``);

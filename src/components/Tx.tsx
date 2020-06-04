@@ -11,12 +11,14 @@ import ButtonRow from './ButtonRow';
 import IconCheck from './IconCheck';
 import IconCross from './IconCross';
 import Loader from './Loader';
+import Title from './Title';
 
 interface Props {
   children: React.ReactNode;
   className?: string;
   label: string;
   pair: KeyringPair;
+  title: string;
   tx: SubmittableExtrinsic<'promise'> | null;
 }
 
@@ -25,7 +27,7 @@ interface DoneState {
   isOk: boolean;
 }
 
-function Tx ({ children, className, label, pair, tx }: Props): React.ReactElement<Props> {
+function Tx ({ children, className, label, pair, title, tx }: Props): React.ReactElement<Props> {
   const [{ isCompleted, isOk }, setIsCompleted] = useState<DoneState>({ isCompleted: false, isOk: true });
   const [isSending, setIsSending] = useState(false);
 
@@ -73,7 +75,12 @@ function Tx ({ children, className, label, pair, tx }: Props): React.ReactElemen
           : isOk
             ? <IconCheck />
             : <IconCross />
-        : children
+        : (
+          <div>
+            <Title>{title}</Title>
+            {children}
+          </div>
+        )
       }
       <ButtonRow>
         {isCompleted && (
