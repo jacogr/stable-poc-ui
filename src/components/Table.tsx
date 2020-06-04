@@ -24,7 +24,11 @@ export default React.memo(styled(Table)`
   width: 100%;
 
   td {
-    padding: 0.375rem 1rem;
+    padding: 0.5rem 1rem;
+
+    > button.isThin {
+      margin-right: -0.5rem;
+    }
   }
 
   tr:nth-child(odd) {
