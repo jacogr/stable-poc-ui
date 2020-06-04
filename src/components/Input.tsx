@@ -57,7 +57,7 @@ export default React.memo(styled(Input)`
 
   &.isError > input {
     // background: #fff6f6;
-    border-color: #e0b4b4;
+    // border-color: #e0b4b4;
     color: #9f3a38;
     outline-color: #9f3a38;
   }
