@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: Apache-2
 
+import { Balance } from '@polkadot/types/interfaces';
 import { TxCtx, TxEvent } from '../types';
 
-import BN from 'bn.js';
 import { useEffect, useState } from 'react';
 
 import useApi from './useApi';
@@ -23,7 +23,7 @@ export default function useTxsAll (): TxCtx {
         const transfers = records
           .filter(({ event: { method, section }, phase }) => phase.isApplyExtrinsic && section === 'balances' && method === 'Transfer')
           .map(({ event: { data: [from, to, amount] } }): TxEvent => ({
-            amount: amount as unknown as BN,
+            amount: amount as Balance,
             from: from.toString(),
             key: `${++id}`,
             to: to.toString(),

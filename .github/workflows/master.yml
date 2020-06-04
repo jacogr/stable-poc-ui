@@ -19,6 +19,6 @@ jobs:
       env:
         GH_PAT: ${{ secrets.GH_PAT }}
       run: |
-        yarn install
+        yarn install --immutable | grep -v 'YN0013'
         yarn build
         ./scripts/deploy.sh
