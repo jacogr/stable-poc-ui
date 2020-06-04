@@ -25,4 +25,4 @@ jobs:
         git config --global user.email "action@github.com"
         yarn install --immutable | grep -v 'YN0013'
         yarn build
-        node_modules/.bin/gh-pages --repo https://${GH_PAT}@github.com/${GITHUB_REPOSITORY}.git --dist build
+        yarn ghpages --repo https://${GH_PAT}@github.com/${GITHUB_REPOSITORY}.git --dist build
