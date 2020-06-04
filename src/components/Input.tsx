@@ -42,7 +42,7 @@ export default React.memo(styled(Input)`
   position: relative;
 
   > input {
-    border: 1px solid #eee;
+    border: 1px solid #ddd;
     border-radius: 0.25rem;
     box-sizing: border-box;
     display: block;
@@ -56,10 +56,8 @@ export default React.memo(styled(Input)`
   }
 
   &.isError > input {
-    // background: #fff6f6;
-    // border-color: #e0b4b4;
     color: #9f3a38;
-    outline-color: #eee;
+    outline-color: #ddd;
   }
 
   .error {
