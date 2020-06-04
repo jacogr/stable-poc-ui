@@ -25,10 +25,14 @@ export default function useApiCreate (): ApiPromise | null {
     ApiPromise
       .create({
         types: {
-          AccountData: { ...AccountData, ...TemplateAccountData },
-          TemplateAccountData,
+          AccountData: {
+            ...AccountData,
+            ...TemplateAccountData
+          },
           Address: 'AccountId',
-          LookupSource: 'AccountId'
+          LookupSource: 'AccountId',
+          TemplateAccountData,
+          TxCount: 'u32'
         }
       })
       .then((api): void => {

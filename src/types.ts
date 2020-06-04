@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: Apache-2
 
-import type { Balance } from '@polkadot/types/interfaces';
+import type { Balance, Index, RefCount } from '@polkadot/types/interfaces';
 import type { u32 } from '@polkadot/types';
 import type { Codec } from '@polkadot/types/types';
 
@@ -47,6 +47,12 @@ export interface AccountData extends Codec {
   txCount: u32,
   sessionIndex: u32
 };
+
+export interface AccountInfo extends Codec {
+  nonce: Index;
+  refcount: RefCount;
+  data: AccountData;
+}
 
 export interface TemplateAccountData extends Codec {
   txCount: u32,

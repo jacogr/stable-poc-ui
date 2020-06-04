@@ -7,7 +7,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { InputAmount, InputEmail, Tx } from '../components';
-import { useApi, useIsUser, usePair } from '../hooks';
+import { useApi, useIsUser, usePair, useUserCount } from '../hooks';
 
 interface Props {
   className?: string;
@@ -15,7 +15,8 @@ interface Props {
 
 function Send ({ className }: Props): React.ReactElement<Props> {
   const api = useApi();
-  const { deriveAddress, userPair } = usePair();
+  const { deriveAddress, userAddress, userPair } = usePair();
+  const { isTxFree } = useUserCount(userAddress);
   const [amount, setAmount] = useState(new BN(0));
   const [recipient, setRecipient] = useState('');
   const isRecipientActive = useIsUser(recipient);
@@ -34,9 +35,11 @@ function Send ({ className }: Props): React.ReactElement<Props> {
     setTx(() =>
       !isRecipientActive || !recipient || amount.isZero()
         ? null
-        : api.tx.balances.transfer(recipient, amount)
+        : isTxFree
+          ? api.tx.templateModule.freeTransfer(recipient, amount)
+          : api.tx.balances.transfer(recipient, amount)
     );
-  }, [amount, deriveAddress, isRecipientActive, recipient]);
+  }, [amount, deriveAddress, isRecipientActive, isTxFree, recipient]);
 
   return (
     <Tx

@@ -20,11 +20,11 @@ export default function useBalance (address: string): State {
     let unsubscribe: null | (() => void) = null;
 
     api.query.system
-      .account(address, ({ data: { free } }): void => {
+      .account(address, ({ data }): void => {
         mountedRef.current && setState([
-          formatBalance(free, { decimals: api.registry.chainDecimals, forceUnit: '-', withSi: false }),
-          free,
-          free.isZero()
+          formatBalance(data.free, { decimals: api.registry.chainDecimals, forceUnit: '-', withSi: false }),
+          data.free,
+          data.free.isZero()
         ]);
       })
       .then((u): void => {
