@@ -46,7 +46,7 @@ export default React.memo(styled(Input)`
     border-radius: 0.25rem;
     box-sizing: border-box;
     display: block;
-    outline-color: rgba(0, 35, 102, 0.65);
+    outline-color: rgba(0, 35, 102, 0.85);
     padding: 1rem 1.5rem;
     width: 100%;
 

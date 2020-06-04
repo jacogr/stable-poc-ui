@@ -72,10 +72,12 @@ function UserView ({ className }: Props): React.ReactElement<Props> {
         />
       </ButtonRow>
       <Balance address={address} />
-      <Section>
-        <Title>Username</Title>
-        <div>{username}</div>
-      </Section>
+      {username && (
+        <Section>
+          <Title>Username</Title>
+          <div>{username}</div>
+        </Section>
+      )}
       <Section>
         <Title>Address</Title>
         <div>{address}</div>

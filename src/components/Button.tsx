@@ -33,7 +33,7 @@ function Button ({ className = '', isDisabled, isThin, label, onClick }: Props):
 export default React.memo(styled(Button)`
   box-shadow: none;
   border: none;
-  background: rgba(0, 35, 102, 0.65);
+  background: rgba(0, 35, 102, 0.85);
   color: white;
   cursor: pointer;
   border-radius: 0.25rem;
@@ -43,6 +43,10 @@ export default React.memo(styled(Button)`
   &[disabled] {
     cursor: inherit;
     opacity: 0.25;
+  }
+
+  &:hover {
+    background: rgba(0, 35, 102, 0.8);
   }
 
   &.isThin {

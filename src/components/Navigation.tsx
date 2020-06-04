@@ -36,7 +36,7 @@ function Navigation ({ className, onLogout, routes, username }: Props): React.Re
 }
 
 export default React.memo(styled(Navigation)`
-  background: rgba(0, 35, 102, 0.65);
+  background: rgba(0, 35, 102, 0.85);
   color: white;
   display: flex;
   flex-direction: row;
