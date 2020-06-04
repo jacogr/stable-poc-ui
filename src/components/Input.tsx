@@ -59,12 +59,12 @@ export default React.memo(styled(Input)`
     // background: #fff6f6;
     // border-color: #e0b4b4;
     color: #9f3a38;
-    outline-color: #9f3a38;
+    outline-color: #eee;
   }
 
   .error {
     position: absolute;
-    right: 0.5rem;
-    top: 0.25rem;
+    right: 0.75rem;
+    top: 0.5rem;
   }
 `);
