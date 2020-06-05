@@ -36,8 +36,9 @@ function createAdminCtx (_username: string): AdminCtx {
   const deriveAdmin = (username: string) =>
     rootPair.derive(`//${makeAdminUsername(username)}`).address;
   const adminPair = rootPair.derive(`//${username}`);
-  const treasuryAddress = rootPair.derive('//treasury').address;
+  const treasuryAddress =deriveAddress('treasury');
 
+  console.log(treasuryAddress);
 
   return { adminAddress: adminPair.address, adminPair, deriveAddress, deriveAdmin, treasuryAddress, username };
 }

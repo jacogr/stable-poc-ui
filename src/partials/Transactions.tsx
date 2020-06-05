@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { formatBalance, formatNumber } from '@polkadot/util';
 
-import { Button, Section, Table, Title } from '../components';
+import { Address, Button, Section, Table, Title } from '../components';
 import { useApi, useTxs, useUserCount } from '../hooks';
 
 interface Props {
@@ -42,7 +42,8 @@ function Transactions ({ address, className, reverse, withoutFree }: Props): Rea
             <Table className='transfer'>
               {txs.map(({ amount, from, key, to, wasSent }) => (
                 <tr key={key}>
-                  <td>{wasSent ? '-' : '+'}{formatBalance(amount, { decimals: api.registry.chainDecimals, forceUnit: '-', withSi: false })}</td>
+                  <td><Address address={wasSent ? to : from} /></td>
+                  <td className='value'>{wasSent ? '-' : '+'}{formatBalance(amount, { decimals: api.registry.chainDecimals, forceUnit: '-', withSi: false })}</td>
                   {reverse && (
                     <td>
                       <Button
@@ -70,9 +71,8 @@ export default React.memo(styled(Transactions)`
 
   .transfer {
     td {
-      text-align: right;
-
-      &:first-child {
+      &.value {
+        text-align: right;
         width: 100%;
       }
     }
