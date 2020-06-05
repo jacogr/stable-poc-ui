@@ -19,7 +19,7 @@ function trimAddress (address: string): string {
 function Address ({ address, className }: Props): React.ReactElement<Props> {
   return (
     <div className={className}>
-      { KNOWN[address] || trimAddress(address)}
+      {KNOWN[address] || trimAddress(address)}
     </div>
   );
 }

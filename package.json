@@ -26,6 +26,7 @@
     "@babel/preset-typescript": "^7.10.1",
     "@polkadot/api": "^1.17.2",
     "@polkadot/keyring": "^2.12.2",
+    "@polkadot/react-identicon": "^0.53.1",
     "@polkadot/util": "^2.12.2",
     "@polkadot/util-crypto": "^2.12.2",
     "@types/react": "^16.9.35",
