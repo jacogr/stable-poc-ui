@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import TxProvider from '../TxProvider';
 import { ApiContext } from '../contexts';
 import { useApiCreate } from '../hooks';
+import Activity from './Activity';
 import Auth from './Auth';
 import ManagerAdd from './ManagerAdd';
 import ManagerRemove from './ManagerRemove';
@@ -37,6 +38,9 @@ function AppAdmin ({ className }: Props): React.ReactElement<Props> {
           <Auth>
             <TxProvider>
               <Switch>
+                <Route path='/activity'>
+                  <Activity />
+                </Route>
                 <Route path='/users'>
                   <Users />
                 </Route>

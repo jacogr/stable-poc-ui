@@ -2,11 +2,11 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import Identicon from '@polkadot/react-identicon';
 import { formatBalance, formatNumber } from '@polkadot/util';
 
-import { Address, Button, Section, Table, Title } from '../components';
+import { Button, Section, Table, Title } from '../components';
 import { useApi, useTxs, useUserCount } from '../hooks';
+import TxAddress from './TxAddress';
 
 interface Props {
   address: string;
@@ -40,17 +40,10 @@ function Transactions ({ address, className, reverse, withoutFree }: Props): Rea
         <Title>Recent transactions</Title>
         {txs.length
           ? (
-            <Table className='transfer'>
+            <Table className='transactions'>
               {txs.map(({ amount, from, key, to, wasSent }) => (
                 <tr key={key}>
-                  <td className='icon'>
-                    <Identicon
-                      size={28}
-                      theme='substrate'
-                      value={wasSent ? to : from}
-                    />
-                  </td>
-                  <td><Address address={wasSent ? to : from} /></td>
+                  <TxAddress address={wasSent ? to : from} />
                   <td className='value'>{wasSent ? '-' : '+'}{formatBalance(amount, { decimals: api.registry.chainDecimals, forceUnit: '-', withSi: false })}</td>
                   {reverse && (
                     <td>
@@ -77,8 +70,12 @@ export default React.memo(styled(Transactions)`
     text-align: left;
   }
 
-  .transfer {
+  .transactions {
     td {
+      &.address {
+        padding-left: 0.5rem;
+      }
+
       &.icon {
         padding-right: 0;
 

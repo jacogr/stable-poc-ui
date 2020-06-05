@@ -19,7 +19,8 @@ interface Props {
 const NAV_ROUTES: [string, string, string[]][] = [
   ['/treasury', 'Treasury', ['/treasury']],
   ['/managers', 'Managers', ['/manager']],
-  ['/users', 'Users', ['/user']]
+  ['/users', 'Users', ['/user']],
+  ['/activity', 'Activity', ['/activity']]
 ];
 
 const keyring = new Keyring({ type: 'sr25519' });
@@ -37,8 +38,6 @@ function createAdminCtx (_username: string): AdminCtx {
     rootPair.derive(`//${makeAdminUsername(username)}`).address;
   const adminPair = rootPair.derive(`//${username}`);
   const treasuryAddress =deriveAddress('treasury');
-
-  console.log(treasuryAddress);
 
   return { adminAddress: adminPair.address, adminPair, deriveAddress, deriveAdmin, treasuryAddress, username };
 }
