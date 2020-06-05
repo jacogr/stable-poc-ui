@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 import { Button, ButtonRow, Section, Table, Title } from '../components';
 import { useManagers } from '../hooks';
+import TdAddress from '../partials/TdAddress';
 
 interface Props {
   className?: string;
@@ -39,10 +40,11 @@ function Managers ({ className }: Props): React.ReactElement<Props> {
         {!managers.length
           ? <div>no managers available</div>
           : (
-            <Table>
+            <Table className='managers'>
               {managers.map((address) => (
                 <tr key={address}>
-                  <td>{address}</td>
+                  <TdAddress address={address} />
+                  <td className='spacer'>&nbsp;</td>
                   <td>
                     <Button
                       isThin
@@ -60,4 +62,25 @@ function Managers ({ className }: Props): React.ReactElement<Props> {
   );
 }
 
-export default React.memo(styled(Managers)``);
+export default React.memo(styled(Managers)`
+  .managers {
+    td {
+      &.address {
+        padding-left: 0.5rem;
+      }
+
+      &.icon {
+        padding-right: 0;
+
+        > div {
+          display: inline-block;
+          margin: 0;
+        }
+      }
+
+      &.spacer {
+        width: 100%;
+      }
+    }
+  }
+`);
