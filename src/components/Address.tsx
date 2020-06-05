@@ -19,7 +19,7 @@ const KNOWN: Record<string, string> = {
 }
 
 function trimAddress (address: string): string {
-  return `${address.slice(0, 7)}…${address.slice(-7)}`;
+  return `${address.slice(0, 6)}…${address.slice(-6)}`;
 }
 
 function Address ({ address, className }: Props): React.ReactElement<Props> {

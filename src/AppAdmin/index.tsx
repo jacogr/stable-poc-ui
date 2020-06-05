@@ -4,6 +4,7 @@ import React from 'react';
 import { Route, Redirect, Switch } from 'react-router';
 import styled from 'styled-components';
 
+import EvtMgrProvider from '../EvtMgrProvider';
 import EvtTxProvider from '../EvtTxProvider';
 import { ApiContext } from '../contexts';
 import { useApiCreate } from '../hooks';
@@ -37,56 +38,58 @@ function AppAdmin ({ className }: Props): React.ReactElement<Props> {
         <ApiContext.Provider value={api}>
           <Auth>
             <EvtTxProvider>
-              <Switch>
-                <Route path='/activity'>
-                  <Activity />
-                </Route>
-                <Route path='/users'>
-                  <Users />
-                </Route>
-                <Route path='/user/activate/:type/:address/:username?'>
-                  <UserActivate />
-                </Route>
-                <Route path='/user/reverse/:from/:to/:amount'>
-                  <UserReverse />
-                </Route>
-                <Route path='/user/clawback/:address/:username?'>
-                  <UserClawback />
-                </Route>
-                <Route path='/user/lock/:type/:address/:username?'>
-                  <UserLock />
-                </Route>
-                <Route path='/user/mint/:address/:username?'>
-                  <UserMint />
-                </Route>
-                <Route path='/user/view/:address/:username?'>
-                  <UserView />
-                </Route>
-                <Route path='/managers'>
-                  <Managers />
-                </Route>
-                <Route path='/manager/new'>
-                  <ManagerAdd />
-                </Route>
-                <Route path='/manager/remove/:address'>
-                  <ManagerRemove />
-                </Route>
-                <Route path='/manager/view/:address'>
-                  <ManagerView />
-                </Route>
-                <Route path='/reports'>
-                  <Reports />
-                </Route>
-                <Route path='/treasury/refund'>
-                  <TreasuryRefund />
-                </Route>
-                <Route path='/treasury'>
-                  <Treasury />
-                </Route>
-                <Route>
-                  <Redirect to='/users' />
-                </Route>
-              </Switch>
+              <EvtMgrProvider>
+                <Switch>
+                  <Route path='/activity'>
+                    <Activity />
+                  </Route>
+                  <Route path='/users'>
+                    <Users />
+                  </Route>
+                  <Route path='/user/activate/:type/:address/:username?'>
+                    <UserActivate />
+                  </Route>
+                  <Route path='/user/reverse/:from/:to/:amount'>
+                    <UserReverse />
+                  </Route>
+                  <Route path='/user/clawback/:address/:username?'>
+                    <UserClawback />
+                  </Route>
+                  <Route path='/user/lock/:type/:address/:username?'>
+                    <UserLock />
+                  </Route>
+                  <Route path='/user/mint/:address/:username?'>
+                    <UserMint />
+                  </Route>
+                  <Route path='/user/view/:address/:username?'>
+                    <UserView />
+                  </Route>
+                  <Route path='/managers'>
+                    <Managers />
+                  </Route>
+                  <Route path='/manager/new'>
+                    <ManagerAdd />
+                  </Route>
+                  <Route path='/manager/remove/:address'>
+                    <ManagerRemove />
+                  </Route>
+                  <Route path='/manager/view/:address'>
+                    <ManagerView />
+                  </Route>
+                  <Route path='/reports'>
+                    <Reports />
+                  </Route>
+                  <Route path='/treasury/refund'>
+                    <TreasuryRefund />
+                  </Route>
+                  <Route path='/treasury'>
+                    <Treasury />
+                  </Route>
+                  <Route>
+                    <Redirect to='/users' />
+                  </Route>
+                </Switch>
+              </EvtMgrProvider>
             </EvtTxProvider>
           </Auth>
         </ApiContext.Provider>

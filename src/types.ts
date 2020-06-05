@@ -29,6 +29,15 @@ export interface ApiCtx {
   api: ApiPromise;
 }
 
+export interface MgrEvent {
+  details: string;
+  key: string;
+  method: string;
+  when: Date;
+}
+
+export type EvtMgrCtx = MgrEvent[];
+
 export interface TxEvent {
   amount: Balance;
   key: string;

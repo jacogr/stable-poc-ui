@@ -4,6 +4,7 @@ export { default as useAdmin } from './useAdmin';
 export { default as useApi } from './useApi';
 export { default as useApiCreate } from './useApiCreate';
 export { default as useBalance } from './useBalance';
+export { default as useEvtMgr } from './useEvtMgr';
 export { default as useEvtTxs } from './useEvtTxs';
 export { default as useIsFrozen } from './useIsFrozen';
 export { default as useIsMountedRef } from './useIsMountedRef';

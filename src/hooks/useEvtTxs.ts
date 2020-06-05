@@ -10,16 +10,16 @@ import useIsMountedRef from './useIsMountedRef';
 export default function useEvtTxs (address?: string): EvtTxCtx {
   // go via context here, we only have a root for all
   const all = useContext(EvtTxContext);
-  const [txs, setTxs] = useState<EvtTxCtx>([]);
+  const [events, setEvents] = useState<EvtTxCtx>([]);
   const  mountedRef = useIsMountedRef();
 
   useEffect((): void => {
-    mountedRef.current && setTxs(
+    mountedRef.current && setEvents(
       all
-        .filter(({ from, to }) => !!address || (from === address || to === address))
+        .filter(({ from, to }) => !address || (from === address || to === address))
         .map((event): TxEvent => ({ ...event, wasSent: event.from === address }))
     );
   }, [address, all]);
 
-  return txs;
+  return events;
 }

@@ -41,8 +41,9 @@ function Transactions ({ address, className, reverse, withoutFree }: Props): Rea
         {txs.length
           ? (
             <Table className='transactions'>
-              {txs.map(({ amount, from, key, to, wasSent }) => (
+              {txs.map(({ amount, from, key, to, wasSent, when }) => (
                 <tr key={key}>
+                  <td className='date'>{when.toLocaleString()}</td>
                   <TdAddress address={wasSent ? to : from} />
                   <td className='value'>{wasSent ? '-' : '+'}{formatBalance(amount, { decimals: api.registry.chainDecimals, forceUnit: '-', withSi: false })}</td>
                   {reverse && (
@@ -74,6 +75,12 @@ export default React.memo(styled(Transactions)`
     td {
       &.address {
         padding-left: 0.5rem;
+      }
+
+      &.date {
+        font-size: 0.8rem;
+        width: 1rem;
+        white-space: wrap;
       }
 
       &.icon {

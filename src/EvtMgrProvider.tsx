@@ -1,11 +1,10 @@
 // SPDX-License-Identifier: Apache-2
 
-import { Balance } from '@polkadot/types/interfaces';
-import { EvtTxCtx, TxEvent } from './types';
+import { EvtMgrCtx, MgrEvent } from './types';
 
 import React, { useEffect, useState } from 'react';
 
-import { EvtTxContext } from './contexts';
+import { EvtMgrContext } from './contexts';
 import { useApi, useIsMountedRef } from './hooks';
 
 interface Props {
@@ -14,9 +13,9 @@ interface Props {
 
 let id = 0;
 
-function useTxEvents (): EvtTxCtx {
+function useMgrEvents (): EvtMgrCtx {
   const api = useApi();
-  const [events, setEvents] = useState<EvtTxCtx>([]);
+  const [events, setEvents] = useState<EvtMgrCtx>([]);
   const mountedRef = useIsMountedRef();
 
   useEffect((): () => void => {
@@ -26,13 +25,11 @@ function useTxEvents (): EvtTxCtx {
       .events((records): void => {
         const when = new Date();
         const transfers = records
-          .filter(({ event: { method, section }, phase }) => phase.isApplyExtrinsic && section === 'balances' && method === 'Transfer')
-          .map(({ event: { data: [from, to, amount] } }): TxEvent => ({
-            amount: amount as Balance,
-            from: from.toString(),
+          .filter(({ event: { section }, phase }) => phase.isApplyExtrinsic && section === 'templateModule')
+          .map(({ event: { data, method } }): MgrEvent => ({
+            details: JSON.stringify(data.toHuman()),
+            method,
             key: `${++id}`,
-            to: to.toString(),
-            wasSent: false,
             when
           }));
 
@@ -54,12 +51,12 @@ function useTxEvents (): EvtTxCtx {
 }
 
 
-export default function EvtTxProvider ({ children }: Props): React.ReactElement<Props> {
-  const events = useTxEvents();
+export default function EvtMgrProvider ({ children }: Props): React.ReactElement<Props> {
+  const events = useMgrEvents();
 
   return (
-    <EvtTxContext.Provider value={events}>
+    <EvtMgrContext.Provider value={events}>
       {children}
-    </EvtTxContext.Provider>
+    </EvtMgrContext.Provider>
   );
 }
