@@ -17,6 +17,7 @@ interface Props {
 }
 
 const NAV_ROUTES: [string, string, string[]][] = [
+  ['/treasury', 'Treasury', ['/treasury']],
   ['/managers', 'Managers', ['/manager']],
   ['/users', 'Users', ['/user']]
 ];
@@ -35,9 +36,10 @@ function createAdminCtx (_username: string): AdminCtx {
   const deriveAdmin = (username: string) =>
     rootPair.derive(`//${makeAdminUsername(username)}`).address;
   const adminPair = rootPair.derive(`//${username}`);
+  const treasuryAddress = rootPair.derive('//treasury').address;
 
 
-  return { adminAddress: adminPair.address, adminPair, deriveAddress, deriveAdmin, username };
+  return { adminAddress: adminPair.address, adminPair, deriveAddress, deriveAdmin, treasuryAddress, username };
 }
 
 function Auth ({ children, className }: Props): React.ReactElement<Props> {

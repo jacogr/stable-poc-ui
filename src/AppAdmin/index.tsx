@@ -13,6 +13,8 @@ import ManagerRemove from './ManagerRemove';
 import ManagerView from './ManagerView';
 import Managers from './Managers';
 import Reports from './Reports';
+import Treasury from './Treasury';
+import TreasuryRefund from './TreasuryRefund';
 import UserActivate from './UserActivate';
 import UserClawback from './UserClawback';
 import UserLock from './UserLock';
@@ -70,6 +72,12 @@ function AppAdmin ({ className }: Props): React.ReactElement<Props> {
                 </Route>
                 <Route path='/reports'>
                   <Reports />
+                </Route>
+                <Route path='/treasury/refund'>
+                  <TreasuryRefund />
+                </Route>
+                <Route path='/treasury'>
+                  <Treasury />
                 </Route>
                 <Route>
                   <Redirect to='/users' />

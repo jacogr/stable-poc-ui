@@ -7,6 +7,7 @@ export { default as Error } from './Error';
 export { default as IconCheck } from './IconCheck';
 export { default as IconCross } from './IconCross';
 export { default as Input } from './Input';
+export { default as InputAddress } from './InputAddress';
 export { default as InputAmount } from './InputAmount';
 export { default as InputEmail } from './InputEmail';
 export { default as InputPassword } from './InputPassword';

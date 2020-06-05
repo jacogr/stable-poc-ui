@@ -30,6 +30,7 @@ export default React.memo(styled(Balance)`
     color: #002366;
     font-size: 3.5rem;
     font-weight: 200;
+    line-height: 3.5rem;
     margin: 0.5rem 0;
     min-width: 20rem;
     text-align: right;

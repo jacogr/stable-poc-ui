@@ -11,6 +11,7 @@ interface Props {
   address: string;
   className?: string;
   reverse?: string;
+  withoutFree?: boolean;
 }
 
 function reverseClick (reverse: string, from: string, to: string, amount: string): () => void {
@@ -19,19 +20,21 @@ function reverseClick (reverse: string, from: string, to: string, amount: string
   };
 }
 
-function Transactions ({ address, className, reverse }: Props): React.ReactElement<Props> {
+function Transactions ({ address, className, reverse, withoutFree }: Props): React.ReactElement<Props> {
   const api = useApi();
   const { txCount } = useUserCount(address);
   const txs = useTxs(address);
 
   return (
     <div className={className}>
-      <Section>
-        <Title>Free transactions</Title>
-        <div className='txCount'>
-          {formatNumber(txCount)}/{formatNumber(api.consts.templateModule.freeTransactionLimit as unknown as number)}
-        </div>
-      </Section>
+      {!withoutFree && (
+        <Section>
+          <Title>Free transactions</Title>
+          <div className='txCount'>
+            {formatNumber(txCount)}/{formatNumber(api.consts.templateModule.freeTransactionLimit as unknown as number)}
+          </div>
+        </Section>
+      )}
       <Section>
         <Title>Recent transactions</Title>
         {txs.length

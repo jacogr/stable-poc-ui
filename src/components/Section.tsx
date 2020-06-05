@@ -8,11 +8,11 @@ interface Props {
   className?: string;
 }
 
-function Section ({ children, className = '' }: Props): React.ReactElement<Props> {
+function Section ({ children, className }: Props): React.ReactElement<Props> {
   return (
-    <div className={`${className} ui--Section`}>
+    <section className={className}>
       {children}
-    </div>
+    </section>
   )
 }
 

@@ -20,7 +20,7 @@ function Input ({ autoFocus, className = '', error, isDisabled, onChange, placeh
   );
 
   return (
-    <div className={`${className} ${error ? 'isError' : ''}`}>
+    <div className={`${className} ${error && 'isError'}`}>
       <input
         autoFocus={autoFocus}
         disabled={isDisabled}
@@ -42,7 +42,7 @@ export default React.memo(styled(Input)`
   position: relative;
 
   > input {
-    border: 1px solid #ddd;
+    border: 1px solid rgba(0, 35, 102, 0.2);
     border-radius: 0.25rem;
     box-sizing: border-box;
     display: block;
@@ -57,7 +57,7 @@ export default React.memo(styled(Input)`
 
   &.isError > input {
     color: #9f3a38;
-    outline-color: #ddd;
+    outline-color: rgba(0, 35, 102, 0.2);
   }
 
   .error {

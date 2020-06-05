@@ -21,6 +21,7 @@ export interface AdminCtx extends DeriveCtx {
   adminAddress: string;
   adminPair: KeyringPair;
   deriveAdmin: (username: string) => string;
+  treasuryAddress: string;
   username: string;
 }
 
