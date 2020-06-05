@@ -5,6 +5,8 @@ import styled from 'styled-components';
 
 import { Button, ButtonRow, InputEmail, Section, Table, Title } from '../components';
 import { useAdmin, useUsers } from '../hooks';
+import Balance from '../partials/Balance';
+import TdAddress from '../partials/TdAddress';
 
 interface Props {
   className?: string;
@@ -50,10 +52,13 @@ function Main ({ className }: Props): React.ReactElement<Props> {
         {!users.length
           ? <div>no users available</div>
           : (
-            <Table>
+            <Table className='users'>
               {users.map((address) => (
                 <tr key={address}>
-                  <td>{address}</td>
+                  <TdAddress address={address} />
+                  <td className='balance'>
+                    <Balance address={address} />
+                  </td>
                   <td>
                     <Button
                       isThin
@@ -71,4 +76,26 @@ function Main ({ className }: Props): React.ReactElement<Props> {
   );
 }
 
-export default React.memo(styled(Main)``);
+export default React.memo(styled(Main)`
+  .users {
+    td {
+      &.address {
+        padding-left: 0.5rem;
+      }
+
+      &.icon {
+        padding-right: 0;
+
+        > div {
+          display: inline-block;
+          margin: 0;
+        }
+      }
+
+      &.balance {
+        text-align: right;
+        width: 100%;
+      }
+    }
+  }
+`);

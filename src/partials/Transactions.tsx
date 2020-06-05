@@ -6,7 +6,7 @@ import { formatBalance, formatNumber } from '@polkadot/util';
 
 import { Button, Section, Table, Title } from '../components';
 import { useApi, useTxs, useUserCount } from '../hooks';
-import TxAddress from './TxAddress';
+import TdAddress from './TdAddress';
 
 interface Props {
   address: string;
@@ -43,7 +43,7 @@ function Transactions ({ address, className, reverse, withoutFree }: Props): Rea
             <Table className='transactions'>
               {txs.map(({ amount, from, key, to, wasSent }) => (
                 <tr key={key}>
-                  <TxAddress address={wasSent ? to : from} />
+                  <TdAddress address={wasSent ? to : from} />
                   <td className='value'>{wasSent ? '-' : '+'}{formatBalance(amount, { decimals: api.registry.chainDecimals, forceUnit: '-', withSi: false })}</td>
                   {reverse && (
                     <td>

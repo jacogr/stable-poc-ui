@@ -6,7 +6,7 @@ import { formatBalance } from '@polkadot/util';
 
 import { Section, Table, Title } from '../components';
 import { useApi, useTxsAll } from '../hooks';
-import TxAddress from '../partials/TxAddress';
+import TdAddress from '../partials/TdAddress';
 
 interface Props {
   className?: string;
@@ -25,8 +25,8 @@ function Activity ({ className }: Props): React.ReactElement<Props> {
             <Table className='transactions'>
               {txs.map(({ amount, from, key, to }) => (
                 <tr key={key}>
-                  <TxAddress address={from} />
-                  <TxAddress address={to} />
+                  <TdAddress address={from} />
+                  <TdAddress address={to} />
                   <td className='value'>{formatBalance(amount, { decimals: api.registry.chainDecimals, forceUnit: '-', withSi: false })}</td>
                 </tr>
               ))}

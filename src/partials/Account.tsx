@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import { Button, ButtonRow, Card } from '../components';
 import { useBalance, useIsFrozen, useIsUser } from '../hooks';
-import Balance from './Balance';
+import BalanceSection from './BalanceSection';
 import Transactions from './Transactions';
 
 interface Props {
@@ -59,7 +59,7 @@ function Account ({ address, className, isDisabled, sendAction, sendLabel = 'Sen
           )}
         </>
       )}
-      <Balance address={address} />
+      <BalanceSection address={address} />
       <Transactions
         address={address}
         withoutFree={withoutFree}

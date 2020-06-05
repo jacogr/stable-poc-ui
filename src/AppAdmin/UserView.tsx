@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 
 import { Button, ButtonRow, Section, Title } from '../components';
 import { useIsFrozen, useIsUser } from '../hooks';
-import Balance from '../partials/Balance';
+import BalanceSection from '../partials/BalanceSection';
 import Transactions from '../partials/Transactions';
 
 interface Props {
@@ -69,7 +69,7 @@ function UserView ({ className }: Props): React.ReactElement<Props> {
           onClick={_doActivate}
         />
       </ButtonRow>
-      <Balance address={address} />
+      <BalanceSection address={address} />
       {username && (
         <Section>
           <Title>Username</Title>
