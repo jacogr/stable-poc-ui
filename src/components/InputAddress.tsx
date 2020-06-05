@@ -2,7 +2,7 @@
 
 import { InputProps } from './types';
 
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { useIsUser } from '../hooks';
@@ -19,7 +19,6 @@ const ERR_ACTIVE = 'Not an active user';
 function InputAddress ({ autoFocus, className, deriveAddress, error, isDisabled, onChange, placeholder, value }: Props): React.ReactElement<Props> {
   const [address, setAddress] = useState('');
   const isUserActive = useIsUser(address);
-  const [errorVal, setError] = useState<string | null>(ERR_ACTIVE);
 
   const _onChange = useCallback(
     (email: string): void => {
@@ -27,29 +26,21 @@ function InputAddress ({ autoFocus, className, deriveAddress, error, isDisabled,
         ? deriveAddress(email)
         : '';
 
-      if (address) {
-        setError(null);
-      }
-
       setAddress(address);
-      onChange(address);
     },
     [deriveAddress, onChange]
   );
 
   useEffect((): void => {
-    if (!isUserActive) {
-      setError(ERR_ACTIVE);
-      onChange('');
-    }
-  }, [isUserActive]);
+    onChange(isUserActive ? address : '');
+  }, [address, isUserActive, onChange]);
 
   return (
     <InputEmail
       autoFocus={autoFocus}
       className={className}
       isDisabled={isDisabled}
-      error={errorVal || error}
+      error={(isUserActive ? null : ERR_ACTIVE) || error}
       onChange={_onChange}
       placeholder={placeholder}
       type='text'
