@@ -32,6 +32,6 @@ export default React.memo(styled(Table)`
   }
 
   tr:nth-child(odd) {
-    background: rgba(0, 35, 102, 0.05);
+    background: #f2f2f2;
   }
 `);
