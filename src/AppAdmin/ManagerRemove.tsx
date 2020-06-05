@@ -29,6 +29,7 @@ function ManagerRemove ({ className }: Props): React.ReactElement<Props> {
 
   return (
     <Tx
+      backTo='/managers'
       className={className}
       isDisabled={adminAddress === address}
       label='Remove'

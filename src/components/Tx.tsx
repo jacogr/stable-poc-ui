@@ -14,6 +14,7 @@ import Loader from './Loader';
 import Title from './Title';
 
 interface Props {
+  backTo?: string;
   children: React.ReactNode;
   className?: string;
   label: string;
@@ -27,23 +28,27 @@ interface DoneState {
   isOk: boolean;
 }
 
-function Tx ({ children, className, label, pair, title, tx }: Props): React.ReactElement<Props> {
+function Tx ({ backTo, children, className, label, pair, title, tx }: Props): React.ReactElement<Props> {
   const [{ isCompleted, isOk }, setIsCompleted] = useState<DoneState>({ isCompleted: false, isOk: true });
   const [isSending, setIsSending] = useState(false);
 
   const _goBack = useCallback(
     (): void => {
-      window.history.back();
+      if (backTo) {
+        window.location.hash = backTo;
+      } else {
+        window.history.back();
+      }
     },
-    []
+    [backTo]
   );
 
   const _doSend = useCallback(
     (): void => {
       if (tx) {
-        setIsSending(true);
-
         let unsubscribe: null | (() => void) = null;
+
+        setIsSending(true);
 
         tx
           .signAndSend(pair, ({ events, status }): void => {
