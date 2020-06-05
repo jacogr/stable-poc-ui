@@ -2,9 +2,12 @@
 
 import { useEffect, useState } from 'react';
 
+import { knownAddresses } from '../constants';
 import useApi from './useApi';
 import useIsMountedRef from './useIsMountedRef';
 import useManagers from './useManagers';
+
+const knownList = Object.keys(knownAddresses);
 
 export default function useUsers (): string[] {
   const api = useApi();
@@ -21,6 +24,7 @@ export default function useUsers (): string[] {
           entries
             .filter(([, { refcount }]) => !refcount.isZero())
             .map(([key]) => key.args[0].toString())
+            .filter((address) => !knownList.includes(address))
         )
       })
       .catch(console.error);
