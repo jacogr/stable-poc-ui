@@ -35,9 +35,10 @@ export interface TxEvent {
   from: string;
   to: string;
   wasSent: boolean;
+  when: Date;
 }
 
-export type TxCtx = TxEvent[];
+export type EvtTxCtx = TxEvent[];
 
 export interface AccountData extends Codec {
   free: Balance,

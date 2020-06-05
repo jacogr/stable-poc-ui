@@ -4,7 +4,7 @@ import React from 'react';
 import { Route, Redirect, Switch } from 'react-router';
 import styled from 'styled-components';
 
-import TxProvider from '../TxProvider';
+import EvtTxProvider from '../EvtTxProvider';
 import { ApiContext } from '../contexts';
 import { useApiCreate } from '../hooks';
 import Account from './Account';
@@ -24,7 +24,7 @@ function AppUser ({ className }: Props): React.ReactElement<Props> {
       {api && (
         <ApiContext.Provider value={api}>
           <Auth>
-            <TxProvider>
+            <EvtTxProvider>
               <Switch>
                 <Route path='/account'>
                   <Account />
@@ -39,7 +39,7 @@ function AppUser ({ className }: Props): React.ReactElement<Props> {
                   <Redirect to='/account' />
                 </Route>
               </Switch>
-            </TxProvider>
+            </EvtTxProvider>
           </Auth>
         </ApiContext.Provider>
       )}

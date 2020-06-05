@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { formatBalance, formatNumber } from '@polkadot/util';
 
 import { Button, Section, Table, Title } from '../components';
-import { useApi, useTxs, useUserCount } from '../hooks';
+import { useApi, useEvtTxs, useUserCount } from '../hooks';
 import TdAddress from './TdAddress';
 
 interface Props {
@@ -24,7 +24,7 @@ function reverseClick (reverse: string, from: string, to: string, amount: string
 function Transactions ({ address, className, reverse, withoutFree }: Props): React.ReactElement<Props> {
   const api = useApi();
   const { txCount } = useUserCount(address);
-  const txs = useTxs(address);
+  const txs = useEvtTxs(address);
 
   return (
     <div className={className}>

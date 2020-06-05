@@ -1,18 +1,22 @@
 // SPDX-License-Identifier: Apache-2
 
 import { Balance } from '@polkadot/types/interfaces';
-import { TxCtx, TxEvent } from '../types';
+import { EvtTxCtx, TxEvent } from './types';
 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import useApi from './useApi';
-import useIsMountedRef from './useIsMountedRef';
+import { EvtTxContext } from './contexts';
+import { useApi, useIsMountedRef } from './hooks';
+
+interface Props {
+  children: React.ReactNode;
+}
 
 let id = 0;
 
-export default function useTxsAll (): TxCtx {
+function useEvtTxs (): EvtTxCtx {
   const api = useApi();
-  const [txs, setTxs] = useState<TxCtx>([]);
+  const [txs, setTxs] = useState<EvtTxCtx>([]);
   const mountedRef = useIsMountedRef();
 
   useEffect((): () => void => {
@@ -20,6 +24,7 @@ export default function useTxsAll (): TxCtx {
 
     api.query.system
       .events((records): void => {
+        const when = new Date();
         const transfers = records
           .filter(({ event: { method, section }, phase }) => phase.isApplyExtrinsic && section === 'balances' && method === 'Transfer')
           .map(({ event: { data: [from, to, amount] } }): TxEvent => ({
@@ -27,7 +32,8 @@ export default function useTxsAll (): TxCtx {
             from: from.toString(),
             key: `${++id}`,
             to: to.toString(),
-            wasSent: false
+            wasSent: false,
+            when
           }));
 
         if (mountedRef.current && transfers.length) {
@@ -45,4 +51,15 @@ export default function useTxsAll (): TxCtx {
   }, [api]);
 
   return txs;
+}
+
+
+export default function EvtTxProvider ({ children }: Props): React.ReactElement<Props> {
+  const txs = useEvtTxs();
+
+  return (
+    <EvtTxContext.Provider value={txs}>
+      {children}
+    </EvtTxContext.Provider>
+  );
 }

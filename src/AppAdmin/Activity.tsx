@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { formatBalance } from '@polkadot/util';
 
 import { Section, Table, Title } from '../components';
-import { useApi, useTxsAll } from '../hooks';
+import { useApi, useEvtTxs } from '../hooks';
 import TdAddress from '../partials/TdAddress';
 
 interface Props {
@@ -14,7 +14,7 @@ interface Props {
 
 function Activity ({ className }: Props): React.ReactElement<Props> {
   const api = useApi();
-  const txs = useTxsAll();
+  const txs = useEvtTxs();
 
   return (
     <div className={className}>
