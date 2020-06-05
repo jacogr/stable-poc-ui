@@ -79,19 +79,6 @@ function Main ({ className }: Props): React.ReactElement<Props> {
 export default React.memo(styled(Main)`
   .users {
     td {
-      &.address {
-        padding-left: 0.5rem;
-      }
-
-      &.icon {
-        padding-right: 0;
-
-        > div {
-          display: inline-block;
-          margin: 0;
-        }
-      }
-
       &.balance {
         text-align: right;
         width: 100%;

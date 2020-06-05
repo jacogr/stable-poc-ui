@@ -7,6 +7,7 @@ import { formatBalance, formatNumber } from '@polkadot/util';
 import { Button, Section, Table, Title } from '../components';
 import { useApi, useEvtTxs, useUserCount } from '../hooks';
 import TdAddress from './TdAddress';
+import TdDate from './TdDate';
 
 interface Props {
   address: string;
@@ -43,7 +44,7 @@ function Transactions ({ address, className, reverse, withoutFree }: Props): Rea
             <Table className='transactions'>
               {txs.map(({ amount, from, key, to, wasSent, when }) => (
                 <tr key={key}>
-                  <td className='date'>{when.toLocaleString()}</td>
+                  <TdDate date={when} />
                   <TdAddress address={wasSent ? to : from} />
                   <td className='value'>{wasSent ? '-' : '+'}{formatBalance(amount, { decimals: api.registry.chainDecimals, forceUnit: '-', withSi: false })}</td>
                   {reverse && (
@@ -73,25 +74,6 @@ export default React.memo(styled(Transactions)`
 
   .transactions {
     td {
-      &.address {
-        padding-left: 0.5rem;
-      }
-
-      &.date {
-        font-size: 0.8rem;
-        width: 1rem;
-        white-space: wrap;
-      }
-
-      &.icon {
-        padding-right: 0;
-
-        > div {
-          display: inline-block;
-          margin: 0;
-        }
-      }
-
       &.value {
         text-align: right;
         width: 100%;

@@ -65,19 +65,6 @@ function Managers ({ className }: Props): React.ReactElement<Props> {
 export default React.memo(styled(Managers)`
   .managers {
     td {
-      &.address {
-        padding-left: 0.5rem;
-      }
-
-      &.icon {
-        padding-right: 0;
-
-        > div {
-          display: inline-block;
-          margin: 0;
-        }
-      }
-
       &.spacer {
         width: 100%;
       }
