@@ -19,10 +19,6 @@ jobs:
       env:
         GH_PAT: ${{ secrets.GH_PAT }}
       run: |
-        git config --global push.default simple
-        git config --global merge.ours.driver true
-        git config --global user.name "Github Actions"
-        git config --global user.email "action@github.com"
         yarn install --immutable | grep -v 'YN0013'
         yarn build
-        yarn ghpages --repo https://${GH_PAT}@github.com/${GITHUB_REPOSITORY}.git --dist build
+        ./deploy.sh
