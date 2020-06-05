@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 
 import { Button, ButtonRow, Section, Title } from '../components';
+import { knownAddresses } from '../constants';
 import { useAdmin } from '../hooks';
 
 interface Props {
@@ -22,6 +23,8 @@ function ManagerView ({ className }: Props): React.ReactElement<Props> {
     [address]
   );
 
+  const name = knownAddresses[address];
+
   return (
     <div className={className}>
       <ButtonRow>
@@ -31,6 +34,12 @@ function ManagerView ({ className }: Props): React.ReactElement<Props> {
           onClick={_doRemove}
         />
       </ButtonRow>
+      {name && (
+        <Section>
+          <Title>Name</Title>
+          <div>{name}</div>
+        </Section>
+      )}
       <Section>
         <Title>Address</Title>
         <div>{address}</div>
