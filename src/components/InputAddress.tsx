@@ -5,7 +5,7 @@ import { InputProps } from './types';
 import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import { useIsUser } from '../hooks';
+import { useIsUserActive } from '../hooks';
 import InputEmail from './InputEmail';
 
 interface Props extends InputProps {
@@ -18,7 +18,7 @@ const ERR_ACTIVE = 'Not an active user';
 
 function InputAddress ({ autoFocus, className, deriveAddress, error, isDisabled, onChange, placeholder, value }: Props): React.ReactElement<Props> {
   const [address, setAddress] = useState('');
-  const isUserActive = useIsUser(address);
+  const isUserActive = useIsUserActive(address);
 
   const _onChange = useCallback(
     (email: string): void => {

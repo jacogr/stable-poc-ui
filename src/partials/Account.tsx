@@ -4,7 +4,7 @@ import React, { useCallback } from 'react';
 import styled from 'styled-components';
 
 import { Button, ButtonRow, Card } from '../components';
-import { useBalance, useIsFrozen, useIsUser } from '../hooks';
+import { useBalance, useIsUserActive, useIsUserFrozen } from '../hooks';
 import BalanceSection from './BalanceSection';
 import Transactions from './Transactions';
 
@@ -20,8 +20,8 @@ interface Props {
 
 function Account ({ address, className, isDisabled, sendAction, sendLabel = 'Send', withInactive, withoutFree }: Props): React.ReactElement<Props> | null {
   const [,, isBalanceZero] = useBalance(address);
-  const isFrozen = useIsFrozen(address);
-  const isActive = useIsUser(address);
+  const isActive = useIsUserActive(address);
+  const isFrozen = useIsUserFrozen(address);
 
   const _onSend = useCallback(
     (): void => {

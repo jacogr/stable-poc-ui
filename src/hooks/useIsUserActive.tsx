@@ -5,9 +5,9 @@ import { useEffect, useState } from 'react';
 import useApi from './useApi';
 import useIsMountedRef from './useIsMountedRef';
 
-export default function useIsUser (address: string): boolean {
+export default function useIsUserActive (address: string): boolean {
   const api = useApi();
-  const [isUser, setIsUser] = useState(true);
+  const [isActive, setIsActive] = useState(true);
   const  mountedRef = useIsMountedRef();
 
   useEffect((): () => void => {
@@ -16,7 +16,7 @@ export default function useIsUser (address: string): boolean {
     if (address) {
       api.query.system
         .account(address, ({ refcount }): void => {
-          mountedRef.current && setIsUser(
+          mountedRef.current && setIsActive(
             !refcount.isZero()
           );
         })
@@ -25,7 +25,7 @@ export default function useIsUser (address: string): boolean {
         })
         .catch(console.error);
     } else {
-      setIsUser(false);
+      setIsActive(false);
     }
 
     return (): void => {
@@ -33,5 +33,5 @@ export default function useIsUser (address: string): boolean {
     }
   }, [address]);
 
-  return isUser;
+  return isActive;
 }

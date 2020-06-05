@@ -27,7 +27,7 @@ function Send ({ className }: Props): React.ReactElement<Props> {
         ? null
         : isTxFree
           ? api.tx.templateModule.freeTransfer(recipient, amount)
-          : api.tx.balances.transfer(recipient, amount)
+          : api.tx.templateModule.transfer(recipient, amount)
     );
   }, [amount, deriveAddress, isTxFree, recipient]);
 

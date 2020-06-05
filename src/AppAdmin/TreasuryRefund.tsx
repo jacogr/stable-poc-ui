@@ -24,11 +24,9 @@ function TreasuryRefund ({ className }: Props): React.ReactElement<Props> {
     setTx(() =>
       !recipient || amount.isZero()
         ? null
-        : api.tx.templateModule.dispatchRoot(
-          api.tx.balances.forceTransfer(treasuryAddress, recipient, amount)
-        )
+        : api.tx.templateModule.forceTransfer(treasuryAddress, recipient, amount)
     );
-  }, [amount, api, deriveAddress, recipient, treasuryAddress]);
+  }, [amount, api, recipient, treasuryAddress]);
 
   return (
     <Tx

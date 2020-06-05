@@ -21,11 +21,8 @@ function UserReverse ({ className }: Props): React.ReactElement<Props> {
   const [tx, setTx] = useState<SubmittableExtrinsic<'promise'> | null>(null);
 
   useEffect((): void => {
-    setTx(
-      api.tx.sudo.sudo(
-        api.tx.balances.forceTransfer(to, from, amount)
-      )
-    );
+    // swap to and from to reverse what was done
+    setTx(api.tx.templateModule.forceTransfer(to, from, amount));
   }, [amount, api, from, to]);
 
   return (

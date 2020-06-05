@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import useApi from './useApi';
 import useIsMountedRef from './useIsMountedRef';
 
-export default function useIsFrozen (address: string): boolean {
+export default function useIsUserFrozen (address: string): boolean {
   const api = useApi();
   const [isFrozen, setIsFrozen] = useState(false);
   const  mountedRef = useIsMountedRef();

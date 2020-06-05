@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 
 import { Button, ButtonRow, Section, Title } from '../components';
-import { useIsFrozen, useIsUser } from '../hooks';
+import { useIsUserActive, useIsUserFrozen } from '../hooks';
 import BalanceSection from '../partials/BalanceSection';
 import Transactions from '../partials/Transactions';
 
@@ -15,8 +15,8 @@ interface Props {
 
 function UserView ({ className }: Props): React.ReactElement<Props> {
   const { address, username } = useParams();
-  const isFrozen = useIsFrozen(address);
-  const isActive = useIsUser(address);
+  const isActive = useIsUserActive(address);
+  const isFrozen = useIsUserFrozen(address);
 
   const _doActivate = useCallback(
     (): void => {
@@ -50,7 +50,6 @@ function UserView ({ className }: Props): React.ReactElement<Props> {
     <div className={className}>
       <ButtonRow>
         <Button
-          isDisabled={!isActive}
           label='Mint'
           onClick={_doMint}
         />

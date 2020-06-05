@@ -3,9 +3,12 @@
 
 var ghpages = require('gh-pages');
 
-const repo = `https://${process.env.GH_PAT}@github.com/${process.env.GITHUB_REPOSITORY}.git`;
+const options = {
+  dest: '.',
+  repo: `https://${process.env.GH_PAT}@github.com/${process.env.GITHUB_REPOSITORY}.git`
+};
 
-ghpages.publish('build', { dest: '.', repo }, (error) => {
+ghpages.publish('build', options, (error) => {
   if (error) {
     process.stderr.write(`${error.message}\n`, () => process.exit(1));
   } else {
